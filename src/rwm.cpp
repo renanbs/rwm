@@ -20,7 +20,7 @@ Paths path;
 Rwm::Rwm(int &argc, char **argv) : QApplication(argc, argv)
 {
 
-    path.setConfigPath();
+//    path.setConfigPath();
 
     set_event_names();
     // for [Alt+Tab] key combination
@@ -1028,6 +1028,7 @@ void Rwm::set_settings()
 //    rwm = new QSettings(QCoreApplication::applicationDirPath() + "/rwm.cfg", QSettings::IniFormat, this);
     rwm = new QSettings(Paths::getConfigPath() + "/rwm.cfg", QSettings::IniFormat, this);
     // set default style on first installation, if no "/rwm.cfg" is set
+    qDebug() << Paths::getConfigPath();
     if (rwm->childGroups().isEmpty())
     {
         qDebug() << "Set default settings ...";

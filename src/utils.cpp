@@ -129,6 +129,7 @@ void Categorymenu::read_settings()
 {
 //    rwm = new QSettings(QCoreApplication::applicationDirPath() + "/rwm.cfg", QSettings::IniFormat, this);
     rwm = new QSettings(Paths::getConfigPath() + "/rwm.cfg", QSettings::IniFormat, this);
+    qDebug() << Paths::getConfigPath() + "/rwm.cfg";
     rwm->beginGroup("Style");
     QString stl_name = rwm->value("name").toString();
     QString stl_path = rwm->value("path").toString();

@@ -70,7 +70,7 @@ QPixmap Images::loadIcon(const QString & icon_name)
     QString filename = Paths::getConfigPath() + "/themes/" + icon_name;
     if (!QFile::exists (filename))
     {
-        filename = "/home/renan/windowManager/rwm/images/" + icon_name;
+        filename = "/home/renan/windowManager/rwm-project/images/" + icon_name;
     }
     //qDebug("Images::loadIcon: filename: '%s'", filename.toUtf8().data());
 
