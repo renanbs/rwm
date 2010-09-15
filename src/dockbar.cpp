@@ -9,7 +9,7 @@
 
 ////////////////////////////////////////
 
-Dockbar::Dockbar(Rwm *a, QWidget *parent) : QLabel(parent)
+Dockbar::Dockbar (Rwm *a, QWidget *parent) : QLabel(parent)
 {
     app = a;
     file_dialog = app->get_file_dialog();

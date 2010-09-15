@@ -35,6 +35,12 @@ dock_height=40
 dock_width=1280
 dock_position=0
 
+[DockBarTop]
+dockPix=dockbar.png
+dockHeight=25
+dockWidth=1280
+dockPosition=1
+
 [Dockicon]
 d_icon_pix=dockicon.png
 title_color=@Variant(\0\0\0\x43\x1\xff\xff\xff\xff\xff\xff\xff\xff\0\0)

@@ -19,6 +19,7 @@
 #include "dockbar.h"
 #include "desk.h"
 #include "filedialog.h"
+#include "dockbartop.h"
 
 class Dockbar;
 class Frame;
@@ -108,5 +109,7 @@ private:
     Frame *frm;
     Categorymenu *cat_menu;
     Filedialog *file_dialog;
+
+    DockBarTop *dockTop;
 };
 #endif

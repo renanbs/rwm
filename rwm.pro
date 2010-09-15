@@ -33,7 +33,8 @@ SOURCES = src/main.cpp \
     src/settings.cpp \
     src/paths.cpp \
     src/images.cpp \
-    src/about.cpp
+    src/about.cpp \
+    src/dockbartop.cpp
 HEADERS = src/defs.h \
     src/rwm.h \
     src/frame.h \
@@ -65,9 +66,9 @@ HEADERS = src/defs.h \
     src/settings.h \
     inc/paths.h \
     inc/images.h \
-    inc/about.h
-FORMS = \
-    src/about.ui
+    inc/about.h \
+    inc/dockbartop.h
+FORMS = src/about.ui
 OBJECTS_DIR += build
 MOC_DIR += build
 QMAKE_INCDIR += /usr/include
@@ -84,11 +85,4 @@ TRANSLATIONS = language/it_IT.ts \
     language/es_ES.ts
 DEFINES = QT_FATAL_WARNINGS
 //DEFINES = QT_NO_DEBUG_OUTPUT
-
-DEFINES += DEBUG_PATH
-#DEFINES += DATA_PATH=$(DATA_PATH)
-#DEFINES += DOC_PATH=$(DOC_PATH)
-#DEFINES += TRANSLATION_PATH=$(TRANSLATION_PATH)
-#DEFINES += THEMES_PATH=$(THEMES_PATH)
-#DEFINES += SHORTCUTS_PATH=$(SHORTCUTS_PATH)
-#DEFINES += NO_DEBUG_ON_CONSOLE
+//DEFINES += DEBUG_PATH

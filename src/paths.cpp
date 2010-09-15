@@ -33,6 +33,7 @@
 //provavelmente vão ficar em /usr/share/rwm, versões default
 // Versões do usuário vão ficar em /home/$USER/.rwm/share/
 // rwm.cfg e outros arquivos de configuração vão ficar em /home/$USER/.rwm
+#define DEBUG_PATH
 
 QString Paths::configPath;
 

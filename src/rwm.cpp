@@ -998,6 +998,10 @@ void Rwm::create_gui()
     dsk = new Desk(this);
     // create dockbar
     dock = new Dockbar(this);
+
+    // create the top dock bar
+    dockTop = new DockBarTop (this);
+
     // run application from startup list
     run_app_at_startup();
 }
