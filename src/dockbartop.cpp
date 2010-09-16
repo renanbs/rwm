@@ -13,11 +13,8 @@ DockBarTop::DockBarTop (Rwm *a, QWidget *parent) : QLabel(parent)
     dockLayout->setSizeConstraint (QLayout::SetNoConstraint);
     setAcceptDrops (true); // for drag and drop from Filedialog
     setAttribute (Qt::WA_AlwaysShowToolTips);
-    readSettings();
+    readSettings ();
 //    init();
-//    dockHeight = 30;
-//    dockWidth = 1500;
-//    dockPosition = 1;
 
     setGeometryDockTop();
 
@@ -89,10 +86,10 @@ void DockBarTop::setGeometryDockTop()
     if (dockWidth >= QApplication::desktop ()->width ())
         dockWidth = QApplication::desktop ()->width ();
 
-    int spaceDock = (QApplication::desktop ()->width ()-dockWidth) / 2; // space left on right/left side of Dockbar
+    int spaceDock = (QApplication::desktop ()->width () - dockWidth) / 2; // space left on right/left side of Dockbar
 
     if (dockPosition == 0) // 0 = bottom / 1 = top
-        setGeometry(spaceDock, QApplication::desktop ()->height ()- dockHeight, dockWidth, dockHeight);
+        setGeometry (spaceDock, QApplication::desktop ()->height () - dockHeight, dockWidth, dockHeight);
     else // top
         setGeometry (spaceDock, 0, dockWidth, dockHeight);
 }

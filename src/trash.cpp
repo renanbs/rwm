@@ -9,55 +9,56 @@
 
 ////////////////////////////////////////
 
-Trash::Trash(QWidget *parent) : QWidget(parent)
+Trash::Trash (QWidget *parent) : QWidget (parent)
 {
-    read_settings();
-    init();
-    show();
+    read_settings ();
+    init ();
+    show ();
 }
 
-Trash::~Trash()
+Trash::~Trash ()
 {
     delete rwm;
 }
 
-void Trash::init()
+void Trash::init ()
 {
-    setFixedSize(100, 50);
-    pix = QPixmap(trash_pix); // set default pixmap
+    setFixedSize (100, 50);
+    pix = QPixmap (trash_pix); // set default pixmap
     zoom = false;
-    trash_dlg = new Trashdialog(this); // create the Trashdialog
+    trash_dlg = new Trashdialog (this); // create the Trashdialog
 }
 
-void Trash::read_settings()
+void Trash::read_settings ()
 {
     // get style path
-//    rwm = new QSettings(QCoreApplication::applicationDirPath() + "/rwm.cfg", QSettings::IniFormat, this);
-    rwm = new QSettings(Paths::getConfigPath() + "/rwm.cfg", QSettings::IniFormat, this);
-    rwm->beginGroup("Style");
-    stl_name = rwm->value("name").toString();
-    stl_path = rwm->value("path").toString();
-    rwm->endGroup(); //Style
+//    rwm = new QSettings (QCoreApplication::applicationDirPath () + "/rwm.cfg", QSettings::IniFormat, this);
+    rwm = new QSettings (Paths::getConfigPath () + "/rwm.cfg", QSettings::IniFormat, this);
+    rwm->beginGroup ("Style");
+    stl_name = rwm->value ("name").toString ();
+    stl_path = rwm->value ("path").toString ();
+    rwm->endGroup (); //Style
     // get style values
-    QSettings *style = new QSettings(stl_path + stl_name, QSettings::IniFormat, this);
-    style->beginGroup("Trash");
-    trash_pix = stl_path + style->value("trash_pix").toString();
-    trash_col = style->value("name_color").value<QColor>();
-    style->endGroup(); //Trash
+    QSettings *style = new QSettings (stl_path + stl_name, QSettings::IniFormat, this);
+    style->beginGroup ("Trash");
+    trash_pix = stl_path + style->value ("trash_pix").toString ();
+    trash_col = style->value ("name_color").value<QColor>();
+    style->endGroup (); //Trash
 }
 
 void Trash::paintEvent(QPaintEvent *)
 {
-    QPainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing);
-    painter.setWindow(-50, -50, 100, 50);
-    painter.setOpacity(0.5);
-    painter.setPen(Qt::black);
-    painter.drawText(-49, -14, 100, 20, Qt::AlignHCenter, tr("Trash")); // shadow Trash name
-    painter.setOpacity(1);
-    painter.setPen(trash_col);
-    painter.drawText(-50, -15, 100, 20, Qt::AlignHCenter, tr("Trash")); // Trash name
-    
+    QPainter painter (this);
+    painter.setRenderHint (QPainter::Antialiasing);
+//    painter.setWindow (-50, -50, 100, 50);
+    painter.setWindow (-50, -50, 100, 50);
+    painter.setOpacity (0.5);
+    painter.setPen (Qt::black);
+    painter.drawText (-49, -14, 100, 20, Qt::AlignHCenter, tr ("Trash")); // shadow Trash name
+    painter.setOpacity (1);
+    painter.setPen (trash_col);
+    painter.drawText (-50, -15, 100, 20, Qt::AlignHCenter, tr ("Trash")); // Trash name
+
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
     
     if (zoom)
@@ -65,8 +66,9 @@ void Trash::paintEvent(QPaintEvent *)
         painter.drawPixmap(QRect(-18, -50, 36, 36), pix, QRect(0, 0, pix.width(), pix.height()));// Trash pix
     }
     else
-    {
-        painter.drawPixmap(QRect(-16, -50, 32, 32), pix, QRect(0, 0, pix.width(), pix.height()));// Trash pix
+    {   //drawPixmap ( const QRectF & target, const QPixmap & pixmap, const QRectF & source )
+//        painter.drawPixmap(QRect(-16, -50, 32, 32), pix, QRect(0, 0, pix.width(), pix.height()));// Trash pix
+        painter.drawPixmap (QRect(-16, -50, 32, 32), pix, QRect(0, 0, pix.width(), pix.height()));// Trash pix
     }
 }
 
