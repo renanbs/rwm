@@ -7,6 +7,8 @@
 #include "desk.h"
 #include "../inc/paths.h"
 #include "../inc/about.h"
+#include "../inc/xmlparser.h"
+#include <QVariant>
 
 ////////////////////////////////////////
 
@@ -131,12 +133,30 @@ void Desk::set_desk_icons()
     rwm->endGroup(); //App
     rwm->endGroup(); //Desktop
 
-    // read Trash and restore on desktop
-    rwm->beginGroup("Trash");
-    QPoint pos = rwm->value("pos").value<QPoint>();
-    rwm->endGroup(); //Trash
+//    // read Trash and restore on desktop
     trsh = new Trash(this);
-    trsh->move(pos);
+    QVariant varPoint = XmlParser::readXml (Paths::getConfigPath() + "/desktopIconPosition.xml", "trash", "pos");
+    QPoint point;
+    QString x;
+    QString y;
+    int aux;
+    int aux2;
+    QString a = "(";
+    QString b = ",";
+    QString strPoint = varPoint.toString();
+    if (strPoint.startsWith("@Point(") && strPoint.endsWith(")"))
+    {
+        aux = strPoint.indexOf(a, 0);
+        aux2 = strPoint.indexOf(b, 0);
+        x = strPoint.mid(aux + 1, aux2 - aux - 1);
+        int teste = strPoint.length() - aux2 - 2;
+        y = strPoint.mid(aux2 + 1, teste );
+        point = QPoint (x.toInt(), y.toInt());
+    }
+    else
+        point = QPoint (0, 50);
+    trsh->move(point);
+
 }
 
 void Desk::init()

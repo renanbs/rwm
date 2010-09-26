@@ -18,7 +18,7 @@ DockBarTop::DockBarTop (Rwm *a, QWidget *parent) : QLabel(parent)
 
     setGeometryDockTop();
 
-//    // add launcher to dockbar
+    // add launcher to dockbar
 //    lchr = new Launcher(a, this);
 //    lchr->setFixedSize(dock_height-1, dock_height-1);
 //    // for set category menu on dockbar
@@ -83,8 +83,8 @@ void DockBarTop::setGeometryDockTop()
     setPixmap (dockPix);
     setScaledContents (true);
 
-    if (dockWidth >= QApplication::desktop ()->width ())
-        dockWidth = QApplication::desktop ()->width ();
+//  set dock width = to the desktop width
+    dockWidth = QApplication::desktop ()->width ();
 
     int spaceDock = (QApplication::desktop ()->width () - dockWidth) / 2; // space left on right/left side of Dockbar
 

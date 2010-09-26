@@ -3,10 +3,10 @@
 
 //class Frame;
 //class Dockapp;
-//class Dockicon;
+class Dockicon;
 //class Systray;
 class Rwm;
-//class Launcher;
+class Launcher;
 //class Filedialog;
 
 #include <QLabel>

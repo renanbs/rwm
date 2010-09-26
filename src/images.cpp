@@ -67,7 +67,7 @@ QPixmap Images::loadIcon(const QString & icon_name)
 {
 	QPixmap p;
 
-    QString filename = Paths::getConfigPath() + "/themes/" + icon_name;
+    QString filename = Paths::getThemesPath () + icon_name;
     if (!QFile::exists (filename))
     {
         filename = "/home/renan/windowManager/rwm-project/images/" + icon_name;
@@ -93,7 +93,7 @@ QPixmap Images::icon (QString name, int size, bool png)
 
     QString icon_name = Images::filename (name, png);
 
-    QPixmap p = Images::loadIcon( icon_name );
+    QPixmap p = Images::loadIcon ( icon_name );
     bool ok = !p.isNull();
 
     if (!ok)

@@ -40,6 +40,9 @@ class Paths
         //! Return the path where rwm should save its config files
         static QString getConfigPath();
 
+        //! Returns the path where rwm should find some image files
+        static QString getImagesPath();
+
     private:
         static QString configPath;
 };

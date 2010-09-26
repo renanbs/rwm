@@ -122,7 +122,19 @@ QString Paths::getConfigPath()
         QString path = QDir::homePath() + "/windowManager/rwm-project";
         return path;
     #endif
+}
 
+QString Paths::getImagesPath()
+{
+    #ifndef DEBUG_PATH
+        if (!configPath.isEmpty())
+            return configPath;
+        else
+            return QDir::homePath() + "/.rwm";
+    #else
+        QString path = QDir::homePath() + "/windowManager/rwm-project";
+        return path;
+    #endif
 }
 
 //QString Paths::doc(QString file, QString locale)

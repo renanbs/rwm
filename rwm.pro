@@ -34,7 +34,8 @@ SOURCES = src/main.cpp \
     src/paths.cpp \
     src/images.cpp \
     src/about.cpp \
-    src/dockbartop.cpp
+    src/dockbartop.cpp \
+    src/xmlparser.cpp
 HEADERS = src/defs.h \
     src/rwm.h \
     src/frame.h \
@@ -67,7 +68,8 @@ HEADERS = src/defs.h \
     inc/paths.h \
     inc/images.h \
     inc/about.h \
-    inc/dockbartop.h
+    inc/dockbartop.h \
+    inc/xmlparser.h
 FORMS = src/about.ui
 OBJECTS_DIR += build
 MOC_DIR += build
@@ -77,6 +79,7 @@ TEMPLATE = app
 CONFIG += warn_on \
     debug
 QT += dbus
+QT += xml
 TRANSLATIONS = language/it_IT.ts \
     language/cs_CZ.ts \
     language/ru_RU.ts \

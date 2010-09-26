@@ -6,6 +6,7 @@
 
 #include "trash.h"
 #include "../inc/paths.h"
+#include "../inc/xmlparser.h"
 
 ////////////////////////////////////////
 
@@ -92,9 +93,16 @@ void Trash::mouseReleaseEvent(QMouseEvent *event)
     Q_UNUSED(event);
     releaseMouse();
     // save new Trash position on desk writing on rwm.cfg
-    rwm->beginGroup("Trash");
-    rwm->setValue("pos", pos());
-    rwm->endGroup(); // Trash
+    int x = pos ().rx ();
+    int y = pos ().ry ();
+    QString sx, sy;
+    sx.setNum(x);
+    sy.setNum(y);
+    QString position = "@Point(" + sx + ", " + sy + ")";
+    XmlParser::writeXml (Paths::getConfigPath() + "/desktopIconPosition.xml", "system_desktop_icons", "trash", "pos", position);
+    rwm->beginGroup ("Trash");
+    rwm->setValue ("pos", pos());
+    rwm->endGroup (); // Trash
 }
 
 void Trash::mouseDoubleClickEvent(QMouseEvent *event)
