@@ -7,10 +7,12 @@ DockBarTop::DockBarTop (Rwm *a, QWidget *parent) : QLabel(parent)
     app = a;
 //    file_dialog = app->get_file_dialog();
     dockLayout = new QHBoxLayout (this);
+    spacer = new QSpacerItem (QApplication::desktop()->width(), height(),  QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
     setLayout (dockLayout);
     dockLayout->setContentsMargins (0, 0, 0, 0);
     dockLayout->setSpacing (1);
     dockLayout->setSizeConstraint (QLayout::SetNoConstraint);
+    dockLayout->addSpacerItem (spacer);
     setAcceptDrops (true); // for drag and drop from Filedialog
     setAttribute (Qt::WA_AlwaysShowToolTips);
     readSettings ();
@@ -19,8 +21,8 @@ DockBarTop::DockBarTop (Rwm *a, QWidget *parent) : QLabel(parent)
     setGeometryDockTop();
 
     // add launcher to dockbar
-//    lchr = new Launcher(a, this);
-//    lchr->setFixedSize(dock_height-1, dock_height-1);
+    lchr = new Launcher (a, this);
+    lchr->setFixedSize (dockHeight-1, dockHeight-1);
 //    // for set category menu on dockbar
 //    d_menu_widget = new QWidget(this);
 //    // for set dockapp on dockbar
@@ -51,7 +53,7 @@ DockBarTop::DockBarTop (Rwm *a, QWidget *parent) : QLabel(parent)
 //    app_layout->setContentsMargins(5, 0, 5, 0);
 //    app_layout->setSpacing(1);
 //
-//    dock_layout->insertWidget(0, lchr);
+    dockLayout->insertWidget(0, lchr);
 //    dock_layout->insertWidget(1, d_menu_widget, 1);
 //    dock_layout->insertWidget(2, d_app_widget, 1);
 //    dock_layout->insertWidget(3, d_icon_widget, 6); // max stretch factor

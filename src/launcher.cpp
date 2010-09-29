@@ -14,7 +14,8 @@ Launcher::Launcher(Rwm *a, QWidget *parent) : QLabel(parent)
     app = a;
     read_settings();
     init();
-    setPixmap(QPixmap(launcher_pix).scaled(dock_height-5, dock_height-5, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+//    setPixmap(QPixmap(launcher_pix).scaled(dock_height-5, dock_height-5, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+    setPixmap(QPixmap(launcher_pix).scaled(25, 25, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
     show();
 }
 
@@ -148,22 +149,37 @@ void Launcher::mousePressEvent(QMouseEvent *event)
     }
 }
 
+/**
+ *  @brief This is when the mouse is above the launcher button
+ *
+ *  @todo   need to find a way to know the width and height, perhaps it is a good way to save its settings and read them with
+ *          read_Settings
+ *  @param  event    not used
+ *  @return none
+ */
 void Launcher::enterEvent(QEvent *event)
 {
-    Q_UNUSED(event);
-    setPixmap(QPixmap(launcher_pix).scaled(dock_height, dock_height, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+    Q_UNUSED(event);            //   scaled (width, height)
+    setPixmap(QPixmap(launcher_pix).scaled(25, 25, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 }
 
+/**
+ *  @brief This is when the mouse is not above the launcher button
+ *
+ *
+ *  @param event    not used
+ *  @return none
+ */
 void Launcher::leaveEvent(QEvent *event)
 {
     Q_UNUSED(event);
-    setPixmap(QPixmap(launcher_pix).scaled(dock_height-5, dock_height-5, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+    setPixmap(QPixmap(launcher_pix).scaled(20, 20, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 }
 
 void Launcher::update_style()
 {
     read_settings();
-    setPixmap(QPixmap(launcher_pix).scaled(dock_height-5, dock_height-5, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+    setPixmap(QPixmap(launcher_pix).scaled(20, 20, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
     quit->setIcon(QIcon(quit_pix));
     shutdown->setIcon(QIcon(shutdown_pix));
     restart->setIcon(QIcon(restart_pix));

@@ -124,4 +124,6 @@ QVariant XmlParser::readXml (const QString &fileName,
                 << qPrintable (xmlReader.errorString ());
     }
     xmlReader.clear();
+
+    return 0;
 }

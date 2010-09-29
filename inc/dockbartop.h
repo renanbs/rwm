@@ -10,7 +10,16 @@ class Launcher;
 //class Filedialog;
 
 #include <QLabel>
+#include <QSpacerItem>
 #include "../src/defs.h"
+#include "../src/launcher.h"
+//#include "systray.h"
+#include "../src/dockicon.h"
+//#include "dockapp.h"
+//#include "dockmenu.h"
+//#include "dateclock.h"
+//#include "filedialog.h"
+
 
 class DockBarTop : public QLabel
 {
@@ -41,12 +50,13 @@ class DockBarTop : public QLabel
 //        QWidget *d_app_widget;
 //        QWidget *d_icon_widget;
 //        QWidget *d_menu_widget;
-//        Launcher *lchr;
+        Launcher *lchr;
 //        Dockicon *d_icon;
 //        Systray *sys;
 //        Dateclock *clk;
         Rwm *app;
 //        Filedialog *file_dialog;
+        QSpacerItem *spacer;
 };
 
 #endif // DOCKBARTOP_H
