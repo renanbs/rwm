@@ -4,7 +4,7 @@
 //  Copyright : GPL                   //
 ////////////////////////////////////////
 
-#include "dateclock.h"
+#include "../inc/dateclock.h"
 #include "../inc/paths.h"
 
 ////////////////////////////////////////
@@ -15,6 +15,15 @@ Dateclock::Dateclock(QWidget *parent) : QLabel(parent)
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), SLOT(timeout()));
     timer->start(5000);  // signal every 5 seconds
+
+//    QPalette pal = palette();
+//    setColor(backgroundRole(), Qt::blue);
+//    setPalette(pal);
+//    setAutoFillBackground(true);
+
+
+    setStyleSheet("background-color: red;");
+    setAutoFillBackground(true);
 }
 
 Dateclock::~Dateclock()
@@ -46,27 +55,31 @@ void Dateclock::timeout(void)
 
 void Dateclock::paintEvent(QPaintEvent *)
 {
-    time = QTime::currentTime();
-    date = QDate::currentDate();
     QPainter painter(this);
     painter.setWindow(0, 0, width(), height());
     painter.setRenderHint(QPainter::Antialiasing);
+
+    // Time
+    time = QTime::currentTime();
     painter.setPen(QColor(clock_col)); //clock color
     QFont time_font(QApplication::font().family(), 12);
     QFontMetrics time_fm(time_font);
     QString string_time = time.toString().left(5);
     int time_h = time_fm.height();
-    time_font.setPixelSize(height()*8/time_h);
+    time_font.setPixelSize(height() * 14 / time_h);
     painter.setFont(time_font);
-    painter.drawText(0, 4, width(), height()/2, Qt::AlignCenter, string_time); //clock
-    painter.setPen(QColor(date_col)); //date color
-    QFont date_font (QApplication::font().family(), 12);
-    QFontMetrics date_fm(date_font);
-    QString string_date = date.toString("ddd MMMM d yy");
-    int date_h = date_fm.height();
-    date_font.setPixelSize(height()*5/date_h);
-    painter.setFont(date_font);
-    painter.drawText(0, (height()/2)+2, width(), height()/2, Qt::AlignCenter, string_date); //date
+    painter.drawText(0, 4, width(), height(), Qt::AlignHCenter, string_time); //clock
+
+    // Date
+//    date = QDate::currentDate();
+//    painter.setPen(QColor(date_col)); //date color
+//    QFont date_font (QApplication::font().family(), 12);
+//    QFontMetrics date_fm(date_font);
+//    QString string_date = date.toString("ddd MMMM d yy");
+//    int date_h = date_fm.height();
+//    date_font.setPixelSize(height()*5/date_h);
+//    painter.setFont(date_font);
+//    painter.drawText(0, (height()/2)+2, width(), height()/2, Qt::AlignCenter, string_date); //date
 }
 
 void Dateclock::update_style()

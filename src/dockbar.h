@@ -17,7 +17,7 @@
 #include "dockicon.h"
 #include "dockapp.h"
 #include "dockmenu.h"
-#include "dateclock.h"
+#include "../inc/dateclock.h"
 #include "filedialog.h"
  
 class Frame;

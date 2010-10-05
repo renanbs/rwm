@@ -17,7 +17,7 @@ class Launcher;
 #include "../src/dockicon.h"
 //#include "dockapp.h"
 //#include "dockmenu.h"
-//#include "dateclock.h"
+#include "../inc/dateclock.h"
 //#include "filedialog.h"
 
 
@@ -53,7 +53,7 @@ class DockBarTop : public QLabel
         Launcher *lchr;
 //        Dockicon *d_icon;
 //        Systray *sys;
-//        Dateclock *clk;
+        Dateclock *clk;
         Rwm *app;
 //        Filedialog *file_dialog;
         QSpacerItem *spacer;

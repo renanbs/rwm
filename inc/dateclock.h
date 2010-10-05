@@ -11,7 +11,7 @@
 #ifndef DATECLOCK_H
 #define DATECLOCK_H
 
-#include "defs.h"
+#include "../src/defs.h"
 
 ////////////////////////////////////////
 

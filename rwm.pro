@@ -52,7 +52,6 @@ HEADERS = src/defs.h \
     src/colorsel.h \
     src/msgbox.h \
     src/runner.h \
-    src/dateclock.h \
     src/sysicon.h \
     src/deskapp.h \
     src/utils.h \
@@ -69,7 +68,8 @@ HEADERS = src/defs.h \
     inc/images.h \
     inc/about.h \
     inc/dockbartop.h \
-    inc/xmlparser.h
+    inc/xmlparser.h \
+    inc/dateclock.h
 FORMS = src/about.ui
 OBJECTS_DIR += build
 MOC_DIR += build

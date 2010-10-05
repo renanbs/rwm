@@ -12,7 +12,7 @@ DockBarTop::DockBarTop (Rwm *a, QWidget *parent) : QLabel(parent)
     dockLayout->setContentsMargins (0, 0, 0, 0);
     dockLayout->setSpacing (1);
     dockLayout->setSizeConstraint (QLayout::SetNoConstraint);
-    dockLayout->addSpacerItem (spacer);
+//    dockLayout->addSpacerItem (spacer);
     setAcceptDrops (true); // for drag and drop from Filedialog
     setAttribute (Qt::WA_AlwaysShowToolTips);
     readSettings ();
@@ -22,7 +22,7 @@ DockBarTop::DockBarTop (Rwm *a, QWidget *parent) : QLabel(parent)
 
     // add launcher to dockbar
     lchr = new Launcher (a, this);
-    lchr->setFixedSize (dockHeight-1, dockHeight-1);
+    lchr->setFixedSize (dockHeight - 1, dockHeight - 1);
 //    // for set category menu on dockbar
 //    d_menu_widget = new QWidget(this);
 //    // for set dockapp on dockbar
@@ -31,9 +31,9 @@ DockBarTop::DockBarTop (Rwm *a, QWidget *parent) : QLabel(parent)
 //    d_icon_widget = new QWidget(this);
 //    // add systray to dockbar
 //    sys = new Systray(this);
-//    // add clock to dockbar
-//    clk = new Dateclock(this);
-//    clk->setFixedSize(dock_height*2, dock_height-1);
+    // add clock to dockbar
+    clk = new Dateclock(this);
+    clk->setFixedSize(dockHeight*2, dockHeight-1);
 
 //    menu_layout = new QHBoxLayout();
 //    d_menu_widget->setLayout(menu_layout);
@@ -53,12 +53,22 @@ DockBarTop::DockBarTop (Rwm *a, QWidget *parent) : QLabel(parent)
 //    app_layout->setContentsMargins(5, 0, 5, 0);
 //    app_layout->setSpacing(1);
 //
-    dockLayout->insertWidget(0, lchr);
+//    dockLayout->insertWidget(0, lchr);
 //    dock_layout->insertWidget(1, d_menu_widget, 1);
 //    dock_layout->insertWidget(2, d_app_widget, 1);
 //    dock_layout->insertWidget(3, d_icon_widget, 6); // max stretch factor
 //    dock_layout->insertWidget(4, sys, 3);
 //    dock_layout->insertWidget(5, clk);
+//    dockLayout->insertWidget(1, spacer);
+//    dockLayout->insertWidget(1, clk);
+
+    dockLayout->addWidget(lchr);
+    dockLayout->addItem(spacer);
+    dockLayout->addWidget(clk);
+
+//    dockLayout->insertWidget(1, clk);
+
+//    dockLayout->addWidget(
 //
 //    set_dockmenu(); // at startup, restore category menu on dockbar
 //    set_dockapp(); // at startup, restore dockapps on dockbar
@@ -75,7 +85,7 @@ DockBarTop::~DockBarTop ()
 //    delete app_layout;
 //    delete menu_layout;
 //    delete d_icon;
-//    delete clk;
+    delete clk;
 //    delete app;
 //    delete file_dialog;
 }
