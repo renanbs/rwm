@@ -35,7 +35,8 @@ SOURCES = src/main.cpp \
     src/images.cpp \
     src/about.cpp \
     src/dockbartop.cpp \
-    src/xmlparser.cpp
+    src/xmlparser.cpp \
+    src/popup.cpp
 HEADERS = src/defs.h \
     src/rwm.h \
     src/frame.h \
@@ -69,7 +70,8 @@ HEADERS = src/defs.h \
     inc/about.h \
     inc/dockbartop.h \
     inc/xmlparser.h \
-    inc/dateclock.h
+    inc/dateclock.h \
+    inc/popup.h
 FORMS = src/about.ui
 OBJECTS_DIR += build
 MOC_DIR += build

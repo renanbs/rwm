@@ -12,7 +12,6 @@ DockBarTop::DockBarTop (Rwm *a, QWidget *parent) : QLabel(parent)
     dockLayout->setContentsMargins (0, 0, 0, 0);
     dockLayout->setSpacing (1);
     dockLayout->setSizeConstraint (QLayout::SetNoConstraint);
-//    dockLayout->addSpacerItem (spacer);
     setAcceptDrops (true); // for drag and drop from Filedialog
     setAttribute (Qt::WA_AlwaysShowToolTips);
     readSettings ();
@@ -40,13 +39,13 @@ DockBarTop::DockBarTop (Rwm *a, QWidget *parent) : QLabel(parent)
 //    menu_layout->setAlignment(Qt::AlignLeft);
 //    menu_layout->setContentsMargins(0, 0, 0, 0);
 //    menu_layout->setSpacing(1);
-//
+
 //    icon_layout = new QHBoxLayout();
 //    d_icon_widget->setLayout(icon_layout);
 //    icon_layout->setAlignment(Qt::AlignLeft);
 //    icon_layout->setContentsMargins(5, 0, 5, 0);
 //    icon_layout->setSpacing(1);
-//
+
 //    app_layout = new QHBoxLayout();
 //    d_app_widget->setLayout(app_layout);
 //    app_layout->setAlignment(Qt::AlignLeft);
@@ -63,6 +62,10 @@ DockBarTop::DockBarTop (Rwm *a, QWidget *parent) : QLabel(parent)
 //    dockLayout->insertWidget(1, clk);
 
     dockLayout->addWidget(lchr);
+//    dockLayout->addWidget(d_menu_widget);
+//    dockLayout->addWidget(d_app_widget);
+//    dockLayout->addWidget(d_icon_widget);
+//    dockLayout->addWidget(sys);
     dockLayout->addItem(spacer);
     dockLayout->addWidget(clk);
 

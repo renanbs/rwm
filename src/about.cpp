@@ -27,9 +27,10 @@ About::About(QWidget * parent, Qt::WindowFlags f)
         tr("Using Qt %1 (compiled with Qt %2)").arg(qVersion()).arg(QT_VERSION_STR) + "<br><br>" +
 //		mplayer_version +
         tr("Visit our web for updates:") +"<br>"+
-        link ("www.GET.A.WEB.SITE") + "<br>" +
-        link ("www.GET.A.WEB.SITE") +
-        "<br><br>"
+        link ("http://code.google.com/p/rwm-project/")
+//        + "<br>" +
+//        link ("www.GET.A.WEB.SITE")
+        + "<br><br>"
     );
 
 

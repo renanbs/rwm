@@ -232,8 +232,8 @@ void Frame::get_wm_hints()
 void Frame::get_wm_normal_hints() // Poor implementation of many applications ....
 {
     XSizeHints *xsizehints;
-    long hints = NULL;
-    long wm_flags = NULL;
+    long hints = (long)NULL;
+    long wm_flags = (long)NULL;
 
     if ((xsizehints = XAllocSizeHints()) != NULL)
     {

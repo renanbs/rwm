@@ -11,7 +11,21 @@
 #ifndef DATECLOCK_H
 #define DATECLOCK_H
 
-#include "../src/defs.h"
+//#include "../src/defs.h"
+#include <QLabel>
+#include <QDate>
+#include <QSettings>
+#include <QTimer>
+#include <QPainter>
+#include <QMouseEvent>
+#include <QColor>
+#include <QFont>
+#include <QFontMetrics>
+#include <QString>
+#include <QApplication>
+#include <QDebug>
+
+#include "../inc/popup.h"
 
 ////////////////////////////////////////
 
@@ -29,6 +43,9 @@ public slots:
     void timeout(void);
 
 protected:
+    void mousePressEvent(QMouseEvent *);
+
+protected:
     void paintEvent(QPaintEvent *);
 
 private:
@@ -37,6 +54,7 @@ private:
     QColor date_col;
     QColor clock_col;
     QTimer *timer;
+    PopupWindow *popup;
 };
 
 #endif
