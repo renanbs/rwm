@@ -8,6 +8,8 @@
 #include "../inc/paths.h"
 
 
+
+
 ////////////////////////////////////////
 
 Dateclock::Dateclock(QWidget *parent) : QLabel(parent)
@@ -23,8 +25,8 @@ Dateclock::Dateclock(QWidget *parent) : QLabel(parent)
 //    setAutoFillBackground(true);
 
 
-    setStyleSheet("background-color: red;");
-    setAutoFillBackground(true);
+//    setStyleSheet("background-color: red;");
+//    setAutoFillBackground(true);
 
 }
 
@@ -94,22 +96,16 @@ void Dateclock::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton)
     {
-        qDebug() << "=================================================Mouse pressed";
-
         popup = new PopupWindow(this);
         Qt::WindowFlags flags = 0;
         flags = Qt::Popup;
-
         popup->setWindowFlags(flags);
 
-        QPoint pos = popup->pos();
-        if (pos.x() < 0)
-            pos.setX(0);
-        if (pos.y() < 0)
-            pos.setY(0);
+        QPoint pos;
+        pos.setX(QApplication::desktop()->width() - popup->width() * 2);
+        pos.setY(height() + 1);
         popup->move(pos);
+
         popup->show();
-
-
     }
 }

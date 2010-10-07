@@ -2,10 +2,13 @@
 #define POPUP_H
 
 #include <QWidget>
+#include <QDate>
+
 
 QT_BEGIN_NAMESPACE
 class QPushButton;
 class QTextEdit;
+class QLabel;
 QT_END_NAMESPACE
 
 //! [0]
@@ -21,6 +24,7 @@ public:
 private:
     QTextEdit *textEdit;
     QPushButton *closeButton;
+    QLabel *msgs;
 };
 //! [0]
 

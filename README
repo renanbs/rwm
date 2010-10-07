@@ -53,7 +53,8 @@ DEVELOPMENT
 To test the window manager, type on shell:
 
 DISPLAY=:0
-Xephyr :1 -ac -screen 1024x768 & DISPLAY=:1; $HOME/antico/antico
+Xephyr :1 -ac -screen 1024x768 & DISPLAY=:1; $HOME/windowManager/rwm-project/rwm
+
 
 (where 1024x768 is your preferred screen size and $HOME if you have download Antico in user home)
 ---------------------------------------------------

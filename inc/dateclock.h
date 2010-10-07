@@ -24,6 +24,7 @@
 #include <QString>
 #include <QApplication>
 #include <QDebug>
+#include <QDesktopWidget>
 
 #include "../inc/popup.h"
 
