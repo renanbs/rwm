@@ -20,7 +20,7 @@ About::About(QWidget * parent, Qt::WindowFlags f)
     ui->license_icon->setPixmap (Images::icon("license"));
 
     ui->info->setText(
-        "<b>RWM</b> &copy; 2010-2010 Renan Biegelmeyer &lt;WRITE EMAIL&gt;<br><br>"
+        "<b>RWM</b> &copy; 2010-2010 Renan Biegelmeyer &lt;rwindowmanager@gmail.com&gt;<br><br>"
         "<b>" + tr("Version: %1").arg("0.1 alpha") + "</b>" +
 
         "<br>" +
@@ -129,8 +129,8 @@ QString About::getTranslators() {
 #else
          "<table>" +
 #endif
-         trad(tr("Brazilian Portuguese"), "Renan Biegelmeyer <WRITE EMAIL>") +
-         trad(tr("English"), "Renan Biegelmeyer <WRITE EMAIL>")
+         trad (tr("Brazilian Portuguese"), "Renan Biegelmeyer <rwindowmanager@gmail.com>") +
+         trad (tr("English"), "Renan Biegelmeyer <rwindowmanager@gmail.com>")
          /*+ trad(tr("Slovak"), "Sweto <peter.mendel@gmail.com>") +
                  trad(tr("Italian"), QStringList()
                         << "greengreat <gmeildeno@gmail.com>"
