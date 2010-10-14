@@ -5,6 +5,9 @@
 #include <QDomElement>
 #include <QDomDocument>
 
+/**
+*   @brief This is the old writeXml method
+*/
 bool XmlParser::writeXml    (const QString  &fileName,
 							 const QString  &type,
 							 const QString  &startElem,
