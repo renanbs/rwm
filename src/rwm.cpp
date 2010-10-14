@@ -6,6 +6,7 @@
 
 #include "rwm.h"
 #include "../inc/paths.h"
+#include "../inc/xmlparser.h"
 
 ////////////////////////////////////////
 
@@ -19,8 +20,6 @@
 Paths path;
 Rwm::Rwm(int &argc, char **argv) : QApplication(argc, argv)
 {
-
-//    path.setConfigPath();
 
     set_event_names();
     // for [Alt+Tab] key combination
@@ -1004,6 +1003,12 @@ void Rwm::create_gui()
 
     // run application from startup list
     run_app_at_startup();
+
+	// Check if desktop icons config exists
+	if (!Paths::findConfigFile("desktopIconPosition.xml"))
+	XmlParser::writeXml (Paths::getDataPath() + "/desktopIconPosition.xml",
+						 "system_desktop_icons",
+						 "trash", "position", "x", "0", "y", "50");
 }
 
 Filedialog * Rwm::get_file_dialog()
@@ -1032,7 +1037,7 @@ void Rwm::set_settings()
 //    rwm = new QSettings(QCoreApplication::applicationDirPath() + "/rwm.cfg", QSettings::IniFormat, this);
     rwm = new QSettings(Paths::getConfigPath() + "/rwm.cfg", QSettings::IniFormat, this);
     // set default style on first installation, if no "/rwm.cfg" is set
-    qDebug() << Paths::getConfigPath();
+//    qDebug() << Paths::getConfigPath();
     if (rwm->childGroups().isEmpty())
     {
         qDebug() << "Set default settings ...";

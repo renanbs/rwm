@@ -135,26 +135,34 @@ void Desk::set_desk_icons()
 
 //    // read Trash and restore on desktop
     trsh = new Trash(this);
-    QVariant varPoint = XmlParser::readXml (Paths::getConfigPath() + "/desktopIconPosition.xml", "trash", "pos");
-    QPoint point;
-    QString x;
-    QString y;
-    int aux;
-    int aux2;
-    QString a = "(";
-    QString b = ",";
-    QString strPoint = varPoint.toString();
-    if (strPoint.startsWith("@Point(") && strPoint.endsWith(")"))
-    {
-        aux = strPoint.indexOf(a, 0);
-        aux2 = strPoint.indexOf(b, 0);
-        x = strPoint.mid(aux + 1, aux2 - aux - 1);
-        int teste = strPoint.length() - aux2 - 2;
-        y = strPoint.mid(aux2 + 1, teste );
-        point = QPoint (x.toInt(), y.toInt());
-    }
-    else
-        point = QPoint (0, 50);
+//    QVariant varPoint = XmlParser::readXml (Paths::getConfigPath() + "/desktopIconPosition.xml", "trash", "pos");
+//    QPoint point;
+//    QString x;
+//    QString y;
+//    int aux;
+//    int aux2;
+//    QString a = "(";
+//    QString b = ",";
+//    QString strPoint = varPoint.toString();
+//    if (strPoint.startsWith("@Point(") && strPoint.endsWith(")"))
+//    {
+//        aux = strPoint.indexOf(a, 0);
+//        aux2 = strPoint.indexOf(b, 0);
+//        x = strPoint.mid(aux + 1, aux2 - aux - 1);
+//        int teste = strPoint.length() - aux2 - 2;
+//        y = strPoint.mid(aux2 + 1, teste );
+//        point = QPoint (x.toInt(), y.toInt());
+//    }
+//    else
+//        point = QPoint (0, 50);
+	QPoint point;
+	QVariant varPoint = XmlParser::readXml (Paths::getDataPath() + "/desktopIconPosition.xml",
+											"trash", "position", "x");
+	point.setX(varPoint.toInt());
+	varPoint = XmlParser::readXml (Paths::getConfigPath() + "/desktopIconPosition.xml",
+											"trash", "position", "y");
+	point.setY(varPoint.toInt());
+
     trsh->move(point);
 
 }

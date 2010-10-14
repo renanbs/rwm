@@ -98,11 +98,12 @@ void Trash::mouseReleaseEvent(QMouseEvent *event)
     QString sx, sy;
     sx.setNum(x);
     sy.setNum(y);
-    QString position = "@Point(" + sx + ", " + sy + ")";
-    XmlParser::writeXml (Paths::getConfigPath() + "/desktopIconPosition.xml", "system_desktop_icons", "trash", "pos", position);
-    rwm->beginGroup ("Trash");
-    rwm->setValue ("pos", pos());
-    rwm->endGroup (); // Trash
+	// This test have to go to the first constructor call
+		// update file
+	XmlParser::updateXml(Paths::getDataPath() + "/desktopIconPosition.xml",
+						 "system_desktop_icons", "trash", "position", "x", sx);
+	XmlParser::updateXml(Paths::getDataPath() + "/desktopIconPosition.xml",
+						 "system_desktop_icons", "trash", "position", "y", sy);
 }
 
 void Trash::mouseDoubleClickEvent(QMouseEvent *event)

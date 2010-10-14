@@ -61,7 +61,7 @@ About::About(QWidget * parent, Qt::WindowFlags f)
     ui->translators->setHtml( getTranslators() );
 
     ui->contributions->setText(
-        tr("RWM logo by %1").arg("Renan Biegelmeyer &lt;WRITE EMAIL&gt;") + "<br><br>" +
+		tr("RWM logo by %1").arg("Renan Biegelmeyer &lt;rwindowmanager@gmail.com&gt;") + "<br><br>" +
         tr("The following people have contributed with patches "
            "(see the changelog for details):") +
         "<pre>" +

@@ -47,6 +47,8 @@ class Paths
         //! Return the path where rwm should find some image files
         static QString getImagesPath();
 
+		static bool findConfigFile (QString filename);
+
     private:
         static QString configPath;
 };

@@ -56,6 +56,7 @@ Data definition:
 #include <QFile>
 #include <QRegExp>
 #include <QDir>
+#include <QFile>
 #include <QDebug>
 
 #define DEBUG_PATH
@@ -146,4 +147,13 @@ QString Paths::getConfigPath()
         QString path = QDir::homePath() + "/windowManager/rwm-project";
         return path;
     #endif
+}
+
+bool Paths::findConfigFile (QString filename)
+{
+	QFile filePathName (getDataPath() + filename);
+	if (filePathName.exists())
+		return true;
+	else
+		return false;
 }

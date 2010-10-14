@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <system_desktop_icons>
     <trash>
-        <pos>@Point(0, 50)</pos>
+        <position>
+            <x>15</x>
+            <y>75</y>
+        </position>
     </trash>
 </system_desktop_icons>
