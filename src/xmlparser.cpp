@@ -1,4 +1,4 @@
-#include "xmlparser.h"
+#include "../inc/xmlparser.h"
 #include <QFile>
 #include <QXmlStreamWriter>
 #include <QDebug>
@@ -119,9 +119,9 @@ QVariant XmlParser::readXml (const QString &fileName,
 }
 
 QVariant XmlParser::readXml (const QString &fileName,
-							 const QString &type,
-							 const QString &textElem,
-							 const QString &propr)
+                             const QString &type,
+                             const QString &textElem,
+                             const QString &propr)
 {
 	QString ret;
 	QXmlStreamReader xmlReader;

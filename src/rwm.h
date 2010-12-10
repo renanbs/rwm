@@ -17,10 +17,9 @@
 #include "defs.h"
 #include "frame.h"
 #include "dockbar.h"
-#include "dockbartop.h"
 #include "desk.h"
 #include "filedialog.h"
-#include "dockbartop.h"
+#include "../inc/dockbartop.h"
 
 class Dockbar;
 class DockBarTop;

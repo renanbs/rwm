@@ -156,11 +156,11 @@ void Desk::set_desk_icons()
 //    else
 //        point = QPoint (0, 50);
 	QPoint point;
-	QVariant varPoint = XmlParser::readXml (Paths::getDataPath() + "/desktopIconPosition.xml",
-											"trash", "position", "x");
+        QString caminho = Paths::getDataPath() + "desktopIconPosition.xml";
+        QVariant varPoint = XmlParser::readXml (caminho, "trash", "position", "x");
 	point.setX(varPoint.toInt());
-	varPoint = XmlParser::readXml (Paths::getConfigPath() + "/desktopIconPosition.xml",
-											"trash", "position", "y");
+
+        varPoint = XmlParser::readXml (caminho, "trash", "position", "y");
 	point.setY(varPoint.toInt());
 
     trsh->move(point);
