@@ -17,7 +17,7 @@ Launch Configurations=Launch Configuration 0
 [Launch][Launch Configuration 0]
 Configured Launch Modes=execute
 Configured Launchers=nativeAppLauncher
-Name=New Native Application Configuration
+Name=rwm exec
 Type=Native Application
 
 [Launch][Launch Configuration 0][Data]

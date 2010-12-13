@@ -567,7 +567,7 @@ void Frame::create_borders()
     layout->setMargin(0);
     layout->setSpacing(0);
     setLayout(layout);
-
+  
     // center frame where client apps is shown
     c_bdr = new Border(this);
     layout->addWidget(c_bdr, 1, 1);
@@ -578,7 +578,7 @@ void Frame::create_borders()
     tl_bdr->setPixmap(minmax_pix);
     tl_bdr->setScaledContents(true);
     tl_bdr->setAlignment(Qt::AlignCenter);
-    layout->addWidget(tl_bdr, 0, 0);
+    layout->addWidget(tl_bdr, 0, 1);
     // top right border (icon)
     tr_bdr = new Border(this);
     tr_bdr->setToolTip(tr("Close"));
@@ -591,17 +591,17 @@ void Frame::create_borders()
     tm_bdr = new Header(cl_icon(), cl_name(), this);
     tm_bdr->set_pixmap(QPixmap(header_active_pix), QPixmap(header_inactive_pix), title_color);
     tm_bdr->setFixedHeight(top_bdr_height);
-    layout->addWidget(tm_bdr, 0, 1);
+    layout->addWidget(tm_bdr, 0, 0);
     // bottom mid border
     bm_bdr = new Border(this);
     bm_bdr->setFixedHeight(bottom_bdr_height);
     bm_bdr->setCursor(Qt::SizeVerCursor);
-    layout->addWidget(bm_bdr, 2, 1);
+    layout->addWidget(bm_bdr, 2, 0);
     // bottom left border
     bl_bdr = new Border(this);
     bl_bdr->setFixedSize(top_bdr_height, bottom_bdr_height);
     bl_bdr->setCursor(Qt::SizeBDiagCursor);
-    layout->addWidget(bl_bdr, 2, 0);
+    layout->addWidget(bl_bdr, 2, 1);
     // bottom right border
     br_bdr = new Border(this);
     br_bdr->setFixedSize(top_bdr_height, bottom_bdr_height);
