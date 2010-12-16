@@ -135,6 +135,8 @@ private:
     QString header_active_pix;  // frame header pixmap
     QString header_inactive_pix;// frame header pixmap
     QString minmax_pix;         // frame minmax pixmap
+    QString maxPix;		// frame maximize pixmap
+    QString minPix;		// frame minimize pixmap
     QString close_pix;          // frame close pixmap
     QString arrow_pix;          // frame cursor
     QString move_pix;           // frame cursor
@@ -164,14 +166,21 @@ private:
     Dockbar *dockbar;           // dockbar
     Header *tm_bdr;             // top mid window border (for window move)
     Border *tl_bdr;             // top left window border (icon)
+    Border *min;             	// minimize icon
+    Border *max;             	// maximize icon
     Border *tr_bdr;             // top right window border (icon)
     Border *bm_bdr;             // bottom mid window border
     Border *bl_bdr;             // bottom left window border
     Border *br_bdr;             // bottom right window border
+    Border *br_bdr2;             // bottom mid window border
+    Border *bl_bdr2;             // bottom left window border
     Border *l_bdr;              // left window border
     Border *r_bdr;              // right window border
+    Border *l_bdr2;              // left window border
+    Border *r_bdr2;              // right window border    
     Border *c_bdr;              // center window border (client apps)
     QGridLayout *layout;
+//     QHBoxLayout *horLayout;	// horizontal layout to the window bar
     QSettings *rwm;
     Paths path;
 };

@@ -49,6 +49,8 @@ void Frame::read_settings()
     header_inactive_pix = stl_path + style->value("header_inactive_pix").toString();
     title_color = style->value("title_color").value<QColor>();
     minmax_pix = stl_path + style->value("minmax_pix").toString();
+    maxPix = stl_path + style->value("minPix").toString();
+    minPix = stl_path + style->value("maxPix").toString();
     close_pix = stl_path + style->value("close_pix").toString();
     style->endGroup(); //Header
     style->endGroup(); //Frame
@@ -567,18 +569,42 @@ void Frame::create_borders()
     layout->setMargin(0);
     layout->setSpacing(0);
     setLayout(layout);
-  
+    
     // center frame where client apps is shown
     c_bdr = new Border(this);
     layout->addWidget(c_bdr, 1, 1);
-    // top left border (icon)
+     
+    // top left border (header frame)
     tl_bdr = new Border(this);
     tl_bdr->setToolTip(tr("Minimize(L)/Maximize(R)"));
     tl_bdr->setFixedSize(top_bdr_height, top_bdr_height);
     tl_bdr->setPixmap(minmax_pix);
     tl_bdr->setScaledContents(true);
     tl_bdr->setAlignment(Qt::AlignCenter);
-    layout->addWidget(tl_bdr, 0, 1);
+    layout->addWidget(tl_bdr, 0, 0);
+    
+    // top left header border (icon)
+    tm_bdr = new Header(cl_icon(), cl_name(), this);
+    tm_bdr->set_pixmap(QPixmap(header_active_pix), QPixmap(header_inactive_pix), title_color);
+    tm_bdr->setFixedHeight(top_bdr_height);
+    layout->addWidget(tm_bdr, 0, 1);
+    
+    min = new Border(this);
+    min->setToolTip(tr("Minimize"));
+    min->setFixedSize(top_bdr_height, top_bdr_height);
+    min->setPixmap(minmax_pix);
+    min->setScaledContents(true);
+    min->setAlignment(Qt::AlignCenter);
+    layout->addWidget(min, 0, 2);
+
+    max = new Border(this);
+    max->setToolTip(tr("Maximize"));
+    max->setFixedSize(top_bdr_height, top_bdr_height);
+    max->setPixmap(minmax_pix);
+    max->setScaledContents(true);
+    max->setAlignment(Qt::AlignCenter);
+    layout->addWidget(max, 0, 3);
+    
     // top right border (icon)
     tr_bdr = new Border(this);
     tr_bdr->setToolTip(tr("Close"));
@@ -586,35 +612,58 @@ void Frame::create_borders()
     tr_bdr->setPixmap(close_pix);
     tr_bdr->setScaledContents(true);
     tr_bdr->setAlignment(Qt::AlignCenter);
-    layout->addWidget(tr_bdr, 0, 2);
-    // top mid header border (header frame)
-    tm_bdr = new Header(cl_icon(), cl_name(), this);
-    tm_bdr->set_pixmap(QPixmap(header_active_pix), QPixmap(header_inactive_pix), title_color);
-    tm_bdr->setFixedHeight(top_bdr_height);
-    layout->addWidget(tm_bdr, 0, 0);
-    // bottom mid border
-    bm_bdr = new Border(this);
-    bm_bdr->setFixedHeight(bottom_bdr_height);
-    bm_bdr->setCursor(Qt::SizeVerCursor);
-    layout->addWidget(bm_bdr, 2, 0);
+    layout->addWidget(tr_bdr, 0, 4);
+    
     // bottom left border
     bl_bdr = new Border(this);
     bl_bdr->setFixedSize(top_bdr_height, bottom_bdr_height);
     bl_bdr->setCursor(Qt::SizeBDiagCursor);
-    layout->addWidget(bl_bdr, 2, 1);
+    layout->addWidget(bl_bdr, 2, 0);
+    
+    // bottom left border2
+    bl_bdr2 = new Border(this);
+//     bl_bdr2->setFixedSize(top_bdr_height, bottom_bdr_height);
+    bl_bdr2->setFixedHeight(bottom_bdr_height);
+    bl_bdr2->setCursor(Qt::SizeVerCursor);
+    layout->addWidget(bl_bdr2, 2, 1);
+    
+    // bottom mid border
+    bm_bdr = new Border(this);
+    bm_bdr->setFixedHeight(bottom_bdr_height);
+    bm_bdr->setCursor(Qt::SizeVerCursor);
+    layout->addWidget(bm_bdr, 2, 2);
+    
+    // bottom right border 2
+    br_bdr2 = new Border(this);
+    br_bdr2->setFixedSize(top_bdr_height, bottom_bdr_height);
+    br_bdr2->setCursor(Qt::SizeFDiagCursor);
+    layout->addWidget(br_bdr2, 2, 3);
+    
     // bottom right border
     br_bdr = new Border(this);
     br_bdr->setFixedSize(top_bdr_height, bottom_bdr_height);
     br_bdr->setCursor(Qt::SizeFDiagCursor);
-    layout->addWidget(br_bdr, 2, 2);
+    layout->addWidget(br_bdr, 2, 4);
+    
     // left border
     l_bdr = new Border(this);
     l_bdr->setCursor(Qt::SizeHorCursor);
     layout->addWidget(l_bdr, 1, 0);
+    
+    // left border 2
+    l_bdr2 = new Border(this);
+    l_bdr2->setCursor(Qt::SizeHorCursor);
+    layout->addWidget(l_bdr2, 1, 1);
+    
+    // right border 2
+    r_bdr2 = new Border(this);
+    r_bdr2->setCursor(Qt::SizeHorCursor);
+    layout->addWidget(r_bdr2, 1, 3);
+    
     // right border
     r_bdr = new Border(this);
     r_bdr->setCursor(Qt::SizeHorCursor);
-    layout->addWidget(r_bdr, 1, 2);
+    layout->addWidget(r_bdr, 1, 4);
 
     if (frame_type == "Dialog") // no Max/Min on Dialog frames
     {
