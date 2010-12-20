@@ -150,6 +150,8 @@ private:
     int diff_border_w;          // width space between parent frame (qt) and client frame
     int dock_height;            // dockbar height
     int dock_position;          // dockbar position (top, bottom)
+    int dockHeight;		// Dockbar Top height
+    int dockPosition;		// Dockbar Top position (top, bottom)
     bool maximized;             // maximize window
     bool splash;                // splash window
     bool shaped;                // nonrectangular window

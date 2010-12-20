@@ -59,6 +59,11 @@ void Frame::read_settings()
     dock_height = style->value("dock_height").toInt();
     dock_position = style->value("dock_position").toInt();
     style->endGroup(); //Dockbar
+    ////// DockbarTop //////
+    style->beginGroup("DockBarTop");
+    dockHeight = style->value("dockHeight").toInt();
+    dockPosition = style->value("dockPosition").toInt();
+    style->endGroup(); //DockbarTop
     ////// Launcher //////
     style->beginGroup("Launcher");
     app_icon = stl_path + style->value("application_pix").toString();
@@ -837,11 +842,11 @@ void Frame::maximize_it()
         n_ph = height();
         // maximize parent with vertex and screen dimension-dockbar height
         m_pw = QApplication::desktop()->width();
-        m_ph = QApplication::desktop()->height()-dock_height;
+        m_ph = QApplication::desktop()->height()-dock_height - dockHeight;
         if (dock_position == 0) // bottom
-            move(QApplication::desktop()->x(), QApplication::desktop()->y());
+            move(QApplication::desktop()->x(), QApplication::desktop()->y() + dockHeight);
         else // top
-            move(QApplication::desktop()->x(), QApplication::desktop()->y()+dock_height);
+            move(QApplication::desktop()->x(), QApplication::desktop()->y()+dock_height + dockHeight);
         resize(m_pw, m_ph);
         raise();
         // maximize client
