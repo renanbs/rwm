@@ -1,1 +1,6 @@
 build/*
+src/*.*~
+inc/*.*~
+theme/default/*.*~
+rwm
+.gitignore~
