@@ -111,6 +111,7 @@ public slots:
     void move_left(QMouseEvent *);              // left border move
     void destroy_it();                          // destroy client
     void maximize_it();                         // maximize client
+    void minimize_it();				// minimize client
     void iconify_it();                          // iconify client
     void dragEnterEvent(QDragEnterEvent *);
     void dragMoveEvent(QDragMoveEvent *);

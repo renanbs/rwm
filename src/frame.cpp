@@ -680,6 +680,10 @@ void Frame::create_borders()
     connect(tl_bdr, SIGNAL(mouse_right_press()), this, SLOT(maximize_it()));
     // top right (icon)
     connect(tr_bdr, SIGNAL(mouse_left_press()), this, SLOT(destroy_it()));
+    // Minimize
+    connect(min, SIGNAL(mouse_left_press()), this, SLOT(minimize_it()));
+    // Maximize
+    connect(max, SIGNAL(mouse_left_press()), this, SLOT(maximize_it()));
     // top mid (title bar)
     connect(tm_bdr, SIGNAL(mouse_double_click()), this, SLOT(iconify_it()));
     connect(tm_bdr, SIGNAL(mouse_left_press(QMouseEvent *)), this, SLOT(press_top_mid(QMouseEvent *)));
@@ -830,6 +834,16 @@ void Frame::destroy_it()
     }
 }
 
+void Frame::minimize_it()
+{
+    XUnmapWindow(QX11Info::display(), winId()); // only the frame, the client is already unmapped...
+    state = "WithdrawnState";
+    set_state(0);
+    // minimize action
+    qDebug() << "Frame unmapped (unmap):" << winId() << "Name:" << wm_name << "Client:" << c_win << "State:" << state;
+}
+
+
 ////////// MAXIMIZE WINDOW //////////////
 void Frame::maximize_it()
 {
@@ -842,15 +856,15 @@ void Frame::maximize_it()
         n_ph = height();
         // maximize parent with vertex and screen dimension-dockbar height
         m_pw = QApplication::desktop()->width();
-        m_ph = QApplication::desktop()->height()-dock_height - dockHeight;
+        m_ph = QApplication::desktop()->height() - dock_height - dockHeight;
         if (dock_position == 0) // bottom
             move(QApplication::desktop()->x(), QApplication::desktop()->y() + dockHeight);
         else // top
-            move(QApplication::desktop()->x(), QApplication::desktop()->y()+dock_height + dockHeight);
-        resize(m_pw, m_ph);
+            move(QApplication::desktop()->x(), QApplication::desktop()->y() + dock_height + dockHeight);
+        resize(m_pw, m_ph); 
         raise();
         // maximize client
-        XResizeWindow(QX11Info::display(), c_win, width()-diff_border_w, height()-diff_border_h);
+        XResizeWindow(QX11Info::display(), c_win, width() - diff_border_w, height() - diff_border_h);
         maximized = true;
     }
     else
@@ -860,7 +874,7 @@ void Frame::maximize_it()
         resize(n_pw, n_ph);
         raise();
         // set last client dimension
-        XResizeWindow(QX11Info::display(), c_win, width()-diff_border_w, height()-diff_border_h);
+        XResizeWindow(QX11Info::display(), c_win, width() - diff_border_w, height() - diff_border_h);
         maximized = false;
     }
 }
