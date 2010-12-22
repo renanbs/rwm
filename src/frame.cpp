@@ -590,7 +590,9 @@ void Frame::create_borders()
     
     // top left header border (icon)
     tm_bdr = new Header(cl_icon(), cl_name(), this);
-    tm_bdr->set_pixmap(QPixmap(header_active_pix), QPixmap(header_inactive_pix), title_color);
+    //set color for the header when active and inactive, and also the title color
+    //need to think of a better way to do this
+//     tm_bdr->set_pixmap(QPixmap(header_active_pix), QPixmap(header_inactive_pix), title_color);
     tm_bdr->setFixedHeight(top_bdr_height);
     layout->addWidget(tm_bdr, 0, 1);
     
