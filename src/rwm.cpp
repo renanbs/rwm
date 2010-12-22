@@ -1087,6 +1087,8 @@ void Rwm::set_settings()
         style->setValue("header_active_pix", "header_active.png");
         style->setValue("header_inactive_pix", "header_inactive.png");
         style->setValue("title_color", QColor(Qt::white));
+	style->setValue("minPix", "min.png");
+	style->setValue("maxPix", "max.png");
         style->setValue("minmax_pix", "minmax.png");
         style->setValue("close_pix", "close.png");
         style->endGroup(); //Header

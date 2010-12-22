@@ -49,8 +49,8 @@ void Frame::read_settings()
     header_inactive_pix = stl_path + style->value("header_inactive_pix").toString();
     title_color = style->value("title_color").value<QColor>();
     minmax_pix = stl_path + style->value("minmax_pix").toString();
-    maxPix = stl_path + style->value("minPix").toString();
-    minPix = stl_path + style->value("maxPix").toString();
+    maxPix = stl_path + style->value("maxPix").toString();
+    minPix = stl_path + style->value("minPix").toString();
     close_pix = stl_path + style->value("close_pix").toString();
     style->endGroup(); //Header
     style->endGroup(); //Frame
@@ -597,7 +597,7 @@ void Frame::create_borders()
     min = new Border(this);
     min->setToolTip(tr("Minimize"));
     min->setFixedSize(top_bdr_height, top_bdr_height);
-    min->setPixmap(minmax_pix);
+    min->setPixmap(minPix);
     min->setScaledContents(true);
     min->setAlignment(Qt::AlignCenter);
     layout->addWidget(min, 0, 2);
@@ -605,7 +605,7 @@ void Frame::create_borders()
     max = new Border(this);
     max->setToolTip(tr("Maximize"));
     max->setFixedSize(top_bdr_height, top_bdr_height);
-    max->setPixmap(minmax_pix);
+    max->setPixmap(maxPix);
     max->setScaledContents(true);
     max->setAlignment(Qt::AlignCenter);
     layout->addWidget(max, 0, 3);
@@ -834,6 +834,7 @@ void Frame::destroy_it()
     }
 }
 
+////////// MINIMIZE WINDOW //////////////
 void Frame::minimize_it()
 {
     XUnmapWindow(QX11Info::display(), winId()); // only the frame, the client is already unmapped...

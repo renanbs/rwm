@@ -24,7 +24,7 @@ Header\header_active_pix=header_active.png
 Header\header_inactive_pix=header_inactive.png
 Header\title_color=@Variant(\0\0\0\x43\x1\xff\xff\xff\xff\xff\xff\xff\xff\0\0)
 Header\minmax_pix=minmax.png
-Header\minPixix=min.png
+Header\minPix=min.png
 Header\maxPix=max.png
 Header\close_pix=close.png
 
