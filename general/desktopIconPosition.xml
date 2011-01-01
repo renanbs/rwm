@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <system_desktop_icons>
-    <trash>
-        <position>
-            <x>15</x>
-            <y>75</y>
-        </position>
-    </trash>
+ <trash>
+  <position>
+   <x>-1</x>
+   <y>78</y>
+  </position>
+ </trash>
 </system_desktop_icons>

@@ -20,7 +20,6 @@
 Paths path;
 Rwm::Rwm(int &argc, char **argv) : QApplication(argc, argv)
 {
-
     set_event_names();
     // for [Alt+Tab] key combination
     next_frame = 0;
@@ -33,6 +32,9 @@ Rwm::Rwm(int &argc, char **argv) : QApplication(argc, argv)
     // check if server supports nonrectangular windows
     int err;
     servershapes = XShapeQueryExtension(QX11Info::display(), &ShapeEventBase, &err);
+	
+	// Tell Xorg that FullScreen is supported
+	setFullScreenSupported();
 }
 
 Rwm::~Rwm()
@@ -106,6 +108,7 @@ void Rwm::get_atoms()
     _net_wm_icon = XInternAtom(QX11Info::display(), "_NET_WM_ICON", False);
     _net_wm_user_time = XInternAtom(QX11Info::display(), "_NET_WM_USER_TIME", False);
     _net_wm_state = XInternAtom(QX11Info::display(), "_NET_WM_STATE", False);
+    _netWmStateFullScreen = XInternAtom(QX11Info::display(), "_NET_WM_STATE_FULLSCREEN", False);
     _net_supported = XInternAtom(QX11Info::display(), "_NET_SUPPORTED", False);
     _net_wm_window_type = XInternAtom(QX11Info::display(), "_NET_WM_WINDOW_TYPE", False);
     _net_wm_window_type_normal = XInternAtom(QX11Info::display(), "_NET_WM_WINDOW_TYPE_NORMAL", False);
@@ -114,6 +117,17 @@ void Rwm::get_atoms()
     _net_wm_window_type_splash = XInternAtom(QX11Info::display(), "_NET_WM_WINDOW_TYPE_SPLASH", False);
     _net_wm_window_type_dnd = XInternAtom(QX11Info::display(), "_NET_WM_WINDOW_TYPE_DND", False);
     _kde_net_wm_system_tray_window_for = XInternAtom(QX11Info::display(), "_KDE_NET_WM_SYSTEM_TRAY_WINDOW_FOR", False);
+}
+
+void Rwm::setFullScreenSupported() 
+{
+	Atom wm_change_state = XInternAtom(QX11Info::display(),"_NET_WM_STATE",False);
+	Atom wm_supported = XInternAtom(QX11Info::display(),"_NET_SUPPORTED",False);
+	Atom wm_name = XInternAtom(QX11Info::display(),"_NET_WM_NAME",False);
+	Atom wm_fullscreen = XInternAtom(QX11Info::display(),"_NET_WM_STATE_FULLSCREEN", False);
+	Atom supported[] = {wm_supported, wm_name, wm_change_state, wm_fullscreen};
+	XChangeProperty(QX11Info::display(),QApplication::desktop()->winId(),wm_supported,XA_ATOM,32,PropModeReplace,(unsigned char *) supported,4);
+	XSync(QX11Info::display(),False);
 }
 
 void Rwm::send_supported_hints()
@@ -161,6 +175,7 @@ void Rwm::send_supported_hints()
     xev3.data.l[2] = _net_wm_icon;
     xev3.data.l[3] = _net_supported;
     xev3.data.l[4] = _net_wm_user_time;
+
     XSendEvent(QX11Info::display(), QApplication::desktop()->winId(), False,
                (SubstructureNotifyMask | SubstructureRedirectMask), (XEvent *)&xev3);
 
@@ -196,7 +211,7 @@ void Rwm::send_supported_hints()
     xev6.data.l[1] = xdnd_finished;
     xev6.data.l[2] = xdnd_status;
     XSendEvent(QX11Info::display(), QApplication::desktop()->winId(), False,
-               (SubstructureNotifyMask | SubstructureRedirectMask), (XEvent *)&xev6);
+               (SubstructureNotifyMask | SubstructureRedirectMask), (XEvent *)&xev6); 
 }
 
 bool Rwm::x11EventFilter(XEvent *event)
@@ -208,6 +223,7 @@ bool Rwm::x11EventFilter(XEvent *event)
     KeySym sym;
     uint mod;
     uint keymask1 = Mod1Mask & 0x0F;
+
 
     if (event->type != 6 && event->type != 12) // ignore Motion/Expose event
     {
@@ -326,7 +342,7 @@ bool Rwm::x11EventFilter(XEvent *event)
 
     case MapNotify:
         qDebug() << "[MapNotify]";
-
+	      
         if ((frm = mapping_clients.value(event->xunmap.window)) != NULL)
         {
             frm->map_it();
@@ -466,7 +482,7 @@ bool Rwm::x11EventFilter(XEvent *event)
                 return true;
             }
             if (pev->atom == wm_state || pev->atom == _net_wm_state)
-            {
+            {	
                 qDebug() << "---> wm_state";
                 qDebug() << "Window:" << pev->window << "changing state";
                 return true;
@@ -489,6 +505,7 @@ bool Rwm::x11EventFilter(XEvent *event)
                 set_active_frame(frm);
                 return true;
             }
+
             return true;
         }
         else if ((frm = mapping_frames.value(event->xproperty.window)) != NULL)
@@ -536,8 +553,39 @@ bool Rwm::x11EventFilter(XEvent *event)
     case ClientMessage:
         qDebug() << "[ClientMessage]";
         mev = &event->xclient;
+		if (event->xclient.message_type == _net_wm_state) 
+		{
+			if (event->xclient.data.l[1] == _netWmStateFullScreen) 
+			{
+				qDebug() << "FULLSCREEN";
+				qDebug() << "FULLSCREEN";
+				qDebug() << "FULLSCREEN";
+				qDebug() << "FULLSCREEN";
+				qDebug() << "FULLSCREEN";
+// 				struct cont *wc = id_to_cont(ev.xclient.window);
 
-        if (mev->message_type == wm_change_state && event->xclient.format == 32 && event->xclient.data.l[0] == IconicState)
+				if (event->xclient.data.l[0] == 1) 
+				{ //go into full screen
+// 						wc->track->view->fs = true;
+// 						redraw = true;
+// 						wc->win->fullscreen = true;
+
+// 					XChangeProperty(QX11Info::display(),event->xclient.window, _net_wm_state,XA_ATOM,32,PropModeReplace,(unsigned char *)&_netWmStateFullScreen,1);
+				} 
+				else 
+				{ // exit fullscreen
+// 						wc->track->view->fs = false;
+// 						redraw = true;
+// 						wc->win->fullscreen = false;
+// 					XChangeProperty(QX11Info::display(),event->xclient.window, _net_wm_state,XA_ATOM,32,PropModeReplace,(unsigned char *)0,0);
+				}
+				return true;
+// 				}
+			}
+		}
+		
+        if (mev->message_type == wm_change_state && event->xclient.format == 32 && 
+			event->xclient.data.l[0] == IconicState)
         {
             qDebug() << "---> wm_change_state: IconicState";
 
@@ -1004,9 +1052,9 @@ void Rwm::create_gui()
     // run application from startup list
     run_app_at_startup();
 
-	// Check if desktop icons config exists
-	if (!Paths::findConfigFile("desktopIconPosition.xml"))
-	XmlParser::writeXml (Paths::getDataPath() + "/desktopIconPosition.xml",
+    // Check if desktop icons config exists
+    if (!Paths::findConfigFile("desktopIconPosition.xml"))
+      XmlParser::writeXml (Paths::getDataPath() + "/desktopIconPosition.xml",
 						 "system_desktop_icons",
 						 "trash", "position", "x", "0", "y", "50");
 }

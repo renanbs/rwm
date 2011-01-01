@@ -51,6 +51,7 @@ public:
     void set_settings();
     void run_app_at_startup();
     void get_atoms();
+	void setFullScreenSupported();
     void create_gui();
     void set_event_names();
     void send_supported_hints();
@@ -96,6 +97,7 @@ private:
     Atom _net_supported;
     Atom _net_wm_user_time;
     Atom _net_wm_state;
+    Atom _netWmStateFullScreen;
     Atom _net_wm_window_type;
     Atom _net_wm_window_type_normal;
     Atom _net_wm_window_type_desktop;
