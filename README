@@ -1,13 +1,18 @@
-Antico is a Qt4/X11 Desktop/Window Manager.
-The goal is to create a Window/Desktop manager simple and fast. All parameters must be configured from few files, avoiding unnecessary complications, following the K.I.S.S. philosophy.
-The whole project is be based only on Qt4 libraries, without any other external dependencies (e.g. kdelibs ...). 
+RWM – R Window Manager
+
+RWM is a QT Desktop Environment / Window Wanager.
+– The main goal is to develop an interface really simple, fast and beautiful. 
+– Follow the K.I.S.S principle;
+– Configurations are stored in $home/user/.rwm/ in xml files (simple and human readable);
+– It should depend only on Qt libs;
+– Default style is Oxygen, but others can be selected from qtconfig.
+It is based on Antico (you can find the original here: http://www.antico.netsons.org/index.html).
 
 ***********
 FEATURES
 ***********
 
-The whole application is based on "antico.cfg" file.
-Only two frame button: top right button to close, top left button to iconize (left mouse button) and maximize (right mouse button).
+The whole application is based on "rwm.cfg" file.
 Menu applications can be added and removed from "Manager" panel.
 Frame border dimension, color, pixmap, desk wallpaper managed from "Manager" panel.
 The style is selected from Manager and save in a xxx.stl file: if you want to share your personal style, save the directory and send it ...
@@ -20,18 +25,18 @@ See "git commits" on repository ...
 ***********
 REPOSITORY
 ***********
-http://github.com/antico/antico/tree/master
+http://gitorious.org/rwm/
 
 ***********
 DOWNLOAD
 ***********
-- on first installation: "git clone git://github.com/antico/antico.git"
+- on first installation: "git clone git://gitorious.org/rwm/rwm.git"
 - to update your local repository: "git pull"
 
 *************
 INSTALLATION
 *************
-To compile, enter in "Antico" dir (where is the antico.pro) and type on shell:
+To compile, enter in "rwm" dir (where is the antico.pro) and type on shell:
 "qmake" (or qmake-qt4)
 "make"
 ---------------------------------------------------
@@ -53,11 +58,11 @@ DEVELOPMENT
 To test the window manager, type on shell:
 
 DISPLAY=:0
-Xephyr :1 -ac -screen 1024x768 & DISPLAY=:1; $HOME/windowManager/rwm-project/rwm
-Xephyr :1 -ac -screen 800x600&
+Xephyr :1 -ac -screen 800x600 & DISPLAY=:1; $HOME/windowManager/rwm-project/rwm
 
 
-(where 1024x768 is your preferred screen size and $HOME if you have download Antico in user home)
+
+(where 800x600 is your preferred screen size and $HOME if you have download Antico in user home)
 ---------------------------------------------------
 To hide debug messages, uncomment in antico.pro
 //DEFINES = QT_NO_DEBUG_OUTPUT
