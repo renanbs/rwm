@@ -59,6 +59,8 @@ public:
     void get_colormaps();
     void set_colormaps(Colormap);
     void read_settings(); // from "rwm.cfg"
+	void saveDimension();		// save dimension and position before entering Full Screen
+	void restoreDimension();	// restore dimension and position after leaving Full Screen 
     WId cl_win()
     {
         return(c_win);
@@ -95,6 +97,22 @@ public:
     {
         return splash;
     }
+    int getLateralBdrWidth()      // parent lateral border width
+	{
+		return lateral_bdr_width;
+	}
+    int getTopBdrHeight()         // parent top border height
+	{
+		return top_bdr_height;
+	}
+	int getClientW()     // client geometry
+	{
+		return client_w;
+	}
+	int getClientH()     // client geometry
+	{
+		return client_h;    
+	}
 
 public slots:
     void press_top_mid(QMouseEvent *);          // top mid border press
@@ -111,7 +129,7 @@ public slots:
     void move_left(QMouseEvent *);              // left border move
     void destroy_it();                          // destroy client
     void maximize_it();                         // maximize client
-    void minimize_it();				// minimize client
+    void minimize_it();							// minimize client
     void iconify_it();                          // iconify client
     void dragEnterEvent(QDragEnterEvent *);
     void dragMoveEvent(QDragMoveEvent *);
@@ -136,8 +154,8 @@ private:
     QString header_active_pix;  // frame header pixmap
     QString header_inactive_pix;// frame header pixmap
     QString minmax_pix;         // frame minmax pixmap
-    QString maxPix;		// frame maximize pixmap
-    QString minPix;		// frame minimize pixmap
+    QString maxPix;				// frame maximize pixmap
+    QString minPix;				// frame minimize pixmap
     QString close_pix;          // frame close pixmap
     QString arrow_pix;          // frame cursor
     QString move_pix;           // frame cursor
@@ -151,8 +169,8 @@ private:
     int diff_border_w;          // width space between parent frame (qt) and client frame
     int dock_height;            // dockbar height
     int dock_position;          // dockbar position (top, bottom)
-    int dockHeight;		// Dockbar Top height
-    int dockPosition;		// Dockbar Top position (top, bottom)
+    int dockHeight;				// Dockbar Top height
+    int dockPosition;			// Dockbar Top position (top, bottom)
     bool maximized;             // maximize window
     bool splash;                // splash window
     bool shaped;                // nonrectangular window
@@ -175,15 +193,14 @@ private:
     Border *bm_bdr;             // bottom mid window border
     Border *bl_bdr;             // bottom left window border
     Border *br_bdr;             // bottom right window border
-    Border *br_bdr2;             // bottom mid window border
-    Border *bl_bdr2;             // bottom left window border
+    Border *br_bdr2;			// bottom mid window border
+    Border *bl_bdr2;			// bottom left window border
     Border *l_bdr;              // left window border
     Border *r_bdr;              // right window border
-    Border *l_bdr2;              // left window border
-    Border *r_bdr2;              // right window border    
+    Border *l_bdr2;				// left window border
+    Border *r_bdr2;				// right window border    
     Border *c_bdr;              // center window border (client apps)
     QGridLayout *layout;
-//     QHBoxLayout *horLayout;	// horizontal layout to the window bar
     QSettings *rwm;
     Paths path;
 };

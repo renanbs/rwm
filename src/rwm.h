@@ -65,6 +65,12 @@ public:
     Categorymenu * get_category_menu();
    
 private:
+	Window win_Id;	//winId
+	Window clWin;	//cl_win
+	int lateral;
+	int top;
+	int clientW, clientH;
+	Frame *frmFull;
     QHash<int, QString> event_names; // event names
     QHash<int, Frame *> mapping_clients; // mapping client and frame (key=client_win_id value=frame)
     QHash<int, Frame *> mapping_frames; // mapping frame with their winId (key=frame_win_id value=frame)
@@ -112,7 +118,6 @@ private:
     Frame *frm;
     Categorymenu *cat_menu;
     Filedialog *file_dialog;
-
     DockBarTop *dockTop;
 };
 #endif

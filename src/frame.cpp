@@ -24,7 +24,9 @@ Frame::Frame(Window w, const QString &type, Dockbar *dock, Desk *desk, QWidget *
 }
 
 Frame::~Frame()
-{}
+{
+	
+}
 
 void Frame::read_settings()
 {
@@ -835,6 +837,26 @@ void Frame::destroy_it()
         XSync(QX11Info::display(), FALSE);
     }
 }
+
+void Frame::saveDimension()
+{
+	// save parent dimension
+    n_px = x();
+    n_py = y();
+    n_pw = width();
+    n_ph = height();
+}
+
+void Frame::restoreDimension()
+{
+	// set last parent dimension
+	move(n_px, n_py);
+	resize(n_pw, n_ph);
+	raise();
+	// set last client dimension
+	XResizeWindow(QX11Info::display(), c_win, width() - diff_border_w, height() - diff_border_h);
+}
+
 
 ////////// MINIMIZE WINDOW //////////////
 void Frame::minimize_it()

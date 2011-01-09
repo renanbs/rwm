@@ -42,6 +42,7 @@ Rwm::~Rwm()
     delete cat_menu;
     delete file_dialog;
     delete rwm;
+	delete frmFull;
 }
 
 void Rwm::set_event_names()
@@ -557,30 +558,44 @@ bool Rwm::x11EventFilter(XEvent *event)
 		{
 			if (event->xclient.data.l[1] == _netWmStateFullScreen) 
 			{
-				qDebug() << "FULLSCREEN";
-				qDebug() << "FULLSCREEN";
-				qDebug() << "FULLSCREEN";
-				qDebug() << "FULLSCREEN";
-				qDebug() << "FULLSCREEN";
-// 				struct cont *wc = id_to_cont(ev.xclient.window);
-
 				if (event->xclient.data.l[0] == 1) 
 				{ //go into full screen
-// 						wc->track->view->fs = true;
-// 						redraw = true;
-// 						wc->win->fullscreen = true;
+					qDebug() << "--------------------------------------------";
+					qDebug() << " ATOM _NET_WM_STATE_FULLSCREEN";
+					qDebug() << " GO TO FULLSCREEN";
+					qDebug() << "--------------------------------------------";
+					frm = mapping_clients.value(event->xclient.window);
+					frmFull = frm;
+					lateral = frm->getLateralBdrWidth();
+					top = frm->getTopBdrHeight();
+					
+					clWin = frm->cl_win();
+					win_Id = frm->winId();
+					clientH = frm->getClientH();
+					clientW = frm->getClientW();
+					frm->saveDimension();
+					XReparentWindow(QX11Info::display(), clWin, QX11Info::appRootWindow(), 0, 0);
+					XMoveResizeWindow (QX11Info::display(), clWin, 0, 0, QApplication::desktop()->width(), QApplication::desktop()->height());
 
-// 					XChangeProperty(QX11Info::display(),event->xclient.window, _net_wm_state,XA_ATOM,32,PropModeReplace,(unsigned char *)&_netWmStateFullScreen,1);
 				} 
 				else 
 				{ // exit fullscreen
-// 						wc->track->view->fs = false;
-// 						redraw = true;
-// 						wc->win->fullscreen = false;
-// 					XChangeProperty(QX11Info::display(),event->xclient.window, _net_wm_state,XA_ATOM,32,PropModeReplace,(unsigned char *)0,0);
+					qDebug() << "--------------------------------------------";
+					qDebug() << " ATOM _NET_WM_STATE_FULLSCREEN";
+					qDebug() << " LEAVE FULLSCREEN";
+					qDebug() << "--------------------------------------------";
+	
+					XSetWindowBorderWidth(QX11Info::display(), clWin, 0);	//client
+					XSetWindowBorderWidth(QX11Info::display(), win_Id, 0);	//frame_type
+	
+					XReparentWindow(QX11Info::display(), clWin, win_Id, lateral, top);
+					
+					XMoveResizeWindow(QX11Info::display(), clWin, lateral, top + 3, clientW, clientH);
+					mapping_clients.insert(clWin, frmFull);
+					frmFull->restoreDimension();
+					
 				}
 				return true;
-// 				}
 			}
 		}
 		
@@ -1135,8 +1150,8 @@ void Rwm::set_settings()
         style->setValue("header_active_pix", "header_active.png");
         style->setValue("header_inactive_pix", "header_inactive.png");
         style->setValue("title_color", QColor(Qt::white));
-	style->setValue("minPix", "min.png");
-	style->setValue("maxPix", "max.png");
+		style->setValue("minPix", "min.png");
+		style->setValue("maxPix", "max.png");
         style->setValue("minmax_pix", "minmax.png");
         style->setValue("close_pix", "close.png");
         style->endGroup(); //Header
