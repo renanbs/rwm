@@ -27,6 +27,10 @@ Dockbar::Dockbar (Rwm *a, QWidget *parent) : QLabel(parent)
     // add launcher to dockbar
     lchr = new Launcher(a, this);
     lchr->setFixedSize(dock_height-1, dock_height-1);
+// 	lchr->setAlignment(Qt::AlignLeft);
+	lchr->setContentsMargins(5, 5, 5, 5);
+
+	
     // for set category menu on dockbar
     d_menu_widget = new QWidget(this);
     // for set dockapp on dockbar
@@ -57,11 +61,15 @@ Dockbar::Dockbar (Rwm *a, QWidget *parent) : QLabel(parent)
     app_layout->setContentsMargins(5, 0, 5, 0);
     app_layout->setSpacing(1);
 
-    dock_layout->insertWidget(0, lchr);
-    dock_layout->insertWidget(1, d_menu_widget, 1);
-    dock_layout->insertWidget(2, d_app_widget, 1);
-    dock_layout->insertWidget(3, d_icon_widget, 6); // max stretch factor
-    dock_layout->insertWidget(4, sys, 3);
+	dock_layout->insertWidget(0, lchr);
+	dock_layout->insertWidget(1, d_menu_widget, 1);    
+	dock_layout->insertWidget(2, d_app_widget, 1);
+	dock_layout->insertWidget(3, d_icon_widget, 6); // max stretch factor
+	dock_layout->insertWidget(4, sys, 3);
+	
+//     dock_layout->insertWidget(1, d_app_widget, 1);
+//     dock_layout->insertWidget(2, d_icon_widget, 6); // max stretch factor
+//     dock_layout->insertWidget(3, sys, 3);
 //    dock_layout->insertWidget(5, clk);
 
     set_dockmenu(); // at startup, restore category menu on dockbar
@@ -76,7 +84,7 @@ Dockbar::~Dockbar()
     delete dock_layout;
     delete icon_layout;
     delete app_layout;
-    delete menu_layout;
+//     delete menu_layout;
     delete d_icon;
 //    delete clk;
     delete app;
@@ -375,6 +383,6 @@ void Dockbar::update_style()
     // update sysicons on systray
     sys->update_style();
     // update dateclock
-    clk->update_style();
-    clk->setFixedSize(dock_height*2, dock_height-1);
+//     clk->update_style();
+//     clk->setFixedSize(dock_height*2, dock_height-1);
 }

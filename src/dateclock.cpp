@@ -70,7 +70,7 @@ void Dateclock::paintEvent(QPaintEvent *)
     QFontMetrics time_fm(time_font);
     QString string_time = time.toString().left(5);
     int time_h = time_fm.height();
-    time_font.setPixelSize(height() * 14 / time_h);
+    time_font.setPixelSize(height() * 10 / time_h);
     painter.setFont(time_font);
     painter.drawText(0, 4, width(), height(), Qt::AlignHCenter, string_time); //clock
 

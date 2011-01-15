@@ -15,7 +15,9 @@ Launcher::Launcher(Rwm *a, QWidget *parent) : QLabel(parent)
     read_settings();
     init();
 //    setPixmap(QPixmap(launcher_pix).scaled(dock_height-5, dock_height-5, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-    setPixmap(QPixmap(launcher_pix).scaled(25, 25, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+	
+//     setPixmap(QPixmap(launcher_pix).scaled(20, 20, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+	zoom = false;
     show();
 }
 
@@ -23,6 +25,32 @@ Launcher::~Launcher()
 {
     delete app;
     delete rwm;
+}
+
+/**
+ *  @brief This a reimplementation of the paintEvent, where the main button (menuR) is painted
+ *
+ *
+ *  @param QPaintEvent    the painter
+ *  @return none
+ */
+void Launcher::paintEvent(QPaintEvent *)
+{
+	QPainter painter(this);
+	painter.setRenderHint(QPainter::Antialiasing);
+// 	painter.setPen(Qt::white);
+// 	painter.setPen(QPen(QBrush(QColor::Rgb), 1, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+// 	painter.drawRoundedRect(1, 1, 23, 23, 5, 5);
+// 	painter.drawPixmap ( QRect(0, 0, 23, 23), 
+// 						 QPixmap(launcher_pix).scaled(20, 20, Qt::IgnoreAspectRatio, Qt::SmoothTransformation), 
+// 						 QRect(0, 0, 25, 25));
+// 	painter.drawPixmap(0, 0, QPixmap(launcher_pix).scaled(20, 20, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+	painter.setRenderHint(QPainter::SmoothPixmapTransform);
+    
+	if (zoom)
+		painter.drawPixmap(1, 1, QPixmap(launcher_pix).scaled(24, 24, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+	else
+		painter.drawPixmap(3, 3, QPixmap(launcher_pix).scaled(20, 20, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));	
 }
 
 void Launcher::read_settings()
@@ -160,7 +188,9 @@ void Launcher::mousePressEvent(QMouseEvent *event)
 void Launcher::enterEvent(QEvent *event)
 {
     Q_UNUSED(event);            //   scaled (width, height)
-    setPixmap(QPixmap(launcher_pix).scaled(25, 25, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+//     setPixmap(QPixmap(launcher_pix).scaled(25, 25, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+	zoom = true;
+	update();
 }
 
 /**
@@ -173,13 +203,15 @@ void Launcher::enterEvent(QEvent *event)
 void Launcher::leaveEvent(QEvent *event)
 {
     Q_UNUSED(event);
-    setPixmap(QPixmap(launcher_pix).scaled(20, 20, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+//     setPixmap(QPixmap(launcher_pix).scaled(20, 20, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+	zoom = false;
+	update();
 }
 
 void Launcher::update_style()
 {
     read_settings();
-    setPixmap(QPixmap(launcher_pix).scaled(20, 20, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+//     setPixmap(QPixmap(launcher_pix).scaled(20, 20, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
     quit->setIcon(QIcon(quit_pix));
     shutdown->setIcon(QIcon(shutdown_pix));
     restart->setIcon(QIcon(restart_pix));

@@ -936,6 +936,7 @@ void Rwm::wm_quit()
         mapping_frames.clear();
         dock->close();
         dsk->close();
+		dockTop->close();
         XSync(QX11Info::display(), False);
         QProcess::startDetached(QString("/bin/rm").append(" ").append(QDir::tempPath() + "/rwm-runner.log"));
         qDebug() << "Quit RWM ...";
@@ -970,6 +971,7 @@ void Rwm::wm_shutdown()
         mapping_frames.clear();
         dock->close();
         dsk->close();
+		dockTop->close();
         XSync(QX11Info::display(), False);
         QProcess::startDetached(QString("/bin/rm").append(" ").append(QDir::tempPath() + "/rwm-runner.log"));
         qDebug() << "Quit Rwm WM ...";
@@ -1005,6 +1007,7 @@ void Rwm::wm_restart()
         mapping_frames.clear();
         dock->close();
         dsk->close();
+		dockTop->close();
         XSync(QX11Info::display(), False);
         QProcess::startDetached(QString("/bin/rm").append(" ").append(QDir::tempPath() + "/rwm-runner.log"));
         qDebug() << "Quit Rwm WM ...";

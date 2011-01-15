@@ -43,6 +43,7 @@ protected:
     void mousePressEvent(QMouseEvent *);
     void enterEvent(QEvent *);
     void leaveEvent(QEvent *);
+	void paintEvent(QPaintEvent *);
 
 private:
     QString launcher_pix;
@@ -67,6 +68,7 @@ private:
     QAction *manager;
     QSettings *rwm;
     QMenu *main_menu;
+	bool zoom;
 };
 
 #endif
