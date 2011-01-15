@@ -56,6 +56,7 @@ private:
     QString run_pix;
     QString manager_pix;
     int dock_position;
+	int dockPosition;	// Position of the main bar
     int dock_height;
     Rwm *app;
     QAction *quit;

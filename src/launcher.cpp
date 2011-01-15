@@ -79,6 +79,9 @@ void Launcher::read_settings()
     dock_height = style->value("dock_height").toInt();
     dock_position = style->value("dock_position").toInt();
     style->endGroup(); //Dockbar
+	style->beginGroup ("DockBarTop");
+    dockPosition = style->value ("dockPosition").toInt();
+	style->endGroup(); //DockbarTop
 }
 
 void Launcher::init()
@@ -162,13 +165,19 @@ void Launcher::run_command(QAction *act)
         new Settings();
 }
 
+/**
+ *  @brief This is when the mouse press the launcher button
+ *
+ *  @param  event    pass the mouse event to test which button has been pressed
+ *  @return none
+ */
 void Launcher::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton)
     {
         QPoint p = mapToGlobal(QPoint(0, 0));
 
-        if (dock_position == 0) // 0 = bottom / 1 = top
+        if (dockPosition == 0) // 0 = bottom / 1 = top
             p.setY(p.y()-main_menu->sizeHint().height());
         else
             p.setY(p.y()+height());
@@ -180,8 +189,6 @@ void Launcher::mousePressEvent(QMouseEvent *event)
 /**
  *  @brief This is when the mouse is above the launcher button
  *
- *  @todo   need to find a way to know the width and height, perhaps it is a good way to save its settings and read them with
- *          read_Settings
  *  @param  event    not used
  *  @return none
  */
