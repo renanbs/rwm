@@ -39,7 +39,7 @@ dock_position=0
 
 [DockBarTop]
 dockPix=dockbar.png
-dockHeight=25
+dockHeight=40
 dockWidth=1000
 dockPosition=1
 

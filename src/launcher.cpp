@@ -48,9 +48,9 @@ void Launcher::paintEvent(QPaintEvent *)
 	painter.setRenderHint(QPainter::SmoothPixmapTransform);
     
 	if (zoom)
-		painter.drawPixmap(1, 1, QPixmap(launcher_pix).scaled(24, 24, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+		painter.drawPixmap(1, 1, QPixmap(launcher_pix).scaled(39, 39, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 	else
-		painter.drawPixmap(3, 3, QPixmap(launcher_pix).scaled(20, 20, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));	
+		painter.drawPixmap(2, 2, QPixmap(launcher_pix).scaled(35, 35, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));	
 }
 
 void Launcher::read_settings()
