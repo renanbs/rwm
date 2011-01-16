@@ -4,7 +4,7 @@
 //  Copyright : GPL                   //
 ////////////////////////////////////////
 
-#include "effects.h"
+#include "../inc/effects.h"
 
 Effects::Effects(QObject *parent) : QObject(parent)
 {}

@@ -15,7 +15,7 @@
 #include "launcher.h"
 #include "systray.h"
 #include "dockicon.h"
-#include "dockapp.h"
+#include "../inc/dockapp.h"
 #include "dockmenu.h"
 #include "../inc/dateclock.h"
 #include "filedialog.h"

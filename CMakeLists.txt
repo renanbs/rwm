@@ -45,34 +45,34 @@ SET( RWM_SRCS
 
 # another list, this time it includes all header files that should be treated with moc
 SET( RWM_MOC_HDRS
-    ./src/defs.h 
-    ./src/rwm.h 
-    ./src/frame.h 
-    ./src/border.h 
-    ./src/dockbar.h 
-    ./src/launcher.h 
-    ./src/dockicon.h 
-    ./src/desk.h 
-    ./src/header.h 
-    ./src/systray.h 
-    ./src/manager.h 
-    ./src/filedialog.h 
-    ./src/colordialog.h 
-    ./src/colorsel.h 
-    ./src/msgbox.h 
-    ./src/runner.h 
-    ./src/sysicon.h 
-    ./src/deskapp.h 
-    ./src/utils.h 
-    ./src/deskdev.h 
-    ./src/deskfile.h 
-    ./src/deskfolder.h 
-    ./src/dockapp.h 
-    ./src/trash.h 
-    ./src/trashdialog.h 
-    ./src/deskicon.h 
-    ./src/dockmenu.h 
-    ./src/settings.h 
+    ./inc/defs.h 
+    ./inc/rwm.h 
+    ./inc/frame.h 
+    ./inc/border.h 
+    ./inc/dockbar.h 
+    ./inc/launcher.h 
+    ./inc/dockicon.h 
+    ./inc/desk.h 
+    ./inc/header.h 
+    ./inc/systray.h 
+    ./inc/manager.h 
+    ./inc/filedialog.h 
+    ./inc/colordialog.h 
+    ./inc/colorsel.h 
+    ./inc/msgbox.h 
+    ./inc/runner.h 
+    ./inc/sysicon.h 
+    ./inc/deskapp.h 
+    ./inc/utils.h 
+    ./inc/deskdev.h 
+    ./inc/deskfile.h 
+    ./inc/deskfolder.h 
+    ./inc/dockapp.h 
+    ./inc/trash.h 
+    ./inc/trashdialog.h 
+    ./inc/deskicon.h 
+    ./inc/dockmenu.h 
+    ./inc/settings.h 
     ./inc/paths.h 
     ./inc/images.h 
     ./inc/about.h 

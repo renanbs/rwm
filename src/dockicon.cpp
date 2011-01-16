@@ -4,7 +4,7 @@
 // Copyright : GPL                    //
 ////////////////////////////////////////
 
-#include "dockicon.h"
+#include "../inc/dockicon.h"
 #include "../inc/paths.h"
 
 ////////////////////////////////////////

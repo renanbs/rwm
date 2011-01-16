@@ -4,7 +4,7 @@
 // Copyright : GPL //
 ////////////////////////////////////////
 
-#include "systray.h"
+#include "../inc/systray.h"
 
 ////////////////////////////////////////
 /* defined in the systray spec */

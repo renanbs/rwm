@@ -4,7 +4,7 @@
 // Copyright : GPL                    //
 ////////////////////////////////////////
 
-#include "dockmenu.h"
+#include "../inc/dockmenu.h"
 #include "../inc/paths.h"
 
 ////////////////////////////////////////

@@ -4,7 +4,7 @@
 //  Copyright : GPL                   //
 ////////////////////////////////////////
 
-#include "manager.h"
+#include "../inc/manager.h"
 #include "../inc/paths.h"
 
 ////////////////////////////////////////

@@ -1,6 +1,6 @@
 /*
 RWM, R Window Manager. A fast QT Desktop Environment / Window Manager.
-Copyright (C) 2010-2010 Renan Biegelmeyer <rwindowmanager@gmail.com>
+Copyright (C) 2010-2011 Renan Biegelmeyer <rwindowmanager@gmail.com>
 
 The original class was copied from smplayer.
 

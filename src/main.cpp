@@ -4,8 +4,8 @@
 //  Copyright : GPL                   //
 ////////////////////////////////////////
 
-#include "defs.h"
-#include "rwm.h"
+#include "../inc/defs.h"
+#include "../inc/rwm.h"
 #include "../inc/about.h"
 ////////////////////////////////////////
 

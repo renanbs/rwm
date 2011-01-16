@@ -4,7 +4,7 @@
 //  Copyright : GPL                   //
 ////////////////////////////////////////
 
-#include "deskapp.h"
+#include "../inc/deskapp.h"
 #include "../inc/paths.h"
 
 ////////////////////////////////////////

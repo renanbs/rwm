@@ -4,7 +4,7 @@
 //  Copyright : GPL                   //
 ////////////////////////////////////////
 
-#include "deskfile.h"
+#include "../inc/deskfile.h"
 #include "../inc/paths.h"
 
 ////////////////////////////////////////

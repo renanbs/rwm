@@ -4,7 +4,7 @@
 //  Copyright : GPL                   //
 ////////////////////////////////////////
 
-#include "dockapp.h"
+#include "../inc/dockapp.h"
 #include "../inc/paths.h"
 
 ////////////////////////////////////////

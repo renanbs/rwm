@@ -4,7 +4,7 @@
 //  Copyright : GPL                   //
 ////////////////////////////////////////
 
-#include "desk.h"
+#include "../inc/desk.h"
 #include "../inc/paths.h"
 #include "../inc/about.h"
 #include "../inc/xmlparser.h"

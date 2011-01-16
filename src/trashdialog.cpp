@@ -4,7 +4,7 @@
 //  Copyright : GPL                   //
 ////////////////////////////////////////
 
-#include "trashdialog.h"
+#include "../inc/trashdialog.h"
 #include "../inc/paths.h"
 
 ////////////////////////////////////////

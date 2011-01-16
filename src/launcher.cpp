@@ -4,7 +4,7 @@
 //  Copyright : GPL                   //
 ////////////////////////////////////////
 
-#include "launcher.h"
+#include "../inc/launcher.h"
 #include "../inc/paths.h"
 
 ////////////////////////////////////////

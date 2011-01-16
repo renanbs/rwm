@@ -4,7 +4,7 @@
 //  Copyright : GPL                   //
 ////////////////////////////////////////
 
-#include "filedialog.h"
+#include "../inc/filedialog.h"
 #include "../inc/paths.h"
 
 ////////////////////////////////////////

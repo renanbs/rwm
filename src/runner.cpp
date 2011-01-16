@@ -4,7 +4,7 @@
 //  Copyright : GPL                   //
 ////////////////////////////////////////
 
-#include "runner.h"
+#include "../inc/runner.h"
 #include "../inc/paths.h"
 
 ////////////////////////////////////////

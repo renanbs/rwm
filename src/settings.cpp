@@ -4,7 +4,7 @@
 //  Copyright : GPL                   //
 ////////////////////////////////////////
 
-#include "settings.h"
+#include "../inc/settings.h"
 #include "../inc/paths.h"
 
 ////////////////////////////////////////

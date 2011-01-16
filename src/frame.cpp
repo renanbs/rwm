@@ -4,7 +4,7 @@
 //  Copyright : GPL                   //
 ////////////////////////////////////////
 
-#include "frame.h"
+#include "../inc/frame.h"
 #include "../inc/paths.h"
 
 ////////////////////////////////////////

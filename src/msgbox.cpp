@@ -4,7 +4,7 @@
 //  Copyright : GPL                   //
 ////////////////////////////////////////
 
-#include "msgbox.h"
+#include "../inc/msgbox.h"
 #include "../inc/paths.h"
 
 ////////////////////////////////////////

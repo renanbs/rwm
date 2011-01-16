@@ -4,7 +4,7 @@
 //  Copyright : GPL                   //
 ////////////////////////////////////////
 
-#include "trash.h"
+#include "../inc/trash.h"
 #include "../inc/paths.h"
 #include "../inc/xmlparser.h"
 

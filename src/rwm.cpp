@@ -4,7 +4,7 @@
 //  Copyright : GPL                   //
 ////////////////////////////////////////
 
-#include "rwm.h"
+#include "../inc/rwm.h"
 #include "../inc/paths.h"
 #include "../inc/xmlparser.h"
 

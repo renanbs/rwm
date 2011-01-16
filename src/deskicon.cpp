@@ -4,7 +4,7 @@
 //  Copyright : GPL                   //
 ////////////////////////////////////////
 
-#include "deskicon.h"
+#include "../inc/deskicon.h"
 #include "../inc/paths.h"
 
 ////////////////////////////////////////

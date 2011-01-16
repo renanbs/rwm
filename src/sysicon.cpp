@@ -4,7 +4,7 @@
 //  Copyright : GPL                   //
 ////////////////////////////////////////
 
-#include "sysicon.h"
+#include "../inc/sysicon.h"
 #include "../inc/paths.h"
 
 ////////////////////////////////////////

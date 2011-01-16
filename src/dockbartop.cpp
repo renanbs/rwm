@@ -1,6 +1,7 @@
 #include "../inc/dockbartop.h"
 #include "../inc/paths.h"
-#include "defs.h"
+// #include "..
+#include "../inc/defs.h"
 
 DockBarTop::DockBarTop (Rwm *a, QWidget *parent) : QLabel(parent)
 {
@@ -22,6 +23,10 @@ DockBarTop::DockBarTop (Rwm *a, QWidget *parent) : QLabel(parent)
     // add launcher to dockbar
     lchr = new Launcher (a, this);
     lchr->setFixedSize (dockHeight - 1, dockHeight - 1);
+	
+	//Dock Apps
+// 	shortCut = new dockShortcuts (a, this);
+//     shortCut->setFixedSize (dockHeight - 1, dockHeight - 1);
 //    // for set category menu on dockbar
 //    d_menu_widget = new QWidget(this);
 //    // for set dockapp on dockbar
@@ -62,6 +67,7 @@ DockBarTop::DockBarTop (Rwm *a, QWidget *parent) : QLabel(parent)
 //    dockLayout->insertWidget(1, clk);
 
     dockLayout->addWidget(lchr);
+// 	dockLayout->addWidget(shortCut);
 //    dockLayout->addWidget(d_menu_widget);
 //    dockLayout->addWidget(d_app_widget);
 //    dockLayout->addWidget(d_icon_widget);

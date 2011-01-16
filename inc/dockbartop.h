@@ -11,10 +11,10 @@ class Launcher;
 
 #include <QLabel>
 #include <QSpacerItem>
-#include "../src/defs.h"
-#include "../src/launcher.h"
+#include "../inc/defs.h"
+#include "../inc/launcher.h"
 //#include "systray.h"
-#include "../src/dockicon.h"
+#include "../inc/dockicon.h"
 //#include "dockapp.h"
 //#include "dockmenu.h"
 #include "../inc/dateclock.h"
