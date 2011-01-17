@@ -1,43 +1,40 @@
 #include "../inc/dockbartop.h"
 #include "../inc/paths.h"
-// #include "..
 #include "../inc/defs.h"
 
 DockBarTop::DockBarTop (Rwm *a, QWidget *parent) : QLabel(parent)
 {
-    app = a;
-//    file_dialog = app->get_file_dialog();
-    dockLayout = new QHBoxLayout (this);
-    spacer = new QSpacerItem (QApplication::desktop()->width(), height(),  QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
-    setLayout (dockLayout);
-    dockLayout->setContentsMargins (0, 0, 0, 0);
-    dockLayout->setSpacing (1);
-    dockLayout->setSizeConstraint (QLayout::SetNoConstraint);
-    setAcceptDrops (true); // for drag and drop from Filedialog
-    setAttribute (Qt::WA_AlwaysShowToolTips);
-    readSettings ();
-//    init();
+	app = a;
+	dockLayout = new QHBoxLayout (this);
+	spacer = new QSpacerItem (QApplication::desktop()->width(), height(),  QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
+	setLayout (dockLayout);
+	dockLayout->setContentsMargins (0, 0, 0, 0);
+	dockLayout->setSpacing (1);
+	dockLayout->setSizeConstraint (QLayout::SetNoConstraint);
+	setAcceptDrops (true); // for drag and drop from Filedialog
+	setAttribute (Qt::WA_AlwaysShowToolTips);
+	readSettings ();
 
-    setGeometryDockTop();
+	setGeometryDockTop();
 
-    // add launcher to dockbar
-    lchr = new Launcher (a, this);
-    lchr->setFixedSize (dockHeight - 1, dockHeight - 1);
+	// add launcher to dockbar
+	lchr = new Launcher (a, this);
+	lchr->setFixedSize (dockHeight - 1, dockHeight - 1);
 	
 	//Dock Apps
-// 	shortCut = new dockShortcuts (a, this);
-//     shortCut->setFixedSize (dockHeight - 1, dockHeight - 1);
+// 	shortCut = new Dockapp ("Show Desktop", "exec", "/home/renan/windowManager/rwm-project/theme/default/show.png", this);
+// 	shortCut->setFixedSize (dockHeight - 1, dockHeight - 1);
 //    // for set category menu on dockbar
 //    d_menu_widget = new QWidget(this);
 //    // for set dockapp on dockbar
 //    d_app_widget = new QWidget(this);
 //    // for set dockicon on dockbar
 //    d_icon_widget = new QWidget(this);
-//    // add systray to dockbar
-//    sys = new Systray(this);
-    // add clock to dockbar
-    clk = new Dateclock(this);
-    clk->setFixedSize(dockHeight*2, dockHeight-1);
+   // add systray to dockbar
+// 	sys = new Systray(this);
+//     add clock to dockbar
+	clk = new Dateclock(this);
+	clk->setFixedSize(dockHeight*2, dockHeight-1);
 
 //    menu_layout = new QHBoxLayout();
 //    d_menu_widget->setLayout(menu_layout);
@@ -66,73 +63,72 @@ DockBarTop::DockBarTop (Rwm *a, QWidget *parent) : QLabel(parent)
 //    dockLayout->insertWidget(1, spacer);
 //    dockLayout->insertWidget(1, clk);
 
-    dockLayout->addWidget(lchr);
+	dockLayout->addWidget(lchr);
 // 	dockLayout->addWidget(shortCut);
 //    dockLayout->addWidget(d_menu_widget);
 //    dockLayout->addWidget(d_app_widget);
 //    dockLayout->addWidget(d_icon_widget);
-//    dockLayout->addWidget(sys);
-    dockLayout->addItem(spacer);
-    dockLayout->addWidget(clk);
+// 	dockLayout->addWidget(sys);
+	dockLayout->addItem(spacer);
+	dockLayout->addWidget(clk);
 
 //    dockLayout->insertWidget(1, clk);
 
-//    dockLayout->addWidget(
-//
 //    set_dockmenu(); // at startup, restore category menu on dockbar
 //    set_dockapp(); // at startup, restore dockapps on dockbar
 
-    show();
+	show();
 
 }
 
 DockBarTop::~DockBarTop ()
 {
-    delete rwm;
-    delete dockLayout;
+	delete rwm;
+	delete dockLayout;
+	delete app;
+// 	delete shortCut;
 //    delete icon_layout;
 //    delete app_layout;
 //    delete menu_layout;
 //    delete d_icon;
-    delete clk;
-//    delete app;
+	delete clk;
 //    delete file_dialog;
 }
 
 void DockBarTop::setGeometryDockTop()
 {
-    setPixmap (dockPix);
-    setScaledContents (true);
+	setPixmap (dockPix);
+	setScaledContents (true);
 
 //  set dock width = to the desktop width
-    dockWidth = QApplication::desktop ()->width ();
+	dockWidth = QApplication::desktop ()->width ();
 
-    int spaceDock = (QApplication::desktop ()->width () - dockWidth) / 2; // space left on right/left side of Dockbar
+	int spaceDock = (QApplication::desktop ()->width () - dockWidth) / 2; // space left on right/left side of Dockbar
 
-    if (dockPosition == 0) // 0 = bottom / 1 = top
-        setGeometry (spaceDock, QApplication::desktop ()->height () - dockHeight, dockWidth, dockHeight);
-    else // top
-        setGeometry (spaceDock, 0, dockWidth, dockHeight);
+	if (dockPosition == 0) // 0 = bottom / 1 = top
+		setGeometry (spaceDock, QApplication::desktop ()->height () - dockHeight, dockWidth, dockHeight);
+	else // top
+		setGeometry (spaceDock, 0, dockWidth, dockHeight);
 }
 
 void DockBarTop::readSettings()
 {
-    // get style path
-    rwm = new QSettings(Paths::getConfigPath () + "/rwm.cfg", QSettings::IniFormat, this);
-    rwm->beginGroup ("Style");
-    QString stl_name = rwm->value ("name").toString();
-    QString stl_path = rwm->value ("path").toString();
-    QString path_name = stl_path + stl_name;
-    rwm->endGroup (); //Style
-    // get style values
-    QSettings *styleDockTop = new QSettings (stl_path + stl_name, QSettings::IniFormat, this);
-    styleDockTop->beginGroup ("DockBarTop");
-    dockPix = stl_path + styleDockTop->value ("dockPix").toString();
-    dockHeight = styleDockTop->value ("dockHeight").toInt();
-    dockWidth = styleDockTop->value ("dockWidth").toInt();
-    dockPosition = styleDockTop->value ("dockPosition").toInt();
-    styleDockTop->endGroup(); //DockBarTop
-    styleDockTop->beginGroup ("Other");
-   // app_link_pix = stl_path + style->value ("app_link_pix").toString();
-    styleDockTop->endGroup (); //Other
+	// get style path
+	rwm = new QSettings(Paths::getConfigPath () + "/rwm.cfg", QSettings::IniFormat, this);
+	rwm->beginGroup ("Style");
+	QString stl_name = rwm->value ("name").toString();
+	QString stl_path = rwm->value ("path").toString();
+	QString path_name = stl_path + stl_name;
+	rwm->endGroup (); //Style
+	// get style values
+	QSettings *styleDockTop = new QSettings (stl_path + stl_name, QSettings::IniFormat, this);
+	styleDockTop->beginGroup ("DockBarTop");
+	dockPix = stl_path + styleDockTop->value ("dockPix").toString();
+	dockHeight = styleDockTop->value ("dockHeight").toInt();
+	dockWidth = styleDockTop->value ("dockWidth").toInt();
+	dockPosition = styleDockTop->value ("dockPosition").toInt();
+	styleDockTop->endGroup(); //DockBarTop
+	styleDockTop->beginGroup ("Other");
+	// app_link_pix = stl_path + style->value ("app_link_pix").toString();
+	styleDockTop->endGroup (); //Other
 }

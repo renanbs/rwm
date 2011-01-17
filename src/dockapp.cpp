@@ -9,13 +9,14 @@
 
 ////////////////////////////////////////
 
-Dockapp::Dockapp(const QString &app_nm, const QString &app_exe, const QString &app_pix, QWidget *parent) : QLabel(parent)
+Dockapp::Dockapp(const QString &app_nm, const QString &app_exe, const QString &app_pix, const bool &btype, QWidget *parent) : QLabel(parent)
 {
     read_settings();
     app_name = app_nm;
     app_exec = app_exe;
     setToolTip(app_name);
     d_app_pix = app_pix;
+	type = btype;
     setPixmap(QPixmap(d_app_pix).scaled(dock_height-10, dock_height-10, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
     show();
 }

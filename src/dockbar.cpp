@@ -25,10 +25,10 @@ Dockbar::Dockbar (Rwm *a, QWidget *parent) : QLabel(parent)
     set_geometry();
 
     // add launcher to dockbar
-    lchr = new Launcher(a, this);
-    lchr->setFixedSize(dock_height-1, dock_height-1);
+//     lchr = new Launcher(a, this);
+//     lchr->setFixedSize(dock_height-1, dock_height-1);
 // 	lchr->setAlignment(Qt::AlignLeft);
-	lchr->setContentsMargins(5, 5, 5, 5);
+// 	lchr->setContentsMargins(5, 5, 5, 5);
 
 	
     // for set category menu on dockbar
@@ -61,16 +61,23 @@ Dockbar::Dockbar (Rwm *a, QWidget *parent) : QLabel(parent)
     app_layout->setContentsMargins(5, 0, 5, 0);
     app_layout->setSpacing(1);
 
-	dock_layout->insertWidget(0, lchr);
-	dock_layout->insertWidget(1, d_menu_widget, 1);    
-	dock_layout->insertWidget(2, d_app_widget, 1);
-	dock_layout->insertWidget(3, d_icon_widget, 6); // max stretch factor
-	dock_layout->insertWidget(4, sys, 3);
+// 	dock_layout->insertWidget(0, lchr);
+// 	dock_layout->insertWidget(1, d_menu_widget, 1);    
+// 	dock_layout->insertWidget(2, d_app_widget, 1);
+// 	dock_layout->insertWidget(3, d_icon_widget, 6); // max stretch factor
+// 	dock_layout->insertWidget(4, sys, 3);
+// 	dock_layout->insertWidget(5, clk);
 	
-//     dock_layout->insertWidget(1, d_app_widget, 1);
-//     dock_layout->insertWidget(2, d_icon_widget, 6); // max stretch factor
+//     dock_layout->insertWidget(0, d_app_widget, 1);
+//     dock_layout->insertWidget(0, d_icon_widget); // max stretch factor
 //     dock_layout->insertWidget(3, sys, 3);
 //    dock_layout->insertWidget(5, clk);
+	
+	dock_layout->insertWidget(0, d_menu_widget, 1);    
+	dock_layout->insertWidget(1, d_app_widget, 1);
+	dock_layout->insertWidget(2, d_icon_widget, 6); // max stretch factor
+	dock_layout->insertWidget(3, sys, 3);
+
 
     set_dockmenu(); // at startup, restore category menu on dockbar
     set_dockapp(); // at startup, restore dockapps on dockbar
@@ -84,7 +91,7 @@ Dockbar::~Dockbar()
     delete dock_layout;
     delete icon_layout;
     delete app_layout;
-//     delete menu_layout;
+    delete menu_layout;
     delete d_icon;
 //    delete clk;
     delete app;
@@ -248,7 +255,7 @@ void Dockbar::set_dockapp()
         QString name = rwm->value("name").toString();
         QString exec = rwm->value("exec").toString();
         QString pix = rwm->value("pix").toString();
-        Dockapp *d_app = new Dockapp(name, exec, pix, this);
+        Dockapp *d_app = new Dockapp(name, exec, pix, true, this);
         dock_apps << d_app; // save the dockapp
 
         d_app->setFixedSize(dock_height-2, dock_height-2);
@@ -338,7 +345,7 @@ void Dockbar::create_dock_app(const QString &name, const QString &exec, QWidget 
 {
     Appicon app_icon; // get application icon
     QString pix = app_icon.get_app_icon(name);
-    Dockapp *d_app = new Dockapp(name, exec, pix, parent); // new dockbar application
+    Dockapp *d_app = new Dockapp(name, exec, pix, true, parent); // new dockbar application
     dock_apps << d_app; // save the new dockapp
     // save new dockapp name, path and pix
     rwm->beginGroup("Dockbar");
@@ -363,8 +370,8 @@ void Dockbar::update_style()
     set_geometry();
     update_dockicon_size();
     // update launcher
-    lchr->update_style();
-    lchr->setFixedSize(dock_height-1, dock_height-1);
+//     lchr->update_style();
+//     lchr->setFixedSize(dock_height-1, dock_height-1);
     // update dockicons
     foreach(Dockicon *d_icon, dock_icons)
     d_icon->update_style();

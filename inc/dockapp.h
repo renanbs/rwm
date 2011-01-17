@@ -21,7 +21,7 @@ class Dockapp : public QLabel
     Q_OBJECT
 
 public:
-    Dockapp(const QString &, const QString &, const QString &, QWidget *parent=0);
+    Dockapp(const QString &, const QString &, const QString &, const bool &, QWidget *parent=0);
     ~Dockapp();
     void read_settings();
     void update_style();
@@ -46,6 +46,7 @@ private:
     int dock_height;
     QSettings *rwm;
     QMenu *menu;
+	bool type;	// true - application | false - command
 };
 
 #endif
