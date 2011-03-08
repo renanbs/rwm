@@ -1,14 +1,6 @@
 #ifndef DOCKBARTOP_H
 #define DOCKBARTOP_H
 
-//class Frame;
-//class Dockapp;
-class Dockicon;
-//class Systray;
-class Rwm;
-class Launcher;
-//class Filedialog;
-
 #include <QLabel>
 #include <QSpacerItem>
 #include "../inc/defs.h"
@@ -20,33 +12,44 @@ class Launcher;
 #include "../inc/dateclock.h"
 //#include "filedialog.h"
 
-// class Frame;
-// class Dockapp;
-// class Dockicon;
-// class Systray;
-// class Rwm;
-// class Launcher;
-// class Filedialog;
+//class Frame;
+//class Dockapp;
+class Dockicon;
+class Systray;
+class Rwm;
+class Launcher;
+//class Filedialog;
 
 
 class DockBarTop : public QLabel
 {
-//    Q_OBJECT      // uncomment later
+	Q_OBJECT      // uncomment later
+   
 	public:
 		DockBarTop (Rwm *, QWidget *parent=0);
 		~DockBarTop ();
-		void setGeometryDockTop ();
+		void add_dockicon(Frame *);
+		void remove_dockicon(Frame *);
+		void update_dockicon_size();
 		void readSettings ();
+		void setGeometryDockTop ();
+		void update_style();
+		void remove_dockicon(Window);
+		void update_dockicon_name(const QString &, Frame *);
+		
 		Systray *system_tray() const
 		{
 			return sys;
 		}
-
+		
+	public slots:
+		void remove_dockicon(Dockicon *);
+		
 	private:
-//        QHash<int, Dockicon *> dock_icons; // mapping Frame and Dockicon (key=frame win_id value=Dockicon)
+       QHash<int, Dockicon *> dock_icons; // mapping Frame and Dockicon (key=frame win_id value=Dockicon)
 //        QList<Dockapp *> dock_apps;
 //        QList<Dockmenu *> dock_menus;
-//        int d_length;   //dockicon lenght
+		int d_length;   //dockicon lenght
 		int dockHeight;
 		int dockWidth;
 		int dockPosition;
@@ -56,14 +59,14 @@ class DockBarTop : public QLabel
 		QSettings *rwm;
 //        QMenu *menu;
 		QHBoxLayout *dockLayout;
-//        QHBoxLayout *icon_layout;
+		QHBoxLayout *icon_layout;
 //        QHBoxLayout *app_layout;
 //        QHBoxLayout *menu_layout;
 //        QWidget *d_app_widget;
-//        QWidget *d_icon_widget;
+		QWidget *d_icon_widget;
 //        QWidget *d_menu_widget;
 		Launcher *lchr;
-//        Dockicon *d_icon;
+		Dockicon *d_icon;
 		Systray *sys;
 		Dateclock *clk;
 		Rwm *app;

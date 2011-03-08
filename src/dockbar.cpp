@@ -38,7 +38,7 @@ Dockbar::Dockbar (Rwm *a, QWidget *parent) : QLabel(parent)
     // for set dockicon on dockbar
     d_icon_widget = new QWidget(this);
     // add systray to dockbar
-    sys = new Systray(this);
+//     sys = new Systray(this);
     // add clock to dockbar
 //    clk = new Dateclock(this);
 //    clk->setFixedSize(dock_height*2, dock_height-1);
@@ -76,7 +76,7 @@ Dockbar::Dockbar (Rwm *a, QWidget *parent) : QLabel(parent)
 	dock_layout->insertWidget(0, d_menu_widget, 1);    
 	dock_layout->insertWidget(1, d_app_widget, 1);
 	dock_layout->insertWidget(2, d_icon_widget, 6); // max stretch factor
-	dock_layout->insertWidget(3, sys, 3);
+// 	dock_layout->insertWidget(3, sys, 3);
 
 
     set_dockmenu(); // at startup, restore category menu on dockbar
@@ -89,10 +89,10 @@ Dockbar::~Dockbar()
 {
     delete rwm;
     delete dock_layout;
-    delete icon_layout;
+//     delete icon_layout;
     delete app_layout;
     delete menu_layout;
-    delete d_icon;
+//     delete d_icon;
 //    delete clk;
     delete app;
     delete file_dialog;

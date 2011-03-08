@@ -114,10 +114,10 @@ private:
     //////////////
     QSettings *rwm;
     Dockbar *dock;
+	DockBarTop *dockTop;
     Desk *dsk;
     Frame *frm;
     Categorymenu *cat_menu;
     Filedialog *file_dialog;
-    DockBarTop *dockTop;
 };
 #endif

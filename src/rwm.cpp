@@ -395,8 +395,10 @@ bool Rwm::x11EventFilter(XEvent *event)
         }
         if (event->xdestroywindow.event != event->xdestroywindow.window)
         {
-            dock->system_tray()->remove_sysicon(event->xdestroywindow.window); // check in the System Tray eventually Sysicon still mapped
-            dock->system_tray()->remove_embedder(event->xdestroywindow.window); // remove eventually QX11EmbedContainer
+//             dock->system_tray()->remove_sysicon(event->xdestroywindow.window); // check in the System Tray eventually Sysicon still mapped			
+//             dock->system_tray()->remove_embedder(event->xdestroywindow.window); // remove eventually QX11EmbedContainer
+			dockTop->system_tray()->remove_sysicon(event->xdestroywindow.window); // check in the System Tray eventually Sysicon still mapped			
+            dockTop->system_tray()->remove_embedder(event->xdestroywindow.window); // remove eventually QX11EmbedContainer
             return true;
         }
         qDebug() << "Mapping clients num:" << mapping_clients.size() << "Mapping frames num:" << mapping_frames.size();
@@ -745,7 +747,8 @@ bool Rwm::check_net_sys_tray_for(Window c_win) const
                            AnyPropertyType, &type_ret, &format, &n, &extra, (unsigned char **)&data) == Success && data)
     {
         qDebug() << "_KDE_NET_WM_SYSTEM_TRAY_WINDOW_FOR: WINDOW ADD TO SYSTEM TRAY";
-        dock->system_tray()->add_embed(c_win); // add to Systray
+// 		dock->system_tray()->add_embed(c_win); // add to Systray
+		dockTop->system_tray()->add_embed(c_win); // add to Systray
         XFree(data);
         return true;
     }
