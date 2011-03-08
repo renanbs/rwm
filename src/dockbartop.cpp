@@ -6,7 +6,7 @@ DockBarTop::DockBarTop (Rwm *a, QWidget *parent) : QLabel(parent)
 {
 	app = a;
 	dockLayout = new QHBoxLayout (this);
-	spacer = new QSpacerItem (QApplication::desktop()->width(), height(),  QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
+// 	spacer = new QSpacerItem (QApplication::desktop()->width(), height(),  QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
 	setLayout (dockLayout);
 	dockLayout->setContentsMargins (0, 0, 0, 0);
 	dockLayout->setSpacing (1);

@@ -2,7 +2,7 @@
 #define DOCKBARTOP_H
 
 #include <QLabel>
-#include <QSpacerItem>
+// #include <QSpacerItem>
 #include "../inc/defs.h"
 #include "../inc/launcher.h"
 #include "../inc/systray.h"
@@ -72,7 +72,7 @@ class DockBarTop : public QLabel
 		Rwm *app;
 		Dockapp *shortCut;
 //        Filedialog *file_dialog;
-		QSpacerItem *spacer;
+// 		QSpacerItem *spacer;
 };
 
 #endif // DOCKBARTOP_H

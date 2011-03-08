@@ -558,7 +558,7 @@ bool Rwm::x11EventFilter(XEvent *event)
         mev = &event->xclient;
 		if (event->xclient.message_type == _net_wm_state) 
 		{
-			if (event->xclient.data.l[1] == _netWmStateFullScreen) 
+			if (event->xclient.data.l[1] == (long)_netWmStateFullScreen) 
 			{
 				if (event->xclient.data.l[0] == 1) 
 				{ //go into full screen

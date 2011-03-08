@@ -32,7 +32,7 @@ Dockbar::Dockbar (Rwm *a, QWidget *parent) : QLabel(parent)
 
 	
     // for set category menu on dockbar
-    d_menu_widget = new QWidget(this);
+//     d_menu_widget = new QWidget(this);
     // for set dockapp on dockbar
     d_app_widget = new QWidget(this);
     // for set dockicon on dockbar
@@ -43,11 +43,11 @@ Dockbar::Dockbar (Rwm *a, QWidget *parent) : QLabel(parent)
 //    clk = new Dateclock(this);
 //    clk->setFixedSize(dock_height*2, dock_height-1);
 
-    menu_layout = new QHBoxLayout();
-    d_menu_widget->setLayout(menu_layout);
-    menu_layout->setAlignment(Qt::AlignLeft);
-    menu_layout->setContentsMargins(0, 0, 0, 0);
-    menu_layout->setSpacing(1);
+//     menu_layout = new QHBoxLayout();
+//     d_menu_widget->setLayout(menu_layout);
+//     menu_layout->setAlignment(Qt::AlignLeft);
+//     menu_layout->setContentsMargins(0, 0, 0, 0);
+//     menu_layout->setSpacing(1);
 
     icon_layout = new QHBoxLayout();
     d_icon_widget->setLayout(icon_layout);
@@ -73,14 +73,16 @@ Dockbar::Dockbar (Rwm *a, QWidget *parent) : QLabel(parent)
 //     dock_layout->insertWidget(3, sys, 3);
 //    dock_layout->insertWidget(5, clk);
 	
-	dock_layout->insertWidget(0, d_menu_widget, 1);    
-	dock_layout->insertWidget(1, d_app_widget, 1);
-	dock_layout->insertWidget(2, d_icon_widget, 6); // max stretch factor
+// 	dock_layout->insertWidget(0, d_menu_widget, 1);    
+// 	dock_layout->insertWidget(1, d_app_widget, 1);
+// 	dock_layout->insertWidget(2, d_icon_widget, 6); // max stretch factor
 // 	dock_layout->insertWidget(3, sys, 3);
+	
+	dock_layout->insertWidget(0, d_icon_widget, 6); // max stretch factor
 
 
-    set_dockmenu(); // at startup, restore category menu on dockbar
-    set_dockapp(); // at startup, restore dockapps on dockbar
+//     set_dockmenu(); // at startup, restore category menu on dockbar
+//     set_dockapp(); // at startup, restore dockapps on dockbar
 
     show();
 }
@@ -90,8 +92,8 @@ Dockbar::~Dockbar()
     delete rwm;
     delete dock_layout;
 //     delete icon_layout;
-    delete app_layout;
-    delete menu_layout;
+//     delete app_layout;
+//     delete menu_layout;
 //     delete d_icon;
 //    delete clk;
     delete app;
@@ -388,7 +390,7 @@ void Dockbar::update_style()
         d_app->setFixedSize(dock_height-2, dock_height-2);
     }
     // update sysicons on systray
-    sys->update_style();
+//     sys->update_style();
     // update dateclock
 //     clk->update_style();
 //     clk->setFixedSize(dock_height*2, dock_height-1);
