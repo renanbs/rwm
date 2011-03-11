@@ -7,9 +7,6 @@
 #include "../inc/dateclock.h"
 #include "../inc/paths.h"
 
-
-
-
 ////////////////////////////////////////
 
 Dateclock::Dateclock(QWidget *parent) : QLabel(parent)

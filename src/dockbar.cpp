@@ -79,6 +79,7 @@ Dockbar::Dockbar (Rwm *a, QWidget *parent) : QLabel(parent)
 // 	dock_layout->insertWidget(3, sys, 3);
 	
 	dock_layout->insertWidget(0, d_icon_widget, 6); // max stretch factor
+	dock_layout->insertWidget(1, d_app_widget, 1);
 
 
 //     set_dockmenu(); // at startup, restore category menu on dockbar
