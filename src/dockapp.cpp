@@ -93,3 +93,7 @@ void Dockapp::update_style()
     update();
 }
 
+QString Dockapp::getAppName()
+{
+	return app_name;
+}

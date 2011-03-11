@@ -4,66 +4,48 @@
 
 DockBarTop::DockBarTop (Rwm *a, QWidget *parent) : QLabel(parent)
 {
-    app = a;
+	app = a;
 	fileDialog = app->get_file_dialog();
-    dockLayout = new QHBoxLayout (this);
-// 	spacer = new QSpacerItem (QApplication::desktop()->width()- 50, height(),  QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
-// 	spacer = new QSpacerItem (40, 20,  QSizePolicy::Expanding, QSizePolicy::Minimum);
-//     setLayout (dockLayout);
-    dockLayout->setContentsMargins (0, 0, 0, 0);
-    dockLayout->setSpacing (1);
-    dockLayout->setSizeConstraint (QLayout::SetNoConstraint);
-    setAcceptDrops (true); // for drag and drop from Filedialog
-    setAttribute (Qt::WA_AlwaysShowToolTips);
-    readSettings ();
+	dockLayout = new QHBoxLayout (this);
+	dockLayout->setContentsMargins (0, 0, 0, 0);
+	dockLayout->setSpacing (1);
+	dockLayout->setSizeConstraint (QLayout::SetNoConstraint);
+	setAcceptDrops (true); // for drag and drop from Filedialog
+	setAttribute (Qt::WA_AlwaysShowToolTips);
+	readSettings ();
 
-    rightClickMenu = new QMenu (this);
-    rightClickMenu->addAction (QIcon (appShorcutPix), tr("Add App to Dock Bar..."));
-    connect (rightClickMenu, SIGNAL (triggered(QAction *)), this, SLOT(runRightClickMenu(QAction*)));
+	rightClickMenu = new QMenu (this);
+	rightClickMenu->addAction (QIcon (appShorcutPix), tr("Add App to Dock Bar..."));
+	connect (rightClickMenu, SIGNAL (triggered(QAction *)), this, SLOT(runRightClickMenu(QAction*)));
 
-    setGeometryDockTop();
+	setGeometryDockTop();
 
     // add launcher to dockbar
 //     lchr = new Launcher (a, this);
 	lchr = new Launcher (a);
-    lchr->setFixedSize (dockHeight - 1, dockHeight - 1);
+	lchr->setFixedSize (dockHeight - 1, dockHeight - 1);
 
     //Dock Apps
-//    // for set category menu on dockbar
-//    d_menu_widget = new QWidget(this);
 //    // for set dockapp on dockbar
 	appWidget = new QWidget();
-//    // for set dockicon on dockbar
-// 	d_icon_widget = new QWidget(this);
     // add systray to dockbar
 	sys = new Systray(this);
 //     add clock to dockbar
 	clk = new Dateclock(this);
 	clk->setFixedSize(dockHeight * 2, dockHeight - 1);
 
-
 	appLayout = new QHBoxLayout();
 	appWidget->setLayout(appLayout);
 	appLayout->setAlignment(Qt::AlignLeft);
 	appLayout->setContentsMargins(0, 0, 0, 0);
 	appLayout->setSpacing(1);
-//
-//    dockLayout->insertWidget(0, lchr);
-//    dock_layout->insertWidget(1, d_menu_widget, 1);
-//    dock_layout->insertWidget(2, appWidget, 1);
-//    dock_layout->insertWidget(3, d_icon_widget, 6); // max stretch factor
-//    dock_layout->insertWidget(4, sys, 3);
-//    dock_layout->insertWidget(5, clk);
-//    dockLayout->insertWidget(1, spacer);
-//    dockLayout->insertWidget(1, clk);
+
 
 	dockLayout->addWidget (lchr);
 	dockLayout->addWidget (appWidget);
 	dockLayout->addWidget (sys);
 	dockLayout->addWidget (clk);
 
-// 	dockLayout->addStretch(1);
-//    set_dockmenu(); // at startup, restore category menu on dockbar
 	restoreDockApps (); // at startup, restore dockapps on dockbar
 	
 	setLayout (dockLayout);
@@ -77,19 +59,14 @@ DockBarTop::~DockBarTop ()
 	delete rwm;
 	delete dockLayout;
 	delete app;
-// 	delete shortCut;
-//    delete icon_layout;
-//    delete app_layout;
-//    delete menu_layout;
-//    delete d_icon;
 	delete clk;
 	delete fileDialog;
 }
 
 void DockBarTop::setGeometryDockTop()
 {
-    setPixmap (dockPix);
-    setScaledContents (true);
+	setPixmap (dockPix);
+	setScaledContents (true);
 
 //  set dock width = to the desktop width
     dockWidth = QApplication::desktop ()->width ();
@@ -124,79 +101,6 @@ void DockBarTop::readSettings()
     appShorcutPix = stl_path + styleDockTop->value ("app_link_pix").toString();
     styleDockTop->endGroup (); //Other
 }
-
-// void DockBarTop::update_dockicon_name(const QString &name, Frame *frm)
-// {
-//     if (dock_icons.contains(frm->winId())) // if already present
-//     {
-//         Dockicon *d_icon = dock_icons.value(frm->winId());
-//         d_icon->update_name(name);
-//     }
-// }
-
-// void DockBarTop::add_dockicon(Frame *frm)
-// {
-//     if (! dock_icons.contains(frm->winId())) // if not already present
-//     {
-//         d_icon = new Dockicon(frm, sys);
-//         dock_icons.insert(frm->winId(), d_icon); // save the Frame winId/Dockicon
-//         qDebug() << "Dockicon added to Dockbar. Frame:" << frm->winId();
-//         update_dockicon_size();
-//         connect(d_icon, SIGNAL(destroy_dockicon(Dockicon *)), this, SLOT(remove_dockicon(Dockicon *))); // delete iconize dockicon and update dockbar size
-//     }
-// }
-
-// void DockBarTop::remove_dockicon(Dockicon *d_icon) // remove from "Close" right button mouse on Dockbar
-// {
-//     dock_icons.remove(dock_icons.key(d_icon));
-//     qDebug() << "Dockicon remove. Num. after deletion:" << dock_icons.size();
-//     d_icon->close();
-//     update_dockicon_size();
-// }
-// 
-// void DockBarTop::remove_dockicon(Frame *frm)
-// {
-//     if (dock_icons.contains(frm->winId())) // remove Dockicon if present
-//     {
-//         Dockicon *d_icon = dock_icons.value(frm->winId());
-//         remove_dockicon(d_icon);
-//     }
-// }
-
-
-
-// void DockBarTop::remove_dockicon(Window win_id) //remove from "Close" cmd on Systray (_NET_SYSTEM_TRAY protocol) if Dockicon is still mapped
-// {
-//     if (dock_icons.contains(win_id))
-//     {
-//         Dockicon *d_icon = dock_icons.value(win_id);
-//         dock_icons.remove(win_id);
-//         qDebug() << "Dockicon remove from Systray cmd. Num. after deletion:" << dock_icons.size();
-//         d_icon->close();
-//         update_dockicon_size();
-//     }
-// }
-
-// void DockBarTop::update_dockicon_size()
-// {
-//     if (! dock_icons.isEmpty())
-//     {
-//         int num = dock_icons.size();
-//         qDebug() << "Dockicon num:" << num;
-//         d_length = d_icon_widget->width()/num;
-// 
-//         if (d_length >= d_icon_widget->width()/3) // max dockicon size = d_icon_widget size/3
-//             d_length = d_icon_widget->width()/3;
-// 
-//         qDebug() << "Dockicon length:" << d_length;
-// 
-//         foreach(Dockicon *d_icon, dock_icons)
-//         {
-//             d_icon->setFixedSize(d_length-2, dockHeight-5);
-//             icon_layout->addWidget(d_icon);
-//         }
-//     }
-// }
 
 void DockBarTop::mousePressEvent (QMouseEvent *event)
 {
@@ -281,5 +185,13 @@ void DockBarTop::removeDockApp (Dockapp *dApp) // remove from "Delete link" righ
 {
     dockApps.removeOne(dApp);
     qDebug() << "Dockapp remove. Num. after deletion:" << dockApps.size();
-    dApp->close();
+
+	QString name = dApp->getAppName();
+    rwm->beginGroup("DockbarTop");
+    rwm->beginGroup("App");
+    rwm->remove(name);
+    rwm->endGroup(); // App
+    rwm->endGroup(); // Dockbar
+	
+	dApp->close();
 }

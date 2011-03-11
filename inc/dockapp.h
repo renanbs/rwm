@@ -20,33 +20,34 @@ class Dockapp : public QLabel
 {
     Q_OBJECT
 
-public:
-    Dockapp(const QString &, const QString &, const QString &, const bool &, QWidget *parent=0);
-    ~Dockapp();
-    void read_settings();
-    void update_style();
+	public:
+		Dockapp(const QString &, const QString &, const QString &, const bool &, QWidget *parent=0);
+		~Dockapp();
+		void read_settings();
+		void update_style();
+		QString getAppName();
+		
+	protected:
+		void mousePressEvent(QMouseEvent *);
+		void enterEvent(QEvent *);
+		void leaveEvent(QEvent *);
 
-protected:
-    void mousePressEvent(QMouseEvent *);
-    void enterEvent(QEvent *);
-    void leaveEvent(QEvent *);
+	signals:
+		void destroy_dockapp(Dockapp *);
 
-signals:
-    void destroy_dockapp(Dockapp *);
+	public slots:
+		void del_app();
 
-public slots:
-    void del_app();
-
-private:
-    QString app_name;
-    QString app_exec;
-    QString delete_link_pix;
-    QString d_app_pix;
-    QPoint mousepos;
-    int dock_height;
-    QSettings *rwm;
-    QMenu *menu;
-	bool type;	// true - application | false - command
+	private:
+		QString app_name;
+		QString app_exec;
+		QString delete_link_pix;
+		QString d_app_pix;
+		QPoint mousepos;
+		int dock_height;
+		QSettings *rwm;
+		QMenu *menu;
+		bool type;	// true - application | false - command
 };
 
 #endif
