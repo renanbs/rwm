@@ -6,6 +6,7 @@
 
 #include "../inc/runner.h"
 #include "../inc/paths.h"
+#include "../inc/frame.h"
 
 ////////////////////////////////////////
 
