@@ -40,6 +40,8 @@ class DockBarTop : public QLabel
 
 	protected:
 		void mousePressEvent(QMouseEvent *);
+		void dragEnterEvent(QDragEnterEvent *);
+		void dragMoveEvent(QDragMoveEvent *);
 
 	private:
 		QList<Dockapp *> dockApps;

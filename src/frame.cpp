@@ -13,6 +13,7 @@ Frame::Frame(Window w, const QString &type, Dockbar *dock, Desk *desk, QWidget *
 {
     dockbar = dock;
     desktop = desk;
+	minimized = false;
     frame_type = type;
     c_win = w;
     read_settings();
@@ -864,6 +865,7 @@ void Frame::minimize_it()
     XUnmapWindow(QX11Info::display(), winId()); // only the frame, the client is already unmapped...
     state = "WithdrawnState";
     set_state(0);
+	minimized = true;
     // minimize action
     qDebug() << "Frame unmapped (unmap):" << winId() << "Name:" << wm_name << "Client:" << c_win << "State:" << state;
 }
@@ -928,3 +930,13 @@ void Frame::dropEvent(QDropEvent *event)
     qDebug() << "Drop event contents:" << event->mimeData()->text().toLatin1().data();
 }
 
+
+void Frame::setMinimized(bool condition)
+{
+	minimized = condition;
+}
+
+bool Frame::getMinimized()
+{
+	return minimized;
+}

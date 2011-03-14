@@ -46,7 +46,7 @@ DockBarTop::DockBarTop (Rwm *a, QWidget *parent) : QLabel(parent)
 	dockLayout->addWidget (sys);
 	dockLayout->addWidget (clk);
 
-	restoreDockApps (); // at startup, restore dockapps on dockbar
+	restoreDockApps (); // at startup, restore dockApps on dockbar
 	
 	setLayout (dockLayout);
 	
@@ -66,6 +66,7 @@ DockBarTop::~DockBarTop ()
 void DockBarTop::setGeometryDockTop()
 {
 	setPixmap (dockPix);
+	qDebug () << dockPix;
 	setScaledContents (true);
 
 //  set dock width = to the desktop width
@@ -94,7 +95,7 @@ void DockBarTop::readSettings()
     dockPix = stl_path + styleDockTop->value ("dockPix").toString();
     dockHeight = styleDockTop->value ("dockHeight").toInt();
     dockWidth = styleDockTop->value ("dockWidth").toInt();
-    dockPosition = styleDockTop->value ("dockPosition").toInt();
+	dockPosition = styleDockTop->value ("dockPosition").toInt();
     styleDockTop->endGroup(); //DockBarTop
     styleDockTop->beginGroup ("Other");
 	// Path to the picture used in the right click menu to add applications to the dock bar
@@ -108,6 +109,18 @@ void DockBarTop::mousePressEvent (QMouseEvent *event)
     {
         rightClickMenu->exec (event->globalPos ());
     }
+}
+
+void DockBarTop::dragEnterEvent(QDragEnterEvent *event)
+{
+    qDebug() << "dragEnterEvent";
+    event->acceptProposedAction();
+}
+
+void DockBarTop::dragMoveEvent(QDragMoveEvent *event)
+{
+    qDebug() << "dragMoveEvent";
+    event->acceptProposedAction();
 }
 
 void DockBarTop::runRightClickMenu (QAction *act)
@@ -183,15 +196,16 @@ void DockBarTop::createDockApp(const QString &name, const QString &exec, QWidget
 
 void DockBarTop::removeDockApp (Dockapp *dApp) // remove from "Delete link" right button mouse on Dockbar
 {
-    dockApps.removeOne(dApp);
-    qDebug() << "Dockapp remove. Num. after deletion:" << dockApps.size();
+	dockApps.removeOne(dApp);
+	qDebug() << "Dockapp remove. Num. after deletion:" << dockApps.size();
 
+	// Deleting info from .cfg file
 	QString name = dApp->getAppName();
-    rwm->beginGroup("DockbarTop");
-    rwm->beginGroup("App");
-    rwm->remove(name);
-    rwm->endGroup(); // App
-    rwm->endGroup(); // Dockbar
-	
+	rwm->beginGroup("DockbarTop");
+	rwm->beginGroup("App");
+	rwm->remove(name);
+	rwm->endGroup(); // App
+	rwm->endGroup(); // Dockbar
+
 	dApp->close();
 }

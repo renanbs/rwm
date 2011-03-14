@@ -97,6 +97,9 @@ void Settings::gui_tab()
     style_combo = new QComboBox(this);
     style->setText(tr("GUI Style:"));
     QStringList styles = QStyleFactory::keys();// get Qt style list
+// 	QString sty;
+// 	for (int i =0; i < styles.size(); i++)
+// 		sty = styles.value(i);
     styles.sort();
     style_combo->addItems(styles);
     int index = style_combo->findText(current_style, Qt::MatchFixedString);

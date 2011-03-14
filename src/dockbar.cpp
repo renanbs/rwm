@@ -23,6 +23,8 @@ Dockbar::Dockbar (Rwm *a, QWidget *parent) : QLabel(parent)
     read_settings();
     init();
     set_geometry();
+	
+// 	dock_width = QApplication::desktop()->width() / 2;
 
     // add launcher to dockbar
 //     lchr = new Launcher(a, this);
@@ -55,11 +57,11 @@ Dockbar::Dockbar (Rwm *a, QWidget *parent) : QLabel(parent)
     icon_layout->setContentsMargins(5, 0, 5, 0);
     icon_layout->setSpacing(1);
 
-    app_layout = new QHBoxLayout();
-    d_app_widget->setLayout(app_layout);
-    app_layout->setAlignment(Qt::AlignLeft);
-    app_layout->setContentsMargins(5, 0, 5, 0);
-    app_layout->setSpacing(1);
+//     app_layout = new QHBoxLayout();
+//     d_app_widget->setLayout(app_layout);
+//     app_layout->setAlignment(Qt::AlignLeft);
+//     app_layout->setContentsMargins(5, 0, 5, 0);
+//     app_layout->setSpacing(1);
 
 // 	dock_layout->insertWidget(0, lchr);
 // 	dock_layout->insertWidget(1, d_menu_widget, 1);    
@@ -79,7 +81,7 @@ Dockbar::Dockbar (Rwm *a, QWidget *parent) : QLabel(parent)
 // 	dock_layout->insertWidget(3, sys, 3);
 	
 	dock_layout->insertWidget(0, d_icon_widget, 6); // max stretch factor
-	dock_layout->insertWidget(1, d_app_widget, 1);
+// 	dock_layout->insertWidget(1, d_app_widget, 1);
 
 
 //     set_dockmenu(); // at startup, restore category menu on dockbar
@@ -115,7 +117,8 @@ void Dockbar::read_settings()
     style->beginGroup("Dockbar");
     dock_pix = stl_path + style->value("dock_pix").toString();
     dock_height = style->value("dock_height").toInt();
-    dock_width = style->value("dock_width").toInt();
+//     dock_width = style->value("dock_width").toInt();
+	dock_width = (int)QApplication::desktop ()->width () * 0.75;
     dock_position = style->value("dock_position").toInt();
     style->endGroup(); //Dockbar
     style->beginGroup("Other");
@@ -125,9 +128,9 @@ void Dockbar::read_settings()
 
 void Dockbar::init()
 {
-    menu = new QMenu(this);
-    menu->addAction(QIcon(app_link_pix), tr("New link to application"));
-    connect(menu, SIGNAL(triggered(QAction *)), this, SLOT(run_menu(QAction *)));
+//     menu = new QMenu(this);
+//     menu->addAction(QIcon(app_link_pix), tr("New link to application"));
+//     connect(menu, SIGNAL(triggered(QAction *)), this, SLOT(run_menu(QAction *)));
 }
 
 void Dockbar::set_geometry()
@@ -226,71 +229,72 @@ void Dockbar::update_dockicon_size()
 
 void Dockbar::run_menu(QAction *act)
 {
-    if (act->text().compare(tr("New link to application")) == 0)
-    {
-        file_dialog->set_type(tr("New link to application:"), "OK_Close");
-
-        if (file_dialog->exec() == QDialog::Accepted)
-        {
-            QString path = file_dialog->get_selected_path();
-            QString name = file_dialog->get_selected_name();
-            QPoint pos = menu->pos();
-            QFileInfo pathinfo(path+name);
-
-            if (! name.isEmpty() && pathinfo.isExecutable())
-            {
-                create_dock_app(name, path, this);
-            }
-        }
-    }
+//     if (act->text().compare(tr("New link to application")) == 0)
+//     {
+//         file_dialog->set_type(tr("New link to application:"), "OK_Close");
+// 
+//         if (file_dialog->exec() == QDialog::Accepted)
+//         {
+//             QString path = file_dialog->get_selected_path();
+//             QString name = file_dialog->get_selected_name();
+//             QPoint pos = menu->pos();
+//             QFileInfo pathinfo(path+name);
+// 
+//             if (! name.isEmpty() && pathinfo.isExecutable())
+//             {
+//                 create_dock_app(name, path, this);
+//             }
+//         }
+//     }
 }
 
 void Dockbar::set_dockapp()
 {
-    // read dockapp name, path and pixmap and restore on dockbar
-    rwm->beginGroup("Dockbar");
-    rwm->beginGroup("App");
-
-    for (int i = 0; i < rwm->childGroups().size(); i++)
-    {
-        rwm->beginGroup(rwm->childGroups().value(i)); // App name
-
-        QString name = rwm->value("name").toString();
-        QString exec = rwm->value("exec").toString();
-        QString pix = rwm->value("pix").toString();
-        Dockapp *d_app = new Dockapp(name, exec, pix, true, this);
-        dock_apps << d_app; // save the dockapp
-
-        d_app->setFixedSize(dock_height-2, dock_height-2);
-        app_layout->addWidget(d_app);
-
-        connect(d_app, SIGNAL(destroy_dockapp(Dockapp *)), this, SLOT(remove_dockapp(Dockapp *))); // delete dockapp form list
-
-        rwm->endGroup(); // App name
-    }
-    rwm->endGroup(); //App
-    rwm->endGroup(); //Dockapp
+//     // read dockapp name, path and pixmap and restore on dockbar
+//     rwm->beginGroup("Dockbar");
+//     rwm->beginGroup("App");
+// 
+//     for (int i = 0; i < rwm->childGroups().size(); i++)
+//     {
+//         rwm->beginGroup(rwm->childGroups().value(i)); // App name
+// 
+//         QString name = rwm->value("name").toString();
+//         QString exec = rwm->value("exec").toString();
+//         QString pix = rwm->value("pix").toString();
+//         Dockapp *d_app = new Dockapp(name, exec, pix, true, this);
+//         dock_apps << d_app; // save the dockapp
+// 
+//         d_app->setFixedSize(dock_height-2, dock_height-2);
+//         app_layout->addWidget(d_app);
+// 
+//         connect(d_app, SIGNAL(destroy_dockapp(Dockapp *)), this, SLOT(remove_dockapp(Dockapp *))); // delete dockapp form list
+// 
+//         rwm->endGroup(); // App name
+//     }
+//     rwm->endGroup(); //App
+//     rwm->endGroup(); //Dockapp
 }
 
 void Dockbar::set_dockmenu()
 {
-    // add category menu on Dockbar
-    QList <QMenu *> menu_list = app->get_category_menu()->get_menus();
-    for (int i = 0; i <  menu_list.size(); ++i)
-    {
-        Dockmenu *cat_menu = new Dockmenu(menu_list.at(i));
-        dock_menus << cat_menu; // save the category menu
-        cat_menu->setFixedSize(dock_height-2, dock_height-2);
-        qDebug() << "Add category menu on Dockbar:" << menu_list.at(i)->title() << menu_list.at(i)->icon();
-        menu_layout->addWidget(cat_menu);
-    }
+//     // add category menu on Dockbar
+//     QList <QMenu *> menu_list = app->get_category_menu()->get_menus();
+//     for (int i = 0; i <  menu_list.size(); ++i)
+//     {
+//         Dockmenu *cat_menu = new Dockmenu(menu_list.at(i));
+//         dock_menus << cat_menu; // save the category menu
+//         cat_menu->setFixedSize(dock_height-2, dock_height-2);
+//         qDebug() << "Add category menu on Dockbar:" << menu_list.at(i)->title() << menu_list.at(i)->icon();
+//         menu_layout->addWidget(cat_menu);
+//     }
 }
 
 void Dockbar::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::RightButton)
     {
-        menu->exec(event->globalPos());
+		qDebug() << "Button pressed on dockbar";
+//         menu->exec(event->globalPos());
     }
 }
 
@@ -308,63 +312,63 @@ void Dockbar::dragMoveEvent(QDragMoveEvent *event)
 
 void Dockbar::dropEvent(QDropEvent *event) // add apps on Dockbar by drag&drop from Filedialog
 {
-    if (event->proposedAction() == Qt::LinkAction)
-    {
-        qDebug() << "dropEvent";
-        QAbstractItemView *abstract_view = (QAbstractItemView *)event->source();
-        QFileSystemModel *fs_model = (QFileSystemModel *)abstract_view->model();
-        QList<QModelIndex> selection = abstract_view->selectionModel()->selectedIndexes();
-        QModelIndex index;
-
-        foreach(index, selection)
-        {
-            abstract_view->selectionModel()->setCurrentIndex(index, QItemSelectionModel::SelectCurrent);
-
-            QString name = fs_model->fileInfo(index).fileName();
-            qDebug() << "Selected name:" << name;
-
-            if (! fs_model->isDir(index)) // is not a directory
-            {
-                QString filepath = fs_model->fileInfo(index).filePath();
-                QFileInfo pathinfo(filepath);
-                QString path = pathinfo.absolutePath(); // remove the file name from path
-                path.append("/"); // add slash at the end
-                qDebug() << "Selected path:" << path;
-
-                QFileInfo nameinfo(name);
-                Fileicon *prov = (Fileicon *)fs_model->iconProvider();
-                QString icon = prov->icon_type(nameinfo); // get the file icon
-
-                if (! name.isEmpty() && pathinfo.isExecutable()) // if is an executable
-                {
-                    create_dock_app(name, path, this);
-                }
-            }
-        }
-    }
+//     if (event->proposedAction() == Qt::LinkAction)
+//     {
+//         qDebug() << "dropEvent";
+//         QAbstractItemView *abstract_view = (QAbstractItemView *)event->source();
+//         QFileSystemModel *fs_model = (QFileSystemModel *)abstract_view->model();
+//         QList<QModelIndex> selection = abstract_view->selectionModel()->selectedIndexes();
+//         QModelIndex index;
+// 
+//         foreach(index, selection)
+//         {
+//             abstract_view->selectionModel()->setCurrentIndex(index, QItemSelectionModel::SelectCurrent);
+// 
+//             QString name = fs_model->fileInfo(index).fileName();
+//             qDebug() << "Selected name:" << name;
+// 
+//             if (! fs_model->isDir(index)) // is not a directory
+//             {
+//                 QString filepath = fs_model->fileInfo(index).filePath();
+//                 QFileInfo pathinfo(filepath);
+//                 QString path = pathinfo.absolutePath(); // remove the file name from path
+//                 path.append("/"); // add slash at the end
+//                 qDebug() << "Selected path:" << path;
+// 
+//                 QFileInfo nameinfo(name);
+//                 Fileicon *prov = (Fileicon *)fs_model->iconProvider();
+//                 QString icon = prov->icon_type(nameinfo); // get the file icon
+// 
+//                 if (! name.isEmpty() && pathinfo.isExecutable()) // if is an executable
+//                 {
+//                     create_dock_app(name, path, this);
+//                 }
+//             }
+//         }
+//     }
 }
 
 void Dockbar::create_dock_app(const QString &name, const QString &exec, QWidget *parent)
 {
-    Appicon app_icon; // get application icon
-    QString pix = app_icon.get_app_icon(name);
-    Dockapp *d_app = new Dockapp(name, exec, pix, true, parent); // new dockbar application
-    dock_apps << d_app; // save the new dockapp
-    // save new dockapp name, path and pix
-    rwm->beginGroup("Dockbar");
-    rwm->beginGroup("App");
-    rwm->beginGroup(name);
-    rwm->setValue("name", name);
-    rwm->setValue("exec", exec);
-    rwm->setValue("pix", pix);
-    rwm->endGroup(); //name
-    rwm->endGroup(); //App
-    rwm->endGroup(); //Dockbar
-
-    d_app->setFixedSize(dock_height-2, dock_height-2);
-    app_layout->addWidget(d_app);
-
-    connect(d_app, SIGNAL(destroy_dockapp(Dockapp *)), this, SLOT(remove_dockapp(Dockapp *))); // delete dockapp form list
+//     Appicon app_icon; // get application icon
+//     QString pix = app_icon.get_app_icon(name);
+//     Dockapp *d_app = new Dockapp(name, exec, pix, true, parent); // new dockbar application
+//     dock_apps << d_app; // save the new dockapp
+//     // save new dockapp name, path and pix
+//     rwm->beginGroup("Dockbar");
+//     rwm->beginGroup("App");
+//     rwm->beginGroup(name);
+//     rwm->setValue("name", name);
+//     rwm->setValue("exec", exec);
+//     rwm->setValue("pix", pix);
+//     rwm->endGroup(); //name
+//     rwm->endGroup(); //App
+//     rwm->endGroup(); //Dockbar
+// 
+//     d_app->setFixedSize(dock_height-2, dock_height-2);
+//     app_layout->addWidget(d_app);
+// 
+//     connect(d_app, SIGNAL(destroy_dockapp(Dockapp *)), this, SLOT(remove_dockapp(Dockapp *))); // delete dockapp form list
 }
 
 void Dockbar::update_style()
@@ -379,17 +383,17 @@ void Dockbar::update_style()
     foreach(Dockicon *d_icon, dock_icons)
     d_icon->update_style();
     // update category menus
-    foreach(Dockmenu *d_menu, dock_menus)
-    {
-        d_menu->update_style();
-        d_menu->setFixedSize(dock_height-2, dock_height-2);
-    }
+//     foreach(Dockmenu *d_menu, dock_menus)
+//     {
+//         d_menu->update_style();
+//         d_menu->setFixedSize(dock_height-2, dock_height-2);
+//     }
     // update dockapps
-    foreach(Dockapp *d_app, dock_apps)
-    {
-        d_app->update_style();
-        d_app->setFixedSize(dock_height-2, dock_height-2);
-    }
+//     foreach(Dockapp *d_app, dock_apps)
+//     {
+//         d_app->update_style();
+//         d_app->setFixedSize(dock_height-2, dock_height-2);
+//     }
     // update sysicons on systray
 //     sys->update_style();
     // update dateclock

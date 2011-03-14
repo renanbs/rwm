@@ -38,19 +38,14 @@ void Launcher::paintEvent(QPaintEvent *)
 {
 	QPainter painter(this);
 	painter.setRenderHint(QPainter::Antialiasing);
-// 	painter.setPen(Qt::white);
-// 	painter.setPen(QPen(QBrush(QColor::Rgb), 1, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-// 	painter.drawRoundedRect(1, 1, 23, 23, 5, 5);
-// 	painter.drawPixmap ( QRect(0, 0, 23, 23), 
-// 						 QPixmap(launcher_pix).scaled(20, 20, Qt::IgnoreAspectRatio, Qt::SmoothTransformation), 
-// 						 QRect(0, 0, 25, 25));
-// 	painter.drawPixmap(0, 0, QPixmap(launcher_pix).scaled(20, 20, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 	painter.setRenderHint(QPainter::SmoothPixmapTransform);
     
 	if (zoom)
 		painter.drawPixmap(1, 1, QPixmap(launcher_pix).scaled(39, 39, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 	else
 		painter.drawPixmap(2, 2, QPixmap(launcher_pix).scaled(35, 35, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));	
+	
+	update();
 }
 
 void Launcher::read_settings()

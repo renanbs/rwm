@@ -61,6 +61,9 @@ public:
     void read_settings(); // from "rwm.cfg"
 	void saveDimension();		// save dimension and position before entering Full Screen
 	void restoreDimension();	// restore dimension and position after leaving Full Screen 
+	void setMinimized(bool condition);
+	bool getMinimized();
+	
     WId cl_win()
     {
         return(c_win);
@@ -172,6 +175,7 @@ private:
     int dockHeight;				// Dockbar Top height
     int dockPosition;			// Dockbar Top position (top, bottom)
     bool maximized;             // maximize window
+    bool minimized;				// used on the dockIcon class
     bool splash;                // splash window
     bool shaped;                // nonrectangular window
     QString state;              // window state (Normal, Iconic, Withdrawn)
