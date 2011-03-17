@@ -12,8 +12,7 @@
 Manager::Manager(QWidget *parent) : QDialog(parent)
 {
     // get style path
-//    rwm = new QSettings(QCoreApplication::applicationDirPath() + "/rwm.cfg", QSettings::IniFormat, this);
-    rwm = new QSettings(Paths::getConfigPath() + "/rwm.cfg", QSettings::IniFormat, this);
+    rwm = new QSettings(Paths::getConfigPath() + "rwm.cfg", QSettings::IniFormat, this);
     rwm->beginGroup("Style");
     stl_name = rwm->value("name").toString();
     stl_path = rwm->value("path").toString();

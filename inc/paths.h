@@ -39,10 +39,13 @@ class Paths
 
         //!  Tries to find the path where rwm shoud save it's configuration files,
         //! if it doesn't exist, create the directory structure
-        static void findAndCreateConfigPath();
+        static bool findAndCreateStructurePath();
 
         //! Return the path where rwm should save its config files
         static QString getConfigPath();
+		
+		//! Return the path where everything is
+		static QString getPath();
 
         //! Return the path where rwm should find some image files
         static QString getImagesPath();

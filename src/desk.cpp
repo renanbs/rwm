@@ -39,7 +39,7 @@ void Desk::read_settings()
 {
     // get style path
 //    rwm = new QSettings(QCoreApplication::applicationDirPath() + "/rwm.cfg", QSettings::IniFormat, this);
-    rwm = new QSettings(Paths::getConfigPath() + "/rwm.cfg", QSettings::IniFormat, this);
+    rwm = new QSettings(Paths::getConfigPath() + "rwm.cfg", QSettings::IniFormat, this);
     rwm->beginGroup("Style");
     QString stl_name = rwm->value("name").toString();
     QString stl_path = rwm->value("path").toString();
@@ -156,7 +156,7 @@ void Desk::set_desk_icons()
 //    else
 //        point = QPoint (0, 50);
 	QPoint point;
-        QString caminho = Paths::getDataPath() + "desktopIconPosition.xml";
+        QString caminho = Paths::getConfigPath() + "desktopIconPosition.xml";
         QVariant varPoint = XmlParser::readXml (caminho, "trash", "position", "x");
 	point.setX(varPoint.toInt());
 

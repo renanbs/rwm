@@ -33,8 +33,7 @@ void Trash::init ()
 void Trash::read_settings ()
 {
     // get style path
-//    rwm = new QSettings (QCoreApplication::applicationDirPath () + "/rwm.cfg", QSettings::IniFormat, this);
-    rwm = new QSettings (Paths::getConfigPath () + "/rwm.cfg", QSettings::IniFormat, this);
+    rwm = new QSettings (Paths::getConfigPath () + "rwm.cfg", QSettings::IniFormat, this);
     rwm->beginGroup ("Style");
     stl_name = rwm->value ("name").toString ();
     stl_path = rwm->value ("path").toString ();
@@ -100,9 +99,9 @@ void Trash::mouseReleaseEvent(QMouseEvent *event)
     sy.setNum(y);
 	// This test have to go to the first constructor call
 		// update file
-	XmlParser::updateXml(Paths::getDataPath() + "/desktopIconPosition.xml",
+	XmlParser::updateXml(Paths::getConfigPath() + "/desktopIconPosition.xml",
 						 "system_desktop_icons", "trash", "position", "x", sx);
-	XmlParser::updateXml(Paths::getDataPath() + "/desktopIconPosition.xml",
+	XmlParser::updateXml(Paths::getConfigPath() + "/desktopIconPosition.xml",
 						 "system_desktop_icons", "trash", "position", "y", sy);
 }
 

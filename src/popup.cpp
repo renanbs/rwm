@@ -22,7 +22,6 @@ PopupWindow::PopupWindow(QWidget *parent)
     layout->addWidget(msgs);
     layout->addWidget(closeButton);
     setLayout(layout);
-
 //    setWindowTitle(tr("Preview"));
 }
 

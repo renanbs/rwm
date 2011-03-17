@@ -26,8 +26,7 @@ Dockmenu::~Dockmenu()
 void Dockmenu::read_settings()
 {
     // get style path
-//    QSettings *rwm = new QSettings(QCoreApplication::applicationDirPath() + "/rwm.cfg", QSettings::IniFormat, this);
-    QSettings *rwm = new QSettings(Paths::getConfigPath() + "/rwm.cfg", QSettings::IniFormat, this);
+    QSettings *rwm = new QSettings(Paths::getConfigPath() + "rwm.cfg", QSettings::IniFormat, this);
     rwm->beginGroup("Style");
     QString stl_name = rwm->value("name").toString();
     QString stl_path = rwm->value("path").toString();

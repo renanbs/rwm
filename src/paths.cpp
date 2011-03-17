@@ -33,21 +33,19 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 DIRECTORY STRUCTURE TO FOLLOW:
 
 User theme directory definition:
-  $home/USER/.rwm/themes: Contain only xml files with the theme description.
-  $home/USER/.rwm/images: Contain directories with the same name of the xml file theme name.
+  $home/USER/.config/rwm/themes: Contain only xml files with the theme description.
+  $home/USER/.config/rwm/images: Contain directories with the same name of the xml file theme name.
                         The images for each theme are inside.
 
 Documentation definition:
-  $home/USER/.rwm/docs/$locale - Contains the documentation to every locale
+  $home/USER/.config/rwm/docs/$locale - Contains the documentation to every locale
 
 Translation directory definition:
-  $home/USER/.rwm/translations: Contains the files with the translations of the system rwm_locale_country.ts
+  $home/USER/.config/rwm/translations: Contains the files with the translations of the system rwm_locale_country.ts
 
-Shortcut directory definition:
-  $home/USER/.rwm/shortcuts: Contains a xml file with the default shortcuts and others with the user.
 
 Data definition:
-  $home/USER/.rwm/general: Several xml files with configuration.
+  $home/USER/.config/rwm/config: Several xml files with configuration.
 */
 
 #include "../inc/paths.h"
@@ -70,27 +68,33 @@ QString Paths::getDataPath()
 
 QString Paths::getTranslationPath()
 {
-    return getConfigPath() + "/translations/";
+    return getPath() + "/translations/";
 }
 
 QString Paths::getDocPath()
 {
-    return getConfigPath() + "/docs";
+    return getPath() + "/docs/";
 }
 
 QString Paths::getThemesPath()
 {
-    return getConfigPath() + "/themes/";
+    return getPath() + "/themes/";
 }
 
 QString Paths::getShortcutsPath()
 {
-    return getConfigPath() + "/shortcuts/";
+    return getPath() + "/shortcuts/";
 }
 
 QString Paths::getImagesPath()
 {
-    return getConfigPath() + "/images/";
+    return getPath() + "/images/";
+}
+
+
+QString Paths::getConfigPath()
+{
+	return getPath() + "/config/";
 }
 
 QString Paths::getQtTranslationPath()
@@ -103,7 +107,7 @@ QString Paths::doc(QString file, QString locale)
     if (locale.isEmpty())
         locale = QLocale::system().name();
 
-    QString f = getDocPath() + "/" + locale + "/" + file;
+    QString f = getDocPath() + locale + "/" + file;
     qDebug("Helper:doc: checking '%s'", f.toUtf8().data());
     if (QFile::exists(f))
         return f;
@@ -111,42 +115,51 @@ QString Paths::doc(QString file, QString locale)
     if (locale.indexOf(QRegExp("_[A-Z]+")) != -1)
     {
         locale.replace(QRegExp("_[A-Z]+"), "");
-        f = getDocPath() + "/" + locale + "/" + file;
+        f = getDocPath() + locale + "/" + file;
         qDebug("Helper:doc: checking '%s'", f.toUtf8().data());
         if (QFile::exists(f))
             return f;
     }
 
-    f = getDocPath() + "/en/" + file;
+    f = getDocPath() + "en/" + file;
     return f;
 }
 
-void Paths::findAndCreateConfigPath()
+bool Paths::findAndCreateStructurePath()
 {
-    QString directory = QDir::homePath() + "/.rwm";
-    QDir dir(directory);
-    if (!dir.exists())
+    QString directory = QDir::homePath() + "/.config/rwm";
+    QDir dir (directory);
+    if (!dir.exists ())
     {
-        if (!dir.mkdir(directory))
+        if (!dir.mkdir (directory))
+		{
             qDebug() << "Could not create config .rwm directory!" << endl;
+			return false;
+		}
         else
-            qDebug() << "Config .rwm directory created succesfully!" << endl;
+		{
+            qDebug() << "Config .config/rwm directory created succesfully!" << endl;
+			return true;
+		}
     }
     else
-        qDebug() << dir.homePath() + "/.rwm" + " found!" << endl;
+	{
+        qDebug() << dir.homePath() + "/.config/rwm" + " found!" << endl;
+		return false;
+	}
 }
 
-QString Paths::getConfigPath()
+QString Paths::getPath()
 {
-    #ifndef DEBUG_PATH
+//     #ifndef DEBUG_PATH
         if (!configPath.isEmpty())
             return configPath;
         else
-            return QDir::homePath() + "/.rwm";
-    #else
-        QString path = QDir::homePath() + "/windowManager/rwm-project";
-        return path;
-    #endif
+            return QDir::homePath() + "/.config/rwm";
+//     #else
+//         QString path = QDir::homePath() + "/windowManager/rwm-project";
+//         return path;
+//     #endif
 }
 
 bool Paths::findConfigFile (QString filename)

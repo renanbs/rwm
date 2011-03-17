@@ -22,7 +22,9 @@ int main(int argc, char **argv)
     
     QTranslator translator;
     qDebug() << "Language:" << QLocale::system().name();
-    translator.load(QLocale::system().name(), QCoreApplication::applicationDirPath() + "/language/");
+	QString p = Paths::getTranslationPath();
+//     translator.load(QLocale::system().name(), QCoreApplication::applicationDirPath() + "/language/");
+	translator.load(QLocale::system().name(), p);
     a.installTranslator(&translator);
     
     qDebug() << "GUI creation...";

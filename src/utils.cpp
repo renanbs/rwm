@@ -62,8 +62,7 @@ QString Appicon::get_app_icon(const QString &icon) // select the application ico
     }
 
     // if not defined, set default application icon
-//    QSettings *rwm = new QSettings(QCoreApplication::applicationDirPath() + "/rwm.cfg", QSettings::IniFormat, this);
-    QSettings *rwm = new QSettings(Paths::getConfigPath() + "/rwm.cfg", QSettings::IniFormat, this);
+    QSettings *rwm = new QSettings(Paths::getConfigPath() + "rwm.cfg", QSettings::IniFormat, this);
     rwm->beginGroup("Style");
     QString stl_name = rwm->value("name").toString();
     QString stl_path = rwm->value("path").toString();
@@ -127,9 +126,8 @@ void Categorymenu::init()
 
 void Categorymenu::read_settings()
 {
-//    rwm = new QSettings(QCoreApplication::applicationDirPath() + "/rwm.cfg", QSettings::IniFormat, this);
-    rwm = new QSettings(Paths::getConfigPath() + "/rwm.cfg", QSettings::IniFormat, this);
-    qDebug() << Paths::getConfigPath() + "/rwm.cfg";
+    rwm = new QSettings(Paths::getConfigPath() + "rwm.cfg", QSettings::IniFormat, this);
+    qDebug() << Paths::getConfigPath() + "rwm.cfg";
     rwm->beginGroup("Style");
     QString stl_name = rwm->value("name").toString();
     QString stl_path = rwm->value("path").toString();
@@ -440,7 +438,7 @@ Fileicon::~Fileicon()
 
 void Fileicon::read_settings()
 {
-    QSettings *rwm = new QSettings(QCoreApplication::applicationDirPath() + "/rwm.cfg", QSettings::IniFormat);
+    QSettings *rwm = new QSettings(Paths::getConfigPath() + "rwm.cfg", QSettings::IniFormat);
     rwm->beginGroup("Style");
     QString stl_name = rwm->value("name").toString();
     QString stl_path = rwm->value("path").toString();
