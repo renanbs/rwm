@@ -88,12 +88,12 @@ SET( RWM_UIS
 )
 
 SET(LANG
-    ./language/it_IT.ts 
-    ./language/cs_CZ.ts 
-    ./language/ru_RU.ts 
-    ./language/pl_PL.ts 
-    ./language/de_DE.ts 
-    ./language/es_ES.ts
+    ./translations/it_IT.ts 
+    ./translations/cs_CZ.ts 
+    ./translations/ru_RU.ts 
+    ./translations/pl_PL.ts 
+    ./translations/de_DE.ts 
+    ./translations/es_ES.ts
   )
 # and finally an resource file
 # SET( SAMPLE_RCS

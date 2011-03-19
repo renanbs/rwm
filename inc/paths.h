@@ -29,11 +29,9 @@ class Paths
 
     public:
 
-        static QString getDataPath();
         static QString getTranslationPath();
         static QString getDocPath();
         static QString getThemesPath();
-        static QString getShortcutsPath();
         static QString getQtTranslationPath();
         static QString doc(QString file, QString locale = QString::null);
 

@@ -18,30 +18,19 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-
-// Olhar isso
-//http://forums.opensuse.org/english/get-help-here/applications/407364-kde-4-images-themes-location.html
-//http://techbase.kde.org/Projects/Plasma/Theme#Theme_Location.2C_Structure_and_Definition
-//http://sourceforge.net/apps/mediawiki/smplayer/index.php?title=Creating_Themes
-
-// Imagens, temas(imagens dos temas), arquivos de tradução, documentação
-//provavelmente vão ficar em /usr/share/rwm, versões default
-// Versões do usuário vão ficar em /home/$USER/.rwm/share/
-// rwm.cfg e outros arquivos de configuração vão ficar em /home/$USER/.rwm
-
 /*
 DIRECTORY STRUCTURE TO FOLLOW:
 
 User theme directory definition:
-  $home/USER/.config/rwm/themes: Contain only xml files with the theme description.
-  $home/USER/.config/rwm/images: Contain directories with the same name of the xml file theme name.
+  $home/USER/.local/share/rwm/themes: Contain only xml files with the theme description.
+  $home/USER/.local/share/rwm/images: Contain directories with the same name of the xml file theme name.
                         The images for each theme are inside.
 
 Documentation definition:
-  $home/USER/.config/rwm/docs/$locale - Contains the documentation to every locale
+  $home/USER/.local/share/rwm/docs/$locale - Contains the documentation to every locale
 
 Translation directory definition:
-  $home/USER/.config/rwm/translations: Contains the files with the translations of the system rwm_locale_country.ts
+  $home/USER/.local/share/rwm/translations: Contains the files with the translations of the system rwm_locale_country.ts
 
 
 Data definition:
@@ -57,44 +46,53 @@ Data definition:
 #include <QFile>
 #include <QDebug>
 
-#define DEBUG_PATH
+#define DEBUG_PATH 1
 
 QString Paths::configPath;
 
-QString Paths::getDataPath()
-{
-    return getConfigPath() + "/general/";
-}
-
 QString Paths::getTranslationPath()
 {
-    return getPath() + "/translations/";
+#if DEBUG_PATH
+    return QDir::homePath() + "/windowManager/rwm-project/translations/";
+#else
+	return QDir::homePath() + "/.local/share/rwm/translations/";	
+#endif
 }
 
 QString Paths::getDocPath()
 {
-    return getPath() + "/docs/";
+#if DEBUG_PATH
+    return QDir::homePath() + "/windowManager/rwm-project/docs/";
+#else
+    return QDir::homePath() + "/.local/share/rwm/docs/";
+#endif
 }
 
 QString Paths::getThemesPath()
 {
-    return getPath() + "/themes/";
-}
-
-QString Paths::getShortcutsPath()
-{
-    return getPath() + "/shortcuts/";
+#if DEBUG_PATH
+    return QDir::homePath() + "/windowManager/rwm-project/themes/";
+#else
+	return QDir::homePath() + "/.local/share/rwm/themes/";
+#endif
 }
 
 QString Paths::getImagesPath()
 {
-    return getPath() + "/images/";
+#if DEBUG_PATH
+    return QDir::homePath() + "/windowManager/rwm-project/images/";
+#else
+    return QDir::homePath() + "/.local/share/rwm/images/";
+#endif
 }
-
 
 QString Paths::getConfigPath()
 {
-	return getPath() + "/config/";
+#if DEBUG_PATH
+    return QDir::homePath() + "/windowManager/rwm-project/config/";
+#else
+	return QDir::homePath() + "/.config/rwm/";
+#endif
 }
 
 QString Paths::getQtTranslationPath()
@@ -151,20 +149,15 @@ bool Paths::findAndCreateStructurePath()
 
 QString Paths::getPath()
 {
-//     #ifndef DEBUG_PATH
-        if (!configPath.isEmpty())
-            return configPath;
-        else
-            return QDir::homePath() + "/.config/rwm";
-//     #else
-//         QString path = QDir::homePath() + "/windowManager/rwm-project";
-//         return path;
-//     #endif
+	if (!configPath.isEmpty())
+		return configPath;
+	else
+		return QDir::homePath() + "/.config/rwm";
 }
 
 bool Paths::findConfigFile (QString filename)
 {
-	QFile filePathName (getDataPath() + filename);
+	QFile filePathName (getConfigPath() + filename);
 	if (filePathName.exists())
 		return true;
 	else
