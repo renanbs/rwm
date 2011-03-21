@@ -34,7 +34,7 @@ DOWNLOAD
 - to update your local repository: "git pull"
 
 *************
-INSTALLATION
+INSTALLATION - not ready YET (just forget this section for now)
 *************
 To compile, enter in "rwm" dir (where is the antico.pro) and type on shell:
 "qmake" (or qmake-qt4)
@@ -59,7 +59,8 @@ To test the window manager, type on shell:
 
 DISPLAY=:0
 Xephyr :1 -ac -screen 800x600 & DISPLAY=:1; $HOME/windowManager/rwm-project/rwm
-
+If there is some problem with your keyboard layout, just use the line above:
+Xephyr :1 -ac -screen 800x600 -keybd ephyr,,xkbrules=evdev,xkblayout=br,xkbmodel=abnt2 & DISPLAY=:1; $HOME/windowManager/rwm-project/rwm
 
 
 (where 800x600 is your preferred screen size and $HOME if you have download Antico in user home)

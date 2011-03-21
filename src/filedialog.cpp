@@ -143,6 +143,7 @@ void Filedialog::init()
     tree_view->setSelectionBehavior(QAbstractItemView::SelectItems);
     tree_view->setIconSize(QSize(16, 16));
     tree_view->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	
     list_view = new QListView(this);
     list_view->setModel(fs_model);
     list_view->setDragEnabled(true);
@@ -294,370 +295,383 @@ void Filedialog::set_type(const QString &text, const QString &button_type) // se
 
 void Filedialog::del_file()
 {
-    copy_list.clear();
-    cut_list.clear();
+	copy_list.clear();
+	cut_list.clear();
 
-    QList<QModelIndex> selection = abstract_view->selectionModel()->selectedIndexes();
-    QModelIndex index;
+	QList<QModelIndex> selection = abstract_view->selectionModel()->selectedIndexes();
+	QModelIndex index;
 
-    QString trash_path = QDir::homePath() + "/.local/share"; // search in default path directory
+	QString trash_path = QDir::homePath() + "/.local/share"; // search in default path directory
 
-    foreach(index, selection)
-    {
-        abstract_view->selectionModel()->setCurrentIndex(index, QItemSelectionModel::SelectCurrent); // update the current index
-        QString name = get_selected_name();
-        QString path = get_selected_path();
+	foreach(index, selection)
+	{
+		abstract_view->selectionModel()->setCurrentIndex(index, QItemSelectionModel::SelectCurrent); // update the current index
+		QString name = get_selected_name();
+		QString path = get_selected_path();
 
-        if (fs_model->isDir(index)) // test if is a directory
-        {
-            // create the .trashinfo file
-            QString trash_info = name + ".trashinfo";
-            QSettings settings(trash_path + "/Trash/info/" + trash_info, QSettings::IniFormat);
-            settings.beginGroup("Trash Info");
-            settings.setValue("Path", path);
-            settings.setValue("DeletionDate", QDateTime::currentDateTime().toString(Qt::ISODate));
-            settings.endGroup(); // Trash Info
+		if (fs_model->isDir(index)) // test if is a directory
+		{
+			// create the .trashinfo file
+			QString trash_info = name + ".trashinfo";
+			QSettings settings(trash_path + "/Trash/info/" + trash_info, QSettings::IniFormat);
+			settings.beginGroup("Trash Info");
+			settings.setValue("Path", path);
+			settings.setValue("DeletionDate", QDateTime::currentDateTime().toString(Qt::ISODate));
+			settings.endGroup(); // Trash Info
 
-            QStringList rem_info_args;
-            rem_info_args << path << trash_path + "/Trash/files/";
+			QStringList rem_info_args;
+			rem_info_args << path << trash_path + "/Trash/files/";
 
-            QProcess::startDetached("/bin/mv", rem_info_args); // remove the directory
-        }
-        else // else is a file
-        {
-            // create the .trashinfo file
-            QString trash_info = name + ".trashinfo";
-            QSettings settings(trash_path + "/Trash/info/" + trash_info, QSettings::IniFormat);
-            settings.beginGroup("Trash Info");
-            settings.setValue("Path", path + name);
-            settings.setValue("DeletionDate", QDateTime::currentDateTime().toString(Qt::ISODate));
-            settings.endGroup(); // Trash Info
+			QProcess::startDetached("/bin/mv", rem_info_args); // remove the directory
+		}
+		else // else is a file
+		{
+			// create the .trashinfo file
+			QString trash_info = name + ".trashinfo";
+			QSettings settings(trash_path + "/Trash/info/" + trash_info, QSettings::IniFormat);
+			settings.beginGroup("Trash Info");
+			settings.setValue("Path", path + name);
+			settings.setValue("DeletionDate", QDateTime::currentDateTime().toString(Qt::ISODate));
+			settings.endGroup(); // Trash Info
 
-            QStringList rem_info_args;
-            rem_info_args << path + name << trash_path + "/Trash/files/";
+			QStringList rem_info_args;
+			rem_info_args << path + name << trash_path + "/Trash/files/";
 
-            QProcess::startDetached("/bin/mv", rem_info_args); // remove the file
-        }
-    }
+			QProcess::startDetached("/bin/mv", rem_info_args); // remove the file
+		}
+	}
 }
 
 void Filedialog::cut_file()
 {
-    copy_list.clear();
-    cut_list.clear();
+	copy_list.clear();
+	cut_list.clear();
 
-    QList<QModelIndex> selection = abstract_view->selectionModel()->selectedIndexes();
-    QModelIndex index;
+	QList<QModelIndex> selection = abstract_view->selectionModel()->selectedIndexes();
+	QModelIndex index;
 
-    foreach(index, selection)
-    {
-        abstract_view->selectionModel()->setCurrentIndex(index, QItemSelectionModel::SelectCurrent); // update the current index
-        QString name = get_selected_name();
-        QString path = get_selected_path();
+	foreach(index, selection)
+	{
+		abstract_view->selectionModel()->setCurrentIndex(index, QItemSelectionModel::SelectCurrent); // update the current index
+		QString name = get_selected_name();
+		QString path = get_selected_path();
 
-        if (fs_model->isDir(index)) // test if is a directory
-        {
-            cut_list << QString("/bin/mv").append(" ").append(path);
-        }
-        else // is a file
-        {
-            cut_list << QString("/bin/mv").append(" ").append(path).append(name);
-        }
-        cut_act->setDisabled(true);
-        copy_act->setDisabled(true);
-        paste_act->setDisabled(false);
-    }
+		if (fs_model->isDir(index)) // test if is a directory
+		{
+			cut_list << QString("/bin/mv").append(" ").append(path);
+		}
+		else // is a file
+		{
+			cut_list << QString("/bin/mv").append(" ").append(path).append(name);
+		}
+		cut_act->setDisabled(true);
+		copy_act->setDisabled(true);
+		paste_act->setDisabled(false);
+	}
 }
 
 void Filedialog::copy_file()
 {
-    copy_list.clear();
-    cut_list.clear();
+	copy_list.clear();
+	cut_list.clear();
 
-    QList<QModelIndex> selection = abstract_view->selectionModel()->selectedIndexes();
-    QModelIndex index;
+	QList<QModelIndex> selection = abstract_view->selectionModel()->selectedIndexes();
+	QModelIndex index;
 
-    foreach(index, selection)
-    {
-        abstract_view->selectionModel()->setCurrentIndex(index, QItemSelectionModel::SelectCurrent); // update the current index
-        QString name = get_selected_name();
-        QString path = get_selected_path();
+	foreach(index, selection)
+	{
+		abstract_view->selectionModel()->setCurrentIndex(index, QItemSelectionModel::SelectCurrent); // update the current index
+		QString name = get_selected_name();
+		QString path = get_selected_path();
 
-        if (fs_model->isDir(index)) // test if is a directory
-        {
-            copy_list << QString("/bin/cp -R").append(" ").append(path);
-        }
-        else // is a file
-        {
-            copy_list << QString("/bin/cp").append(" ").append(path).append(name);
-        }
-        cut_act->setDisabled(true);
-        copy_act->setDisabled(true);
-        paste_act->setDisabled(false);
-    }
+		if (fs_model->isDir(index)) // test if is a directory
+		{
+			copy_list << QString("/bin/cp -R").append(" ").append(path);
+		}
+		else // is a file
+		{
+			copy_list << QString("/bin/cp").append(" ").append(path).append(name);
+		}
+		cut_act->setDisabled(true);
+		copy_act->setDisabled(true);
+		paste_act->setDisabled(false);
+	}
 }
 
 void Filedialog::paste_file()
 {
-    if (copy_list.size() > 0)
-    {
-        for (int i = 0; i < copy_list.size(); ++i)
-        {
-            QString command = QString(copy_list.at(i)).append(" ").append(line_path->text());
-            qDebug() << "Paste command (copy):" << command;
-            QProcess::startDetached(command);
-        }
-    }
-    if (cut_list.size() > 0)
-    {
-        for (int i = 0; i < cut_list.size(); ++i)
-        {
-            QString command = QString(cut_list.at(i)).append(" ").append(line_path->text());
-            qDebug() << "Paste command (cut):" << command;
-            QProcess::startDetached(command);
-        }
-    }
-    copy_list.clear();
-    cut_list.clear();
+	if (copy_list.size() > 0)
+	{
+		for (int i = 0; i < copy_list.size(); ++i)
+		{
+			QString command = QString(copy_list.at(i)).append(" ").append(line_path->text());
+			qDebug() << "Paste command (copy):" << command;
+			QProcess::startDetached(command);
+		}
+	}
+	if (cut_list.size() > 0)
+	{
+		for (int i = 0; i < cut_list.size(); ++i)
+		{
+			QString command = QString(cut_list.at(i)).append(" ").append(line_path->text());
+			qDebug() << "Paste command (cut):" << command;
+			QProcess::startDetached(command);
+		}
+	}
+	copy_list.clear();
+	cut_list.clear();
 
-    cut_act->setDisabled(false);
-    copy_act->setDisabled(false);
-    paste_act->setDisabled(true);
+	cut_act->setDisabled(false);
+	copy_act->setDisabled(false);
+	paste_act->setDisabled(true);
 }
 
 void Filedialog::edit_file()
 {
-    abstract_view->edit(abstract_view->selectionModel()->currentIndex());
+	abstract_view->edit(abstract_view->selectionModel()->currentIndex());
 }
 
 void Filedialog::new_folder()
 {
-    fs_model->mkdir(fs_model->index(line_path->text()), tr("New folder"));
+	fs_model->mkdir(fs_model->index(line_path->text()), tr("New folder"));
 }
 
 void Filedialog::new_file()
 {
-    QProcess::startDetached(QString("/bin/touch").append(" ").append(line_path->text()).append("/new_file"));
+	QProcess::startDetached(QString("/bin/touch").append(" ").append(line_path->text()).append("/new_file"));
 }
 
 void Filedialog::change_path(QListWidgetItem *current, QListWidgetItem *previous)
 {
-    if (!current)
-        current = previous;
+	if (!current)
+		current = previous;
 
-    abstract_view->setRootIndex(fs_model->index(current->text()));
-    line_path->setText(current->text());
+	abstract_view->setRootIndex(fs_model->index(current->text()));
+	line_path->setText(current->text());
 }
 
 void Filedialog::set_path(const QString &pth) // for folder navigation
 {
-    abstract_view->setRootIndex(fs_model->index(pth));
-    line_path->setText(pth);
+	abstract_view->setRootIndex(fs_model->index(pth));
+	line_path->setText(pth);
 }
 
 void Filedialog::path_completer() // on user "return" press in line_path
 {
-    update_view(fs_model->index(line_path->text()));
+	update_view(fs_model->index(line_path->text()));
 }
 
 void Filedialog::update_view(const QModelIndex &index)
 {
-    abstract_view->selectionModel()->clearSelection();
-    abstract_view->selectionModel()->setCurrentIndex(index, QItemSelectionModel::SelectCurrent);
-    line_path->setText(fs_model->filePath(index));
-    
-    if (fs_model->isDir(index)) // is a directory
-    {
-        abstract_view->setRootIndex(index);
-    }
+	abstract_view->selectionModel()->clearSelection();
+	abstract_view->selectionModel()->setCurrentIndex(index, QItemSelectionModel::SelectCurrent);
+	line_path->setText(fs_model->filePath(index));
+
+	if (fs_model->isDir(index)) // is a directory
+	{
+		abstract_view->setRootIndex(index);
+	}
+	show_info (index);
 }
 
 void Filedialog::show_info(const QModelIndex &index)
 {
-    if (index.isValid())
-    {
-        abstract_view->selectionModel()->setCurrentIndex(index, QItemSelectionModel::SelectCurrent);
-        QString suff =  fs_model->fileInfo(index).suffix();
-        if (suff == "png" || suff == "jpg")
-            preview_pix->setPixmap(fs_model->filePath(index)); // show imagefile pixmap preview
-        else
-            preview_pix->setPixmap(fs_model->fileIcon(index).pixmap(32, 32)); // show file pixmap preview
-        file_name->setText(fs_model->fileInfo(index).fileName());
-        owner_name->setText(fs_model->fileInfo(index).owner());
-        QString perm = QString("%1").arg(fs_model->fileInfo(index).permissions(), 0, 16);
-        file_permissions->setText(perm);
-    }
+	if (index.isValid())
+	{
+		abstract_view->selectionModel()->setCurrentIndex(index, QItemSelectionModel::SelectCurrent);
+		QString suff =  fs_model->fileInfo(index).suffix();
+		if (suff == "png" || suff == "jpg")
+			preview_pix->setPixmap(fs_model->filePath(index)); // show imagefile pixmap preview
+		else
+			preview_pix->setPixmap(fs_model->fileIcon(index).pixmap(32, 32)); // show file pixmap preview
+		file_name->setText(fs_model->fileInfo(index).fileName());
+		owner_name->setText(fs_model->fileInfo(index).owner());
+		QString perm = QString("%1").arg(fs_model->fileInfo(index).permissions(), 0, 16);
+		file_permissions->setText(perm);
+}
 }
 
 void Filedialog::upper_dir() // go to the upper directory
 {
-    update_view(fs_model->index(line_path->text()).parent());
+	update_view(fs_model->index(line_path->text()).parent());
 }
 
 void Filedialog::set_filter(QDir::Filters fltr)
 {
-    fs_model->setFilter(fltr);
+	fs_model->setFilter(fltr);
 }
 
 void Filedialog::set_name_filters(const QStringList &fltr)
 {
-    fs_model->setNameFilters(fltr);
+	fs_model->setNameFilters(fltr);
 }
 
 void Filedialog::set_read_only(bool b)
 {
-    fs_model->setReadOnly(b);
+	fs_model->setReadOnly(b);
 }
 
 void Filedialog::show_hidden(bool select)
 {
-    if (select)
-        fs_model->setFilter(fs_model->filter() | QDir::Hidden); // add hidden files to filter
-    else
-        fs_model->setFilter(fs_model->filter() ^ QDir::Hidden); // remove hidden files from filter
+	if (select)
+		fs_model->setFilter(fs_model->filter() | QDir::Hidden); // add hidden files to filter
+	else
+		fs_model->setFilter(fs_model->filter() ^ QDir::Hidden); // remove hidden files from filter
 }
 
 void Filedialog::set_icon_mode()
 {
-    list_view->show();
-    tree_view->hide();
-    abstract_view = list_view; // change the view
-    abstract_view->setRootIndex(fs_model->index(line_path->text()));
+	list_view->show();
+	tree_view->hide();
+	abstract_view = list_view; // change the view
+	abstract_view->setRootIndex(fs_model->index(line_path->text()));
 }
 
 void Filedialog::set_list_mode()
 {
-    list_view->hide();
-    tree_view->show();
-    abstract_view = tree_view; // change the view
-    abstract_view->setRootIndex(fs_model->index(line_path->text()));
+	list_view->hide();
+	tree_view->show();
+	abstract_view = tree_view; // change the view
+	abstract_view->setRootIndex(fs_model->index(line_path->text()));
 }
 
 QString Filedialog::get_selected_path() const
 {
-    if (abstract_view->selectionModel()->currentIndex().isValid())
-    {
-        QModelIndex selection = abstract_view->selectionModel()->currentIndex();
+	if (abstract_view->selectionModel()->currentIndex().isValid())
+	{
+		QModelIndex selection = abstract_view->selectionModel()->currentIndex();
 
-        if (fs_model->isDir(selection)) // is a directory
-        {
-            QString path = fs_model->filePath(selection);
-            qDebug() << "Selected path:" << path;
-            return path;
-        }
-        else // is a file
-        {
-            QString filepath = fs_model->filePath(selection);
-            QFileInfo fileinfo(filepath);
-            QString path = fileinfo.absolutePath(); // remove the file name from path
-            path.append("/"); // add slash at the end
-            qDebug() << "Selected path:" << path;
-            return path;
-        }
-    }
-    return "";
+		if (fs_model->isDir(selection)) // is a directory
+		{
+			QString path = fs_model->filePath(selection);
+			qDebug() << "Selected path:" << path;
+			return path;
+		}
+		else // is a file
+		{
+			QString filepath = fs_model->filePath(selection);
+			QFileInfo fileinfo(filepath);
+			QString path = fileinfo.absolutePath(); // remove the file name from path
+			path.append("/"); // add slash at the end
+			qDebug() << "Selected path:" << path;
+			return path;
+		}
+	}
+	return "";
 }
 
 QString Filedialog::get_selected_name() const
 {
-    if (abstract_view->selectionModel()->currentIndex().isValid())
-    {
-        QString name = fs_model->fileName(abstract_view->selectionModel()->currentIndex());
-        qDebug() << "Selected name:" << name;
-        return name;
-    }
-    return "";
+	if (abstract_view->selectionModel()->currentIndex().isValid())
+	{
+		QString name = fs_model->fileName(abstract_view->selectionModel()->currentIndex());
+		qDebug() << "Selected name:" << name;
+		return name;
+	}
+	return "";
 }
 
 QString Filedialog::get_selected_icon() const
 {
-    QString file = get_selected_name();
-    QFileInfo fileinfo(file);
-    Fileicon *prov = (Fileicon *)fs_model->iconProvider();
-    QString icon = prov->icon_type(fileinfo); // get the file icon
-    return icon;
+	QString file = get_selected_name();
+	QFileInfo fileinfo(file);
+	Fileicon *prov = (Fileicon *)fs_model->iconProvider();
+	QString icon = prov->icon_type(fileinfo); // get the file icon
+	return icon;
 }
 
 void Filedialog::mousePressEvent(QMouseEvent *event)
 {
-    if (event->button() == Qt::LeftButton)
-    {
-        mousepos = event->pos();
-        grabMouse(QCursor(Qt::SizeAllCursor));
-        raise();
-    }
+	if (event->button() == Qt::LeftButton)
+	{
+		mousepos = event->pos();
+		grabMouse(QCursor(Qt::SizeAllCursor));
+		raise();
+	}
 }
 
 void Filedialog::mouseMoveEvent(QMouseEvent *event)
 {
-    QPoint p = event->globalPos()-mousepos;
-    move(p.x(), p.y());
+	QPoint p = event->globalPos()-mousepos;
+	move(p.x(), p.y());
 }
 
 void Filedialog::mouseReleaseEvent(QMouseEvent *event)
 {
-    Q_UNUSED(event);
-    releaseMouse();
+	Q_UNUSED(event);
+	releaseMouse();
 }
 
 void Filedialog::contextMenuEvent(QContextMenuEvent *event)
 {
-    if (cat_menu != NULL)
-    {
-        QList<QModelIndex> selection = abstract_view->selectionModel()->selectedIndexes();
+	if (cat_menu != NULL)
+	{
+		QList<QModelIndex> selection = abstract_view->selectionModel()->selectedIndexes();
 
-        if (selection.size() == 0 && cut_list.isEmpty() && copy_list.isEmpty())
-        {
-            event->ignore();
-            return;
-        }
-        if (selection.size() > 1 || !cut_list.isEmpty() || !copy_list.isEmpty()) // don't show "Open with.." on multi selection
-            // or during cut/paste
-        {
-            open_menu->setDisabled(true);
-        }
-        if (selection.size() == 1)
-        {
-            open_menu->setDisabled(false);
-            QModelIndex index = selection.first(); // the unique selected index
+		if (selection.size() == 0 && cut_list.isEmpty() && copy_list.isEmpty())
+		{
+			event->ignore();
+			return;
+		}
+		if (selection.size() > 1 || !cut_list.isEmpty() || !copy_list.isEmpty()) // don't show "Open with.." on multi selection
+			// or during cut/paste
+		{
+			open_menu->setDisabled(true);
+		}
+		if (selection.size() == 1)
+		{
+			open_menu->setDisabled(false);
+			QModelIndex index = selection.first(); // the unique selected index
 
-            if (fs_model->isDir(index))
-            {
-                cat_menu->set_cmd_arguments(get_selected_path()); // set the dir path as argument
-            }
-            else
-            {
-                cat_menu->set_cmd_arguments(get_selected_path().append(get_selected_name())); // set the file path+name as argument
-            }
-        }
-        main_menu->exec(event->globalPos()); // show the menu
-        cat_menu->clear_cmd_arguments();
-    }
-    else
-    {
-        event->ignore();
-        return;
-    }
+			if (fs_model->isDir(index))
+			{
+				cat_menu->set_cmd_arguments(get_selected_path()); // set the dir path as argument
+			}
+			else
+			{
+				cat_menu->set_cmd_arguments(get_selected_path().append(get_selected_name())); // set the file path+name as argument
+			}
+		}
+		main_menu->exec(event->globalPos()); // show the menu
+		cat_menu->clear_cmd_arguments();
+	}
+	else
+	{
+		event->ignore();
+		return;
+	}
 }
 
 void Filedialog::accepted()
 {
-    accept();
-    abstract_view->selectionModel()->clearSelection();
-    set_path("/");
+	accept();
+	abstract_view->selectionModel()->clearSelection();
+	set_path("/");
+	
+	preview_pix->clear();
+	file_name->setText("");
+	owner_name->setText("");
+	file_permissions->setText("");
+	path_widget->selectionModel()->clearSelection();
 }
 
 void Filedialog::rejected()
 {
-    reject();
-    abstract_view->selectionModel()->clearSelection();
-    set_path("/");
+	reject();
+	abstract_view->selectionModel()->clearSelection();
+	set_path("/");
+	
+	preview_pix->clear();
+	file_name->setText("");
+	owner_name->setText("");
+	file_permissions->setText("");
+	path_widget->selectionModel()->clearSelection();
 }
 
 void Filedialog::update_style()
 {
-    read_settings();
-    icon_but->setIcon(QIcon(icon_view_pix));
-    list_but->setIcon(QIcon(list_view_pix));
-    upper_dir_but->setIcon(QIcon(upper_dir_pix));
+	read_settings();
+	icon_but->setIcon(QIcon(icon_view_pix));
+	list_but->setIcon(QIcon(list_view_pix));
+	upper_dir_but->setIcon(QIcon(upper_dir_pix));
 }
