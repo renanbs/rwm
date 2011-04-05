@@ -36,6 +36,9 @@ DOWNLOAD
 *************
 INSTALLATION - not ready YET (just forget this section for now)
 *************
+
+cmake -DCMAKE_INSTALL_PREFIX=/usr
+
 To compile, enter in "rwm" dir (where is the antico.pro) and type on shell:
 "qmake" (or qmake-qt4)
 "make"
