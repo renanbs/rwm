@@ -145,3 +145,8 @@ ADD_EXECUTABLE( rwm ${RWM_SRCS} ${RWM_MOC_SRCS} ${RWM_RC_SRCS} ${RWM_UI_HDRS} ${
 # luckily FIND_PACKAGE prepared QT_LIBRARIES variable for us:
 TARGET_LINK_LIBRARIES( rwm ${QT_LIBRARIES} )
 # target_link_libraries(rwm ${QT_QTCORE_LIBRARY})
+
+#install rwm at /usr/local/bin
+INSTALL( TARGETS rwm DESTINATION bin )
+
+#INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/${AAA_INCLUDE_DIR}/AAA2.h DESTINATION /usr/include/AAA)
