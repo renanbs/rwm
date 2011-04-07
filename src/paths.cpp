@@ -18,24 +18,27 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-/*
-DIRECTORY STRUCTURE TO FOLLOW:
-
-User theme directory definition:
-  $home/USER/.local/share/rwm/themes: Contain only xml files with the theme description.
-  $home/USER/.local/share/rwm/images: Contain directories with the same name of the xml file theme name.
-                        The images for each theme are inside.
-
-Documentation definition:
-  $home/USER/.local/share/rwm/docs/$locale - Contains the documentation to every locale
-
-Translation directory definition:
-  $home/USER/.local/share/rwm/translations: Contains the files with the translations of the system rwm_locale_country.ts
 
 
-Data definition:
-  $home/USER/.config/rwm/config: Several xml files with configuration.
-*/
+// DIRECTORY STRUCTURE TO FOLLOW:
+// 
+// User theme directory definition:
+//   $home/USER/.local/share/rwm/themes: Contains the directory, named the name of the theme with it's images inside
+//   /usr/share/rwm/themes/: Contain themes to be shared with all users on the same computer.
+//   
+// Images definition
+//   /usr/share/rwm/images: Contain the images used in the about box.
+// 
+// Data definition:
+//   $home/USER/.config/rwm/config: Several xml files with configuration.
+// 
+// Documentation definition:
+//   /usr/share/rwm/docs/$locale - Contains the documentation to every locale
+// 
+// Translation directory definition:
+//   /usr/share/rwm/translations: Contains the files with the translations of the system rwm_locale_country.ts
+
+
 
 #include "../inc/paths.h"
 #include <QLibraryInfo>
@@ -46,7 +49,7 @@ Data definition:
 #include <QFile>
 #include <QDebug>
 
-#define DEBUG_PATH 1
+//#define DEBUG_PATH 1
 
 QString Paths::configPath;
 
@@ -68,15 +71,6 @@ QString Paths::getDocPath()
 #endif
 }
 
-QString Paths::getThemesPath()
-{
-#if DEBUG_PATH
-    return QDir::homePath() + "/windowManager/rwm-project/themes/";
-#else
-	return QDir::homePath() + "/.local/share/rwm/themes/";
-#endif
-}
-
 QString Paths::getImagesPath()
 {
 #if DEBUG_PATH
@@ -92,6 +86,15 @@ QString Paths::getConfigPath()
     return QDir::homePath() + "/windowManager/rwm-project/config/";
 #else
 	return QDir::homePath() + "/.config/rwm/";
+#endif
+}
+
+QString Paths::getThemesPath()
+{
+#if DEBUG_PATH
+    return QDir::homePath() + "/windowManager/rwm-project/themes/";
+#else
+	return QDir::homePath() + "/.local/share/rwm/themes/";
 #endif
 }
 
