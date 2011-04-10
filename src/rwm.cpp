@@ -1112,7 +1112,7 @@ void Rwm::set_settings()
         qDebug() << "Set default settings ...";
         rwm->beginGroup("Style");
         rwm->setValue("name", "default.stl");
-        rwm->setValue("path", Paths::getThemesPath() + "/default/");
+        rwm->setValue("path", Paths::getThemesPath(false) + "/default/");
         rwm->endGroup(); //Style
         rwm->sync();
     }
@@ -1120,7 +1120,7 @@ void Rwm::set_settings()
     {
         qFatal ("Error on setting rwm.cfg");
     }
-	p = Paths::getThemesPath() + "default/default.stl";
+	p = Paths::getThemesPath(false) + "default/default.stl";
     QSettings *style = new QSettings(p, QSettings::IniFormat, this);
     // set default icon on first installation, if no "/default.stl" is set
     if (style->childGroups().isEmpty())

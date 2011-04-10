@@ -26,32 +26,31 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 class Paths
 {
+	public:
 
-    public:
+		static QString getTranslationPath(bool def);
+		static QString getDocPath(bool def);
+		static QString getThemesPath(bool def);
+		static QString getQtTranslationPath();
+		static QString doc(QString file, QString locale = QString::null);
 
-        static QString getTranslationPath();
-        static QString getDocPath();
-        static QString getThemesPath();
-        static QString getQtTranslationPath();
-        static QString doc(QString file, QString locale = QString::null);
+		//!  Tries to find the path where rwm shoud save it's configuration files,
+		//! if it doesn't exist, create the directory structure
+		static bool findAndCreateStructurePath();
 
-        //!  Tries to find the path where rwm shoud save it's configuration files,
-        //! if it doesn't exist, create the directory structure
-        static bool findAndCreateStructurePath();
-
-        //! Return the path where rwm should save its config files
-        static QString getConfigPath();
+		//! Return the path where rwm should save its config files
+		static QString getConfigPath();
 		
 		//! Return the path where everything is
 		static QString getPath();
 
-        //! Return the path where rwm should find some image files
-        static QString getImagesPath();
+		//! Return the path where rwm should find some image files
+		static QString getImagesPath(bool def);
 
 		static bool findConfigFile (QString filename);
 
-    private:
-        static QString configPath;
+	private:
+		static QString configPath;
 };
 
 #endif

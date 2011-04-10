@@ -488,7 +488,9 @@ void Filedialog::show_info(const QModelIndex &index)
 		owner_name->setText(fs_model->fileInfo(index).owner());
 		QString perm = QString("%1").arg(fs_model->fileInfo(index).permissions(), 0, 16);
 		file_permissions->setText(perm);
-}
+		QString filePath = fs_model->fileInfo(index).absoluteFilePath();
+		line_path->setText(filePath);
+	}
 }
 
 void Filedialog::upper_dir() // go to the upper directory

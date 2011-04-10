@@ -49,103 +49,116 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <QFile>
 #include <QDebug>
 
-//#define DEBUG_PATH 1
+#define DEBUG_PATH 1
+#define VERSION 0.1alpha
 
 QString Paths::configPath;
 
-QString Paths::getTranslationPath()
+QString Paths::getTranslationPath(bool def)
 {
 #if DEBUG_PATH
-    return QDir::homePath() + "/windowManager/rwm-project/translations/";
+	return QDir::homePath() + "/windowManager/rwm-project/translations/";
 #else
-	return QDir::homePath() + "/.local/share/rwm/translations/";	
+	if (def)
+		return "/usr/share/rwm/translations/";
+	else
+		return QDir::homePath() + "/.local/share/rwm/translations/";	
 #endif
 }
 
-QString Paths::getDocPath()
+QString Paths::getDocPath(bool def)
 {
 #if DEBUG_PATH
-    return QDir::homePath() + "/windowManager/rwm-project/docs/";
+	return QDir::homePath() + "/windowManager/rwm-project/docs/";
 #else
-    return QDir::homePath() + "/.local/share/rwm/docs/";
+	if (def)
+		return "/usr/share/rwm/docs/";
+	else
+		return QDir::homePath() + "/.local/share/rwm/docs/";
 #endif
 }
 
-QString Paths::getImagesPath()
+QString Paths::getImagesPath(bool def)
 {
 #if DEBUG_PATH
-    return QDir::homePath() + "/windowManager/rwm-project/images/";
+	return QDir::homePath() + "/windowManager/rwm-project/images/";
 #else
-    return QDir::homePath() + "/.local/share/rwm/images/";
+	if (def)
+		return "/usr/share/rwm/images/";
+	else
+		return QDir::homePath() + "/.local/share/rwm/images/";
 #endif
 }
 
 QString Paths::getConfigPath()
 {
 #if DEBUG_PATH
-    return QDir::homePath() + "/windowManager/rwm-project/config/";
+	return QDir::homePath() + "/windowManager/rwm-project/config/";
 #else
 	return QDir::homePath() + "/.config/rwm/";
 #endif
 }
 
-QString Paths::getThemesPath()
+QString Paths::getThemesPath(bool def)
 {
 #if DEBUG_PATH
-    return QDir::homePath() + "/windowManager/rwm-project/themes/";
+	return QDir::homePath() + "/windowManager/rwm-project/themes/";
 #else
-	return QDir::homePath() + "/.local/share/rwm/themes/";
+	if (def)
+		return "/usr/share/rwm/themes/";
+	else
+		return QDir::homePath() + "/.local/share/rwm/themes/";
 #endif
 }
 
 QString Paths::getQtTranslationPath()
 {
-    return QLibraryInfo::location(QLibraryInfo::TranslationsPath);
+	return QLibraryInfo::location(QLibraryInfo::TranslationsPath);
 }
 
 QString Paths::doc(QString file, QString locale)
 {
-    if (locale.isEmpty())
-        locale = QLocale::system().name();
+	if (locale.isEmpty())
+		locale = QLocale::system().name();
 
-    QString f = getDocPath() + locale + "/" + file;
-    qDebug("Helper:doc: checking '%s'", f.toUtf8().data());
-    if (QFile::exists(f))
-        return f;
+	QString f = getDocPath(true) + locale + "/" + file;
+	qDebug("Helper:doc: checking '%s'", f.toUtf8().data());
+	if (QFile::exists(f))
+		return f;
 
-    if (locale.indexOf(QRegExp("_[A-Z]+")) != -1)
-    {
-        locale.replace(QRegExp("_[A-Z]+"), "");
-        f = getDocPath() + locale + "/" + file;
-        qDebug("Helper:doc: checking '%s'", f.toUtf8().data());
-        if (QFile::exists(f))
-            return f;
-    }
+	if (locale.indexOf(QRegExp("_[A-Z]+")) != -1)
+	{
+		locale.replace(QRegExp("_[A-Z]+"), "");
+		f = getDocPath(true) + locale + "/" + file;
+		qDebug("Helper:doc: checking '%s'", f.toUtf8().data());
+		if (QFile::exists(f))
+			return f;
+	}
 
-    f = getDocPath() + "en/" + file;
-    return f;
+	f = getDocPath(false) + "en/" + file;
+	return f;
 }
 
 bool Paths::findAndCreateStructurePath()
 {
-    QString directory = QDir::homePath() + "/.config/rwm";
-    QDir dir (directory);
-    if (!dir.exists ())
-    {
-        if (!dir.mkdir (directory))
+	QString directory = QDir::homePath() + "/.config/rwm";
+	QDir dir (directory);
+	if (!dir.exists ())
+	{
+		if (!dir.mkdir (directory))
 		{
-            qDebug() << "Could not create config .rwm directory!" << endl;
+			qDebug() << "Could not create config .rwm directory!" << endl;
 			return false;
 		}
         else
 		{
-            qDebug() << "Config .config/rwm directory created succesfully!" << endl;
+			qDebug() << "Config .config/rwm directory created succesfully!" << endl;
 			return true;
 		}
-    }
-    else
+	}
+	else
 	{
-        qDebug() << dir.homePath() + "/.config/rwm" + " found!" << endl;
+		qDebug() << dir.homePath() + "/.config/rwm" + " found!" << endl;
 		return false;
 	}
 }

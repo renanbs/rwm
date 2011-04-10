@@ -127,7 +127,8 @@ SET( QT_USE_DBUS TRUE )
 
 # this command finds Qt4 libraries and sets all required variables
 # note that it's Qt4, not QT4 or qt4
-FIND_PACKAGE( Qt4 REQUIRED )
+#FIND_PACKAGE( Qt4 REQUIRED )
+FIND_PACKAGE(Qt4 4.7.2 COMPONENTS QtCore QtGui QtDbus REQUIRED) 
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
@@ -172,4 +173,8 @@ INSTALL( DIRECTORY ${DOCS} DESTINATION share/rwm/docs )
 INSTALL( FILES ${TRANSL} DESTINATION share/rwm/translations )
 #install images
 INSTALL( DIRECTORY ${IMAGES} DESTINATION share/rwm/images )
+#install .desktop files to be visible to kdm and gdm
+INSTALL( FILES rwm-gdm.desktop DESTINATION /etc/X11/sessions ) # not sure if this will work fine
+INSTALL( FILES rwm-kdm.desktop DESTINATION share/xsessions )
+INSTALL( FILES rwm-kdm.desktop DESTINATION share/apps/kdm/sessions )
 
