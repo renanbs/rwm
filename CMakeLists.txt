@@ -88,12 +88,7 @@ SET( RWM_UIS
 )
 
 SET(LANG
-	./translations/it_IT.ts 
-	./translations/cs_CZ.ts 
-	./translations/ru_RU.ts 
-	./translations/pl_PL.ts 
-	./translations/de_DE.ts 
-	./translations/es_ES.ts
+	./translations/pt_BR.ts 
 )
 
 SET( DEFAULT_THEME 
@@ -166,13 +161,13 @@ TARGET_LINK_LIBRARIES( rwm ${QT_LIBRARIES} )
 #install rwm binary
 INSTALL( TARGETS rwm DESTINATION bin )
 #install rwm default theme
-INSTALL( DIRECTORY ${DEFAULT_THEME} DESTINATION share/rwm/themes )
+INSTALL( DIRECTORY ${DEFAULT_THEME} DESTINATION share/rwm )
 #install docs
-INSTALL( DIRECTORY ${DOCS} DESTINATION share/rwm/docs )
+INSTALL( DIRECTORY ${DOCS} DESTINATION share/rwm )
 #install translations
-INSTALL( FILES ${TRANSL} DESTINATION share/rwm/translations )
+INSTALL( FILES ${TRANSL} DESTINATION share/rwm )
 #install images
-INSTALL( DIRECTORY ${IMAGES} DESTINATION share/rwm/images )
+INSTALL( DIRECTORY ${IMAGES} DESTINATION share/rwm )
 #install .desktop files to be visible to kdm and gdm
 INSTALL( FILES rwm-gdm.desktop DESTINATION /etc/X11/sessions ) # not sure if this will work fine
 INSTALL( FILES rwm-kdm.desktop DESTINATION share/xsessions )

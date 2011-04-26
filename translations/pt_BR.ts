@@ -2,34 +2,34 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="es_ES">
 <context>
-    <name>Antico</name>
+    <name>RWM</name>
     <message>
-        <location filename="../src/antico.cpp" line="819"/>
+        <location filename="../src/rwm.cpp" line="819"/>
         <source>QUIT THE WM</source>
         <translation>SALIR DE WM</translation>
     </message>
     <message>
-        <location filename="../src/antico.cpp" line="820"/>
+        <location filename="../src/rwm.cpp" line="820"/>
         <source>Are you sure to quit the WM ?</source>
         <translation>¿Está seguro que desea salir de WM?</translation>
     </message>
     <message>
-        <location filename="../src/antico.cpp" line="845"/>
+        <location filename="../src/rwm.cpp" line="845"/>
         <source>SHUTDOWN THE PC</source>
         <translation>APAGAR PC</translation>
     </message>
     <message>
-        <location filename="../src/antico.cpp" line="846"/>
+        <location filename="../src/rwm.cpp" line="846"/>
         <source>Are you sure to shutdown the PC ?</source>
         <translation>¿Está seguro que desea apagar su pc?</translation>
     </message>
     <message>
-        <location filename="../src/antico.cpp" line="877"/>
+        <location filename="../src/rwm.cpp" line="877"/>
         <source>RESTART THE PC</source>
         <translation>REINICIAR PC</translation>
     </message>
     <message>
-        <location filename="../src/antico.cpp" line="878"/>
+        <location filename="../src/rwm.cpp" line="878"/>
         <source>Are you sure to restart the PC ?</source>
         <translation>¿Está seguro que desea reiniciar su pc?</translation>
     </message>
