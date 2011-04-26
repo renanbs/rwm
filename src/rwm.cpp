@@ -25,8 +25,10 @@ Rwm::Rwm(int &argc, char **argv) : QApplication(argc, argv)
     next_frame = 0;
     // get the atoms (ICCCM/EWMH)
     get_atoms();
+#ifndef DEBUG_PATH
     // set application settings on first installation
     setSettings();
+#endif
     // send ClientMessage to root for supported hints
     send_supported_hints();
     // check if server supports nonrectangular windows

@@ -161,13 +161,13 @@ TARGET_LINK_LIBRARIES( rwm ${QT_LIBRARIES} )
 #install rwm binary
 INSTALL( TARGETS rwm DESTINATION bin )
 #install rwm default theme
-INSTALL( DIRECTORY ${DEFAULT_THEME} DESTINATION share/rwm )
+INSTALL( DIRECTORY ${DEFAULT_THEME} DESTINATION share/rwm/themes )
 #install docs
-INSTALL( DIRECTORY ${DOCS} DESTINATION share/rwm )
+INSTALL( DIRECTORY ${DOCS} DESTINATION share/rwm/docs )
 #install translations
-INSTALL( FILES ${TRANSL} DESTINATION share/rwm )
+INSTALL( FILES ${TRANSL} DESTINATION share/rwm/translations )
 #install images
-INSTALL( DIRECTORY ${IMAGES} DESTINATION share/rwm )
+INSTALL( DIRECTORY ${IMAGES} DESTINATION share/rwm/images )
 #install .desktop files to be visible to kdm and gdm
 INSTALL( FILES rwm-gdm.desktop DESTINATION /etc/X11/sessions ) # not sure if this will work fine
 INSTALL( FILES rwm-kdm.desktop DESTINATION share/xsessions )

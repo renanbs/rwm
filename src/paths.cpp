@@ -52,7 +52,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <QFile>
 #include <QDebug>
 
-//#define DEBUG_PATH 1
+// #define DEBUG_PATH 1
 #define VERSION 0.1alpha
 
 QString Paths::configPath;
