@@ -28,24 +28,23 @@ class Paths
 {
 	public:
 
-		static QString getTranslationPath(bool def);
-		static QString getDocPath(bool def);
-		static QString getThemesPath(bool def);
+		static QString getTranslationPath();
+		static QString getDocPath();
+		static QString getThemesPath();
 		static QString getQtTranslationPath();
 		static QString doc(QString file, QString locale = QString::null);
-
-		//!  Tries to find the path where rwm shoud save it's configuration files,
-		//! if it doesn't exist, create the directory structure
-		static bool findAndCreateStructurePath();
 
 		//! Return the path where rwm should save its config files
 		static QString getConfigPath();
 		
-		//! Return the path where everything is
+		//! Return local path
 		static QString getPath();
-
+		
+		//! Return local path
+		static QString getConfigRwm();
+		
 		//! Return the path where rwm should find some image files
-		static QString getImagesPath(bool def);
+		static QString getImagesPath();
 
 		static bool findConfigFile (QString filename);
 

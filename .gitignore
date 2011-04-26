@@ -5,3 +5,4 @@ theme/default/*.*~
 rwm
 .gitignore~
 theme/default/minmax-old.png
+CMakeLists.txt~

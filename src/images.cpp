@@ -68,10 +68,10 @@ QPixmap Images::loadIcon(const QString & icon_name)
 {
 	QPixmap p;
 
-    QString filename = Paths::getThemesPath (false) + icon_name;
+    QString filename = Paths::getThemesPath () + icon_name;
     if (!QFile::exists (filename))
     {
-		filename = Paths::getImagesPath(true) + icon_name;
+		filename = Paths::getImagesPath() + icon_name;
 		p.load( filename );
     }
 	else

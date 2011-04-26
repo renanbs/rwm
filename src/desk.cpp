@@ -134,37 +134,21 @@ void Desk::set_desk_icons()
     rwm->endGroup(); //Desktop
 
 //    // read Trash and restore on desktop
-    trsh = new Trash(this);
-//    QVariant varPoint = XmlParser::readXml (Paths::getConfigPath() + "/desktopIconPosition.xml", "trash", "pos");
-//    QPoint point;
-//    QString x;
-//    QString y;
-//    int aux;
-//    int aux2;
-//    QString a = "(";
-//    QString b = ",";
-//    QString strPoint = varPoint.toString();
-//    if (strPoint.startsWith("@Point(") && strPoint.endsWith(")"))
-//    {
-//        aux = strPoint.indexOf(a, 0);
-//        aux2 = strPoint.indexOf(b, 0);
-//        x = strPoint.mid(aux + 1, aux2 - aux - 1);
-//        int teste = strPoint.length() - aux2 - 2;
-//        y = strPoint.mid(aux2 + 1, teste );
-//        point = QPoint (x.toInt(), y.toInt());
-//    }
-//    else
-//        point = QPoint (0, 50);
-	QPoint point;
-        QString caminho = Paths::getConfigPath() + "desktopIconPosition.xml";
-        QVariant varPoint = XmlParser::readXml (caminho, "trash", "position", "x");
-	point.setX(varPoint.toInt());
+	trsh = new Trash(this);
+	if (!Paths::findConfigFile("desktopIconPosition.xml"))
+		XmlParser::writeXml (Paths::getConfigPath() + "/desktopIconPosition.xml",
+						 "system_desktop_icons",
+						 "trash", "position", "x", "0", "y", "50");
 
-        varPoint = XmlParser::readXml (caminho, "trash", "position", "y");
-	point.setY(varPoint.toInt());
-
-    trsh->move(point);
-
+		QPoint point;
+		QString caminho = Paths::getConfigPath() + "desktopIconPosition.xml";
+		QVariant varPoint = XmlParser::readXml (caminho, "trash", "position", "x");
+		point.setX(varPoint.toInt());
+		int teste = varPoint.toInt();
+		varPoint = XmlParser::readXml (caminho, "trash", "position", "y");
+		point.setY(varPoint.toInt());
+		teste = varPoint.toInt();
+		trsh->move(point);
 }
 
 void Desk::init()

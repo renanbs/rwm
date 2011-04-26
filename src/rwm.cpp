@@ -26,7 +26,7 @@ Rwm::Rwm(int &argc, char **argv) : QApplication(argc, argv)
     // get the atoms (ICCCM/EWMH)
     get_atoms();
     // set application settings on first installation
-    set_settings();
+    setSettings();
     // send ClientMessage to root for supported hints
     send_supported_hints();
     // check if server supports nonrectangular windows
@@ -1100,159 +1100,156 @@ Categorymenu * Rwm::get_category_menu()
     return cat_menu;
 }
 
-void Rwm::set_settings()
+void Rwm::testAndCopyDirs()
 {
-    // default path
-//    rwm = new QSettings(QCoreApplication::applicationDirPath() + "/rwm.cfg", QSettings::IniFormat, this);
-	QString p = Paths::getConfigPath() + "rwm.cfg";
-    rwm = new QSettings(p, QSettings::IniFormat, this);
-    // set default style on first installation, if no "/rwm.cfg" is set
-    if (rwm->childGroups().isEmpty())
-    {
-        qDebug() << "Set default settings ...";
-        rwm->beginGroup("Style");
-        rwm->setValue("name", "default.stl");
-        rwm->setValue("path", Paths::getThemesPath(false) + "/default/");
-        rwm->endGroup(); //Style
-        rwm->sync();
-    }
-    if (rwm->status() == QSettings::AccessError)
-    {
-        qFatal ("Error on setting rwm.cfg");
-    }
-	p = Paths::getThemesPath(false) + "default/default.stl";
-    QSettings *style = new QSettings(p, QSettings::IniFormat, this);
-    // set default icon on first installation, if no "/default.stl" is set
-    if (style->childGroups().isEmpty())
-    {
-		qDebug() << "Set style settings ...";
-		/////////////////////////////////////////////////////////////////////////
-		style->beginGroup("Launcher");
-		style->setValue("launcher_pix", "menuR.png");
-		style->setValue("quit_pix", "quit.png");
-		style->setValue("shutdown_pix", "shutdown.png");
-		style->setValue("restart_pix", "restart.png");
-		style->setValue("refresh_pix", "refresh.png");
-		style->setValue("show_pix", "show.png");
-		style->setValue("settings_pix", "settings.png");
-		style->setValue("run_pix", "run.png");
-		style->setValue("manager_pix", "manager.png");
-		style->setValue("utility_pix", "utility.png");
-		style->setValue("office_pix", "office.png");
-		style->setValue("network_pix", "network.png");
-		style->setValue("graphics_pix", "graphics.png");
-		style->setValue("development_pix", "development.png");
-		style->setValue("system_pix", "system.png");
-		style->setValue("audiovideo_pix", "audiovideo.png");
-		style->endGroup(); //Launcher
-		/////////////////////////////////////////////////////////////////////////
-		style->beginGroup("Frame");
-		style->beginGroup("Border");
-		style->setValue("lateral_bdr_width", 3);
-		style->setValue("top_bdr_height", 18);
-		style->setValue("bottom_bdr_height", 8);
-		style->endGroup(); //Border
-		style->beginGroup("Header");
-		style->setValue("header_active_pix", "header_active.png");
-		style->setValue("header_inactive_pix", "header_inactive.png");
-		style->setValue("title_color", QColor(Qt::white));
-		style->setValue("minPix", "min.png");
-		style->setValue("maxPix", "max.png");
-		style->setValue("minmax_pix", "minmax.png");
-		style->setValue("close_pix", "close.png");
-		style->endGroup(); //Header
-		style->endGroup(); //Frame
-		/////////////////////////////////////////////////////////////////////////
-		style->beginGroup("Desktop");
-		style->setValue("wall_pix", "wallpaper.png");
-		style->endGroup(); //Desktop
-		/////////////////////////////////////////////////////////////////////////
-		style->beginGroup("Dockbar");
-		style->setValue("dock_pix", "dockbar.png");
-		style->setValue("dock_height", 40);
-		style->setValue("dock_width", (QApplication::desktop()->width() * 0.75));
-		style->setValue("dock_position", 0); // 0 = bottom / 1 = top
-		style->endGroup(); //Dockbar
-		/////////////////////////////////////////////////////////////////////////
-		style->beginGroup("DockBarTop");
-		style->setValue("dockPix", "dockbarTop.png");
-		style->setValue("dockHeight", 40);
-		style->setValue("dockWidth", QApplication::desktop()->width());
-		style->setValue("dockPosition", 1); // 0 = bottom / 1 = top
-		style->endGroup(); //Dockbar
-		/////////////////////////////////////////////////////////////////////////
-		style->beginGroup("Dockicon");
-		style->setValue("d_icon_pix", "dockicon.png");
-		style->setValue("title_color", QColor(Qt::white));
-		style->endGroup(); //Dockicon
-		/////////////////////////////////////////////////////////////////////////
-		style->beginGroup("Sysicon");
-		style->setValue("s_icon_pix", "sysicon.png");
-		style->endGroup(); //Sysicon
-		/////////////////////////////////////////////////////////////////////////
-		style->beginGroup("Deskfolder");
-		style->setValue("d_folder_pix", "deskfolder.png");
-		style->setValue("name_color", QColor(Qt::white));
-		style->endGroup(); //Deskfolder
-		/////////////////////////////////////////////////////////////////////////
-		style->beginGroup("Deskfile");
-		style->setValue("name_color", QColor(Qt::white));
-		style->endGroup(); //Deskfile
-		/////////////////////////////////////////////////////////////////////////
-		style->beginGroup("Deskapp");
-		style->setValue("name_color", QColor(Qt::white));
-		style->endGroup(); //Deskapp
-		/////////////////////////////////////////////////////////////////////////
-		style->beginGroup("Deskdev");
-		style->setValue("d_disk_pix", "disk.png");
-		style->setValue("d_cdrom_pix", "cdrom.png");
-		style->setValue("name_color", QColor(Qt::white));
-		style->endGroup(); //Deskapp
-		/////////////////////////////////////////////////////////////////////////
-		style->beginGroup("Trash");
-		style->setValue("trash_pix", "trash.png");
-		style->setValue("name_color", QColor(Qt::white));
-		style->endGroup(); //Trash
-		/////////////////////////////////////////////////////////////////////////
-		style->beginGroup("Dateclock");
-		style->setValue("date_color", QColor(Qt::white));
-		style->setValue("clock_color", QColor(Qt::white));
-		style->endGroup(); //DateClock
-		/////////////////////////////////////////////////////////////////////////
-		style->beginGroup("Message");
-		style->setValue("ok_button_pix", "ok_but.png");
-		style->setValue("close_button_pix", "close_but.png");
-		style->setValue("add_button_pix", "add_but.png");
-		style->setValue("remove_button_pix", "remove_but.png");
-		style->setValue("restore_button_pix", "restore_but.png");
-		style->setValue("question_pix", "question.png");
-		style->setValue("information_pix", "information.png");
-		style->setValue("warning_pix", "warning.png");
-		style->setValue("critical_pix", "critical.png");
-		style->endGroup(); //Message
-		/////////////////////////////////////////////////////////////////////////
-		style->beginGroup("Other");
-		style->setValue("application_pix", "application.png");
-		style->setValue("folder_link_pix", "folder_link.png");
-		style->setValue("file_link_pix", "file_link.png");
-		style->setValue("app_link_pix", "app_link.png");
-		style->setValue("delete_link_pix", "delete_link.png");
-		style->setValue("delete_file_pix", "delete_file.png");
-		style->setValue("cut_file_pix", "cut_file.png");
-		style->setValue("copy_file_pix", "copy_file.png");
-		style->setValue("paste_file_pix", "paste_file.png");
-		style->setValue("close_dock_pix", "close_dock.png");
-		style->setValue("add_to_sys_pix", "add_to_sys.png");
-		style->setValue("open_with_pix", "open_with.png");
-		style->setValue("list_view_pix", "list_view.png");
-		style->setValue("icon_view_pix", "icon_view.png");
-		style->setValue("upper_dir_pix", "upper_dir.png");
-		style->endGroup(); //Other
-		/////////////////////////////////////////////////////////////////////////
-		style->sync();
-    }
-    if (style->status() == QSettings::AccessError)
-    {
-        qFatal("Error on setting default.stl");
-    }
+	QDir dir;
+	bool exist = false;
+	QString directory;
+	QStringList d;
+	d << "/usr/share/rwm/docs";
+	d << "/usr/share/rwm/themes";
+	d << "/usr/share/rwm/images";
+	d << "/usr/share/rwm/translations";
+	int size = d.length();
+	for (int i = 0; i < size; i++)
+	{
+		directory = d.at(i).toLocal8Bit().constData();
+		dir.setPath(directory);
+		if (dir.exists ())
+			exist = true;
+		else
+		{
+			exist = false;
+			break;
+		}
+	}
+
+	if (exist)
+	{
+		directory = QDir::homePath() + Paths::getPath();
+		dir.setPath(directory);
+		if (!dir.exists())
+		{
+			if (dir.mkdir(directory))
+			{
+				// Copy files...
+				copyDir ("/usr/share/rwm/docs", "/home/renan/.local/share/rwm/docs");
+				copyDir ("/usr/share/rwm/themes", "/home/renan/.local/share/rwm/themes");
+				copyDir ("/usr/share/rwm/translations", "/home/renan/.local/share/rwm/translations");
+				copyDir ("/usr/share/rwm/images", "/home/renan/.local/share/rwm/images");
+			}
+			else
+			{
+				QString msg = "Cannot create " + directory + "...";
+				QByteArray ba = msg.toLatin1();
+				qFatal (ba.data());
+			}
+		}
+		else
+			// FAZER O TESTE (1) AQUI
+			qDebug() << "Still need to test if the right files are in the right place, but for now I will assume they are!";
+	}
+	else
+		qFatal ("Please reinstall RWM, there are missing files in your installation...");
+}
+
+void Rwm::copyDir (QString sourceFolder, QString destFolder)
+{
+	QDir sourceDir(sourceFolder);
+	if(!sourceDir.exists())
+		return;
+	QDir destDir(destFolder);
+	if(!destDir.exists())
+	{
+		destDir.mkdir(destFolder);
+	}
+	QStringList files = sourceDir.entryList(QDir::Files);
+	for(int i = 0; i< files.count(); i++)
+	{
+		QString srcName = sourceFolder + "/" + files[i];
+		QString destName = destFolder + "/" + files[i];
+		QFile::copy (srcName, destName);
+	}
+	files.clear();
+	files = sourceDir.entryList(QDir::AllDirs | QDir::NoDotAndDotDot);
+	for(int i = 0; i< files.count(); i++)
+	{
+		QString srcName = sourceFolder + "/" + files[i];
+		QString destName = destFolder + "/" + files[i];
+		copyDir (srcName, destName);
+	}
+}
+
+void Rwm::createRWMconfig()
+{
+	QString directory = Paths::getConfigPath();
+	QFile file(directory + "rwm.cfg");
+	if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+		qFatal ("Cannot open rwm.cfg for writing...");
+
+	QTextStream out(&file);
+	out << "[Style]\n";
+	out << "name = default.stl\n";
+	out << "path = " + Paths::getThemesPath() + "default/\n\n";  
+}
+
+void Rwm::setSettings()
+{
+	QDir dir;
+	// Test if there is a the rwm.cfg file, if it doesn't, the other files do not exist as well
+	QString directory = Paths::getConfigPath();
+	dir.setPath(directory);
+	if (dir.exists())
+	{
+		QFile file(directory + "/rwm.cfg");
+		if (file.exists())
+		{
+			rwm = new QSettings(directory + "/rwm.cfg", QSettings::IniFormat, this);
+			// set default style on first installation, if no "/rwm.cfg" is set
+			if (rwm->childGroups().isEmpty())
+			{
+				qDebug() << "Set default settings ...";
+				rwm->beginGroup("Style");
+				rwm->setValue("name", "default.stl");
+				rwm->setValue("path", Paths::getThemesPath() + "default/");
+				rwm->endGroup(); //Style
+				rwm->sync();
+			}
+			if (rwm->status() == QSettings::AccessError)
+				qFatal ("Error on setting rwm.cfg");
+		}
+		else
+		{
+			if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+				qFatal ("Cannot open rwm.cfg for writing...");
+
+			QTextStream out(&file);
+			out << "[Style]\n";
+			out << "name = default.stl\n";
+			out << "path = " + Paths::getConfigPath() + "\n\n";
+		}
+	}
+	else
+	{
+		directory = QDir::homePath() + Paths::getConfigRwm();
+		if (dir.mkdir(directory))
+		{
+			directory = Paths::getConfigPath();
+			if (dir.mkdir(directory))
+				createRWMconfig();
+			else
+			{
+				QString msg = "Cannot create " + directory + "...";
+				QByteArray ba = msg.toLatin1();
+				qFatal (ba.data());
+			}
+		}
+		else
+		{
+			QString msg = "Cannot create " + directory + "...";
+			QByteArray ba = msg.toLatin1();
+			qFatal (ba.data());
+		}
+	}
+	testAndCopyDirs();
 }

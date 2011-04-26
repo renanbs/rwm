@@ -48,7 +48,7 @@ public:
     void wm_restart();
     void wm_refresh();
     void show_desktop();
-    void set_settings();
+    void setSettings();
     void run_app_at_startup();
     void get_atoms();
 	void setFullScreenSupported();
@@ -59,6 +59,9 @@ public:
     void print_window_prop(Window);
     bool check_net_sys_tray_for(Window) const;
     void check_wm_transient_for(Window);
+	void createRWMconfig ();
+	void copyDir (QString sourceFolder, QString destFolder);
+	void testAndCopyDirs();
     Filedialog * get_file_dialog();
     Desk * get_desktop();
     Dockbar * get_dockbar();
