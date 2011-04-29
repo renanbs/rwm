@@ -91,6 +91,7 @@ private:
     QString folder_link_pix;
     QString file_link_pix;
     QString app_link_pix;
+	QString quitPix;
     QPoint rubber_press;
     QDBusInterface *dbus_interface;
     QRubberBand *rubber_band;

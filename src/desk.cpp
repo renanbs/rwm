@@ -37,26 +37,29 @@ Desk::~Desk()
 
 void Desk::read_settings()
 {
-    // get style path
+	// get style path
 //    rwm = new QSettings(QCoreApplication::applicationDirPath() + "/rwm.cfg", QSettings::IniFormat, this);
-    rwm = new QSettings(Paths::getConfigPath() + "rwm.cfg", QSettings::IniFormat, this);
-    rwm->beginGroup("Style");
-    QString stl_name = rwm->value("name").toString();
-    QString stl_path = rwm->value("path").toString();
-    rwm->endGroup(); //Style
-    // get style values
-    QSettings *style = new QSettings(stl_path + stl_name, QSettings::IniFormat,this);
-    style->beginGroup("Desktop");
-    wall_pix = stl_path + style->value("wall_pix").toString();
-    style->endGroup(); //Desktop
-    style->beginGroup("Dockbar");
-    dock_height = style->value("dock_height").toInt();
-    style->endGroup(); //Dockbar
-    style->beginGroup("Other");
-    folder_link_pix = stl_path + style->value("folder_link_pix").toString();
-    file_link_pix = stl_path + style->value("file_link_pix").toString();
-    app_link_pix = stl_path + style->value("app_link_pix").toString();
-    style->endGroup(); //Other
+	rwm = new QSettings(Paths::getConfigPath() + "rwm.cfg", QSettings::IniFormat, this);
+	rwm->beginGroup("Style");
+	QString stl_name = rwm->value("name").toString();
+	QString stl_path = rwm->value("path").toString();
+	rwm->endGroup(); //Style
+	// get style values
+	QSettings *style = new QSettings(stl_path + stl_name, QSettings::IniFormat,this);
+	style->beginGroup("Launcher");
+	quitPix = stl_path + style->value("quit_pix").toString();
+	style->endGroup();
+	style->beginGroup("Desktop");
+	wall_pix = stl_path + style->value("wall_pix").toString();
+	style->endGroup(); //Desktop
+	style->beginGroup("Dockbar");
+	dock_height = style->value("dock_height").toInt();
+	style->endGroup(); //Dockbar
+	style->beginGroup("Other");
+	folder_link_pix = stl_path + style->value("folder_link_pix").toString();
+	file_link_pix = stl_path + style->value("file_link_pix").toString();
+	app_link_pix = stl_path + style->value("app_link_pix").toString();
+	style->endGroup(); //Other
 }
 
 void Desk::set_geometry()
@@ -159,7 +162,7 @@ void Desk::init()
 // 	menu->addAction (QIcon(folder_link_pix), tr("New link to folder"));
 // 	menu->addAction (QIcon(file_link_pix), tr("New link to file"));
 // 	menu->addAction (QIcon(app_link_pix), tr("New link to application"));
-	menu->addAction (QIcon(app_link_pix), tr("Quit RWM"));
+	menu->addAction (QIcon(quitPix), tr("Quit RWM"));
 	connect (menu, SIGNAL(triggered(QAction *)), this, SLOT(run_menu(QAction *)));
 	// to mount/unmount external device
 	dbus_interface = new QDBusInterface("org.freedesktop.Hal", "/org/freedesktop/Hal/Manager", "org.freedesktop.Hal.Manager", QDBusConnection::systemBus(), this);
