@@ -153,18 +153,18 @@ void Desk::set_desk_icons()
 
 void Desk::init()
 {
-    rubber_band = new QRubberBand (QRubberBand::Rectangle, this); // to deskfolder/file/app selection
-    menu = new QMenu (this);
-    menu->addAction (QIcon(folder_link_pix), tr("About"));
-    menu->addAction (QIcon(folder_link_pix), tr("New link to folder"));
-    menu->addAction (QIcon(file_link_pix), tr("New link to file"));
-    menu->addAction (QIcon(app_link_pix), tr("New link to application"));
-    menu->addAction (QIcon(app_link_pix), tr("Quit RWM"));
-    connect (menu, SIGNAL(triggered(QAction *)), this, SLOT(run_menu(QAction *)));
-    // to mount/unmount external device
-    dbus_interface = new QDBusInterface("org.freedesktop.Hal", "/org/freedesktop/Hal/Manager", "org.freedesktop.Hal.Manager", QDBusConnection::systemBus(), this);
-    dbus_interface->connection().connect("org.freedesktop.Hal", "/org/freedesktop/Hal/Manager", "org.freedesktop.Hal.Manager", "DeviceAdded", this, SLOT(device_added(const QString &)));
-    dbus_interface->connection().connect("org.freedesktop.Hal", "/org/freedesktop/Hal/Manager", "org.freedesktop.Hal.Manager", "DeviceRemoved", this, SLOT(device_removed(const QString &)));
+	rubber_band = new QRubberBand (QRubberBand::Rectangle, this); // to deskfolder/file/app selection
+	menu = new QMenu (this);
+	menu->addAction (QIcon(folder_link_pix), tr("About"));
+// 	menu->addAction (QIcon(folder_link_pix), tr("New link to folder"));
+// 	menu->addAction (QIcon(file_link_pix), tr("New link to file"));
+// 	menu->addAction (QIcon(app_link_pix), tr("New link to application"));
+	menu->addAction (QIcon(app_link_pix), tr("Quit RWM"));
+	connect (menu, SIGNAL(triggered(QAction *)), this, SLOT(run_menu(QAction *)));
+	// to mount/unmount external device
+	dbus_interface = new QDBusInterface("org.freedesktop.Hal", "/org/freedesktop/Hal/Manager", "org.freedesktop.Hal.Manager", QDBusConnection::systemBus(), this);
+	dbus_interface->connection().connect("org.freedesktop.Hal", "/org/freedesktop/Hal/Manager", "org.freedesktop.Hal.Manager", "DeviceAdded", this, SLOT(device_added(const QString &)));
+	dbus_interface->connection().connect("org.freedesktop.Hal", "/org/freedesktop/Hal/Manager", "org.freedesktop.Hal.Manager", "DeviceRemoved", this, SLOT(device_removed(const QString &)));
 }
 
 void Desk::mousePressEvent(QMouseEvent *event)
