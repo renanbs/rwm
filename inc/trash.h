@@ -22,36 +22,36 @@ class Trash : public QWidget
 {
     Q_OBJECT
 
-public:
-    Trash(QWidget *parent=0);
-    ~Trash();
-    void read_settings();
-    void update_style();
-    void init();
+	public:
+		Trash(QWidget *parent=0);
+		~Trash();
+		void read_settings();
+		void update_style();
+		void init();
 
-protected:
-    void mousePressEvent(QMouseEvent *);
-    void mouseMoveEvent(QMouseEvent *);
-    void mouseReleaseEvent(QMouseEvent *);
-    void mouseDoubleClickEvent(QMouseEvent *);
-    void enterEvent(QEvent *);
-    void leaveEvent(QEvent *);
-    void paintEvent(QPaintEvent *);
+	protected:
+		void mousePressEvent(QMouseEvent *);
+		void mouseMoveEvent(QMouseEvent *);
+		void mouseReleaseEvent(QMouseEvent *);
+		void mouseDoubleClickEvent(QMouseEvent *);
+		void enterEvent(QEvent *);
+		void leaveEvent(QEvent *);
+		void paintEvent(QPaintEvent *);
 
-signals:
+	signals:
 
-public slots:
+	public slots:
 
-private:
-    QString trash_pix;
-    QColor trash_col;
-    QPixmap pix;
-    bool zoom;
-    QPoint mousepos;
-    QString stl_path;
-    QString stl_name;
-    QSettings *rwm;
-    Trashdialog *trash_dlg;
+	private:
+		QString trash_pix;
+		QColor trash_col;
+		QPixmap pix;
+		bool zoom;
+		QPoint mousepos;
+		QString stl_path;
+		QString stl_name;
+		QSettings *rwm;
+		Trashdialog *trash_dlg;
 };
 
 #endif

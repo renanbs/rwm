@@ -1061,25 +1061,25 @@ void Rwm::run_app_at_startup()
 
 void Rwm::create_gui()
 {
-    cat_menu = new Categorymenu();
-    cat_menu->update_menu();
-    file_dialog = new Filedialog(cat_menu);
-    //create desk
-    dsk = new Desk(this);
-    // create dockbar
-    dock = new Dockbar(this);
+	cat_menu = new Categorymenu();
+	cat_menu->update_menu();
+	file_dialog = new Filedialog(cat_menu);
+	//create desk
+	dsk = new Desk(this);
+	// create dockbar
+	dock = new Dockbar(this);
 
-    // create the top dock bar
-    dockTop = new DockBarTop (this);
+	// create the top dock bar
+	dockTop = new DockBarTop (this);
 
-    // run application from startup list
-    run_app_at_startup();
+	// run application from startup list
+	run_app_at_startup();
 
-    // Check if desktop icons config exists
-    if (!Paths::findConfigFile("desktopIconPosition.xml"))
-      XmlParser::writeXml (Paths::getConfigPath() + "/desktopIconPosition.xml",
+	// Check if desktop icons config exists
+	if (!Paths::findConfigFile("desktopIconPosition.xml"))
+		XmlParser::writeXml (Paths::getConfigPath() + "/desktopIconPosition.xml",
 						 "system_desktop_icons",
-						 "trash", "position", "x", "0", "y", "50");
+						 "trash", "position", "x", "0", "y", "6");
 }
 
 Filedialog * Rwm::get_file_dialog()
