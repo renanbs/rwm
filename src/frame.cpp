@@ -53,6 +53,7 @@ void Frame::read_settings()
     minmax_pix = stl_path + style->value("minmax_pix").toString();
     maxPix = stl_path + style->value("maxPix").toString();
     minPix = stl_path + style->value("minPix").toString();
+	restorePix = stl_path + style->value("restorePix").toString();
     close_pix = stl_path + style->value("close_pix").toString();
     style->endGroup(); //Header
     style->endGroup(); //Frame
@@ -873,36 +874,40 @@ void Frame::minimize_it()
 ////////// MAXIMIZE WINDOW //////////////
 void Frame::maximize_it()
 {
-    if (! maximized)
-    {
-        // save parent dimension
-        n_px = x();
-        n_py = y();
-        n_pw = width();
-        n_ph = height();
-        // maximize parent with vertex and screen dimension-dockbar height
-        m_pw = QApplication::desktop()->width();
-        m_ph = QApplication::desktop()->height() - dock_height - dockHeight;
-        if (dock_position == 0) // bottom
-            move(QApplication::desktop()->x(), QApplication::desktop()->y() + dockHeight);
-        else // top
-            move(QApplication::desktop()->x(), QApplication::desktop()->y() + dock_height + dockHeight);
-        resize(m_pw, m_ph); 
-        raise();
-        // maximize client
-        XResizeWindow(QX11Info::display(), c_win, width() - diff_border_w, height() - diff_border_h);
-        maximized = true;
-    }
-    else
-    {
-        // set last parent dimension
-        move(n_px, n_py);
-        resize(n_pw, n_ph);
-        raise();
-        // set last client dimension
-        XResizeWindow(QX11Info::display(), c_win, width() - diff_border_w, height() - diff_border_h);
-        maximized = false;
-    }
+	if (! maximized)
+	{
+		// save parent dimension
+		n_px = x();
+		n_py = y();
+		n_pw = width();
+		n_ph = height();
+		// maximize parent with vertex and screen dimension-dockbar height
+		m_pw = QApplication::desktop()->width();
+		m_ph = QApplication::desktop()->height() - dock_height - dockHeight;
+		if (dock_position == 0) // bottom
+			move(QApplication::desktop()->x(), QApplication::desktop()->y() + dockHeight);
+		else // top
+			move(QApplication::desktop()->x(), QApplication::desktop()->y() + dock_height + dockHeight);
+		resize(m_pw, m_ph); 
+		raise();
+		// maximize client
+		XResizeWindow(QX11Info::display(), c_win, width() - diff_border_w, height() - diff_border_h);
+		maximized = true;
+		max->setPixmap (restorePix);
+		max->setToolTip (tr ("Restore"));
+	}
+	else
+	{
+		// set last parent dimension
+		move(n_px, n_py);
+		resize(n_pw, n_ph);
+		raise();
+		// set last client dimension
+		XResizeWindow(QX11Info::display(), c_win, width() - diff_border_w, height() - diff_border_h);
+		maximized = false;
+		max->setPixmap (maxPix);
+		max->setToolTip (tr ("Maximize"));
+	}
 }
 
 void Frame::dragEnterEvent(QDragEnterEvent *event)

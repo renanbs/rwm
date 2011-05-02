@@ -158,6 +158,7 @@ private:
     QString header_inactive_pix;// frame header pixmap
     QString minmax_pix;         // frame minmax pixmap
     QString maxPix;				// frame maximize pixmap
+    QString restorePix;			// frame restore pixmap
     QString minPix;				// frame minimize pixmap
     QString close_pix;          // frame close pixmap
     QString arrow_pix;          // frame cursor

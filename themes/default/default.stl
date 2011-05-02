@@ -26,6 +26,7 @@ Header\title_color=@Variant(\0\0\0\x43\x1\xff\xff\xff\xff\xff\xff\xff\xff\0\0)
 Header\minmax_pix=minmax.png
 Header\minPix=min.png
 Header\maxPix=max.png
+Header\restorePix=restore.png
 Header\close_pix=close.png
 
 [Desktop]
