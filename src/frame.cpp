@@ -124,21 +124,6 @@ void Frame::init()
     // move and resize client
     XMoveResizeWindow(QX11Info::display(), c_win, lateral_bdr_width, top_bdr_height+3, client_w, client_h);
 
-    //if the frame is too large, maximize it
-    if (frame_w >= QApplication::desktop()->width()-20 || frame_h >= QApplication::desktop()->height()-40)
-    {
-        maximize_it();
-    }
-    else // normal size
-    {
-        // move the frame in desktop center and resize
-        move((QApplication::desktop()->width()/2)-(frame_w/2), (QApplication::desktop()->height()/2)-(frame_h/2));
-        resize(frame_w, frame_h);
-    }
-    qDebug() << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
-    qDebug() << "Frame_x:" << frame_x << "Frame_y:" << frame_y << "Frame_w:" << frame_w << "Frame_h:" << frame_h;
-    qDebug() << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << "\n";
-
     if (frame_type != "Splash") // Splash frame have no header and no border
     {
         // create frame borders/header
@@ -152,6 +137,21 @@ void Frame::init()
         qDebug() << "Frame:" << winId() << "Name:" << wm_name << "is Splash type";
         splash = true;
     }
+    
+    //if the frame is too large, maximize it
+    if (frame_w >= QApplication::desktop()->width()-20 || frame_h >= QApplication::desktop()->height()-40)
+    {
+        maximizeIt();
+    }
+    else // normal size
+    {
+        // move the frame in desktop center and resize
+        move((QApplication::desktop()->width()/2)-(frame_w/2), (QApplication::desktop()->height()/2)-(frame_h/2));
+        resize(frame_w, frame_h);
+    }
+    qDebug() << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
+    qDebug() << "Frame_x:" << frame_x << "Frame_y:" << frame_y << "Frame_w:" << frame_w << "Frame_h:" << frame_h;
+    qDebug() << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << "\n";
 
     // send _NET_ACTIVE_WINDOW property
     Atom _net_active_window = XInternAtom(QX11Info::display(), "_NET_ACTIVE_WINDOW", False);
@@ -170,6 +170,11 @@ void Frame::init()
     XSync(QX11Info::display(), false);
     XUngrabServer(QX11Info::display());
 
+	if (maximized)
+	{
+		max->setPixmap (restorePix);
+		max->setToolTip (tr ("Restore"));
+	}
     // show frame
     show();
 }
@@ -682,17 +687,18 @@ void Frame::create_borders()
 
     // top left (icon)
     connect(tl_bdr, SIGNAL(mouse_left_press()), this, SLOT(iconify_it()));
-    connect(tl_bdr, SIGNAL(mouse_right_press()), this, SLOT(maximize_it()));
+    connect(tl_bdr, SIGNAL(mouse_right_press()), this, SLOT(maximizeIt()));
     // top right (icon)
     connect(tr_bdr, SIGNAL(mouse_left_press()), this, SLOT(destroy_it()));
     // Minimize
     connect(min, SIGNAL(mouse_left_press()), this, SLOT(minimize_it()));
     // Maximize
-    connect(max, SIGNAL(mouse_left_press()), this, SLOT(maximize_it()));
+    connect(max, SIGNAL(mouse_left_press()), this, SLOT(maximizeIt()));
     // top mid (title bar)
-    connect(tm_bdr, SIGNAL(mouse_double_click()), this, SLOT(iconify_it()));
+//     connect(tm_bdr, SIGNAL(mouse_double_click()), this, SLOT(iconify_it()));
+	connect(tm_bdr, SIGNAL(mouse_double_click()), this, SLOT(maximizeIt()));
     connect(tm_bdr, SIGNAL(mouse_left_press(QMouseEvent *)), this, SLOT(press_top_mid(QMouseEvent *)));
-    connect(tm_bdr, SIGNAL(mouse_right_press()), this, SLOT(maximize_it()));
+    connect(tm_bdr, SIGNAL(mouse_right_press()), this, SLOT(maximizeIt()));
     connect(tm_bdr, SIGNAL(mouse_move(QMouseEvent *)), this, SLOT(move_top_mid(QMouseEvent *)));
     // bottom left
     connect(bl_bdr, SIGNAL(mouse_left_press(QMouseEvent *)), this, SLOT(press_bottom_left(QMouseEvent *)));
@@ -743,6 +749,12 @@ void Frame::move_bottom_left(QMouseEvent *event)
     resize(resw, resh);
     XResizeWindow(QX11Info::display(), c_win, resw-diff_border_w, resh-diff_border_h); //client
     mousepos = event->globalPos();
+	if (maximized)
+	{
+		max->setPixmap(maxPix);
+		max->setToolTip("Maximize");
+		maximized = false;
+	}
 }
 
 ////////// BOTTOM RIGHT RESIZE //////////////
@@ -762,6 +774,12 @@ void Frame::move_bottom_right(QMouseEvent *event)
     resize(resw, resh);
     XResizeWindow(QX11Info::display(), c_win, resw-diff_border_w, resh-diff_border_h); //client
     mousepos = event->globalPos();
+	if (maximized)
+	{
+		max->setPixmap(maxPix);
+		max->setToolTip("Maximize");
+		maximized = false;
+	}
 }
 
 ////////// BOTTOM MID RESIZE //////////////
@@ -800,6 +818,12 @@ void Frame::move_right(QMouseEvent *event)
     resize(resw, resh);
     XResizeWindow(QX11Info::display(), c_win, resw-diff_border_w, resh-diff_border_h); //client
     mousepos = event->globalPos();
+	if (maximized)
+	{
+		max->setPixmap(maxPix);
+		max->setToolTip("Maximize");
+		maximized = false;
+	}
 }
 
 ////////// LEFT RESIZE //////////////
@@ -820,6 +844,12 @@ void Frame::move_left(QMouseEvent *event)
     resize(resw, resh);
     XResizeWindow(QX11Info::display(), c_win, resw-diff_border_w, resh-diff_border_h); //client
     mousepos = event->globalPos();
+	if (maximized)
+	{
+		max->setPixmap(maxPix);
+		max->setToolTip("Maximize");
+		maximized = false;
+	}
 }
 
 ////////// DESTROY WINDOW //////////////
@@ -871,14 +901,21 @@ void Frame::minimize_it()
 }
 
 
-////////// MAXIMIZE WINDOW //////////////
-void Frame::maximize_it()
+/**
+ * @brief	Maximize window
+ * @param	border if the method create_borders has already been executed
+ * 
+ * @return 	none
+ */
+void Frame::maximizeIt ()
 {
 	if (! maximized)
 	{
 		// save parent dimension
 		n_px = x();
 		n_py = y();
+		if (!n_py)
+			n_py += dockHeight;
 		n_pw = width();
 		n_ph = height();
 		// maximize parent with vertex and screen dimension-dockbar height
