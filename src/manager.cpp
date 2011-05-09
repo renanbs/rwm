@@ -61,9 +61,22 @@ void Manager::read_settings()
     header_inactive_pix->setToolTip(style->value("header_inactive_pix").toString());
     header_active_pix->setPixmap(QPixmap(header_active_pix_path));
     header_inactive_pix->setPixmap(QPixmap(header_inactive_pix_path));
-    minmax_pix_path = stl_path + style->value("minmax_pix").toString();
-    minmax_pix->setToolTip(style->value("minmax_pix").toString());
-    minmax_pix->setPixmap(QPixmap(minmax_pix_path));
+    iconifyPixPath = stl_path + style->value("minmax_pix").toString();
+    iconifyPixLabel->setToolTip(style->value("minmax_pix").toString());
+    iconifyPixLabel->setPixmap(QPixmap(iconifyPixPath));
+	
+	maximizePixPath = stl_path + style->value ("maxPix").toString();
+	maximizePixLabel->setToolTip (style->value ("maxPix").toString());
+	maximizePixLabel->setPixmap (QPixmap (maximizePixPath));
+	
+	minimizePixPath = stl_path + style->value ("minPix").toString();
+	minimizePixLabel->setToolTip (style->value ("minPix").toString());
+	minimizePixLabel->setPixmap (QPixmap (minimizePixPath));
+	
+	restorePixPath = stl_path + style->value("restorePix").toString();
+	restorePixLabel->setToolTip (style->value ("restorePix").toString());
+	restorePixLabel->setPixmap (QPixmap (restorePixPath));
+	
     close_pix_path = stl_path + style->value("close_pix").toString();
     close_pix->setToolTip(style->value("close_pix").toString());
     close_pix->setPixmap(QPixmap(close_pix_path));
@@ -81,6 +94,16 @@ void Manager::read_settings()
     dockbar_position_comboBox->setCurrentIndex(style->value("dock_position").toInt());
     style->endGroup(); // Dockbar
     /////////////////////////////////////////////////////////////////////////
+// 	style->beginGroup("DockBarTop");
+//     dockTopPixPath = stl_path + style->value("dockPix").toString();
+//     dockTopPix->setToolTip(style->value("dockPix").toString());
+//     dockTopPix->setPixmap(QPixmap(dockbar_pix_path));
+// //     dockbar_height_spinBox->setValue(style->value("dock_height").toInt());
+// //     dockbar_width_spinBox->setValue(style->value("dock_width").toInt());
+//     dockTopPosition->setCurrentIndex(style->value("dockPosition").toInt());
+//     style->endGroup(); // Dockbar
+    /////////////////////////////////////////////////////////////////////////
+	
     style->beginGroup("Dockicon");
     dockicon_pix_path = stl_path + style->value("d_icon_pix").toString();
     dockicon_pix->setToolTip(style->value("d_icon_pix").toString());
@@ -494,8 +517,12 @@ void Manager::style_tab()
     QLabel *header_active_pix_lb = new QLabel(tr("Header active:"), this);
     QLabel *header_inactive_pix_lb = new QLabel(tr("Header inactive:"), this);
     QLabel *header_color = new QLabel(tr("Title color:"), this);
-    QLabel *minmax_pix_lb = new QLabel(tr("Minimize/Maximize:"), this);
+    QLabel *iconifyLabel = new QLabel(tr("Iconify:"), this);
+	QLabel *restoreLabel = new QLabel(tr("Restore:"), this);
+	QLabel *maximizeLabel = new QLabel(tr("Maximize:"), this);
+	QLabel *minimizeLabel = new QLabel(tr("Minimize:"), this);
     QLabel *close_pix_lb = new QLabel(tr("Close:"), this);
+	
     header_active_pix = new QLabel(this);
     header_inactive_pix = new QLabel(this);
     header_active_pix->setMaximumSize(32, 32);
@@ -505,9 +532,20 @@ void Manager::style_tab()
     header_col_lab = new QLabel(this);
     header_col_lab->setFrameStyle(QFrame::Panel|QFrame::Sunken);
     header_col_lab->setMinimumWidth(32);
-    minmax_pix = new QLabel(this);
-    minmax_pix->setMaximumSize(32, 32);
-    minmax_pix->setScaledContents(true);
+    iconifyPixLabel = new QLabel(this);
+    iconifyPixLabel->setMaximumSize(32, 32);
+    iconifyPixLabel->setScaledContents(true);
+
+	restorePixLabel = new QLabel(this);
+	restorePixLabel->setMaximumSize(32, 32);
+	restorePixLabel->setScaledContents(true);
+	maximizePixLabel = new QLabel(this);
+	maximizePixLabel->setMaximumSize(32, 32);
+	maximizePixLabel->setScaledContents(true);
+	minimizePixLabel = new QLabel(this);
+	minimizePixLabel->setMaximumSize(32, 32);
+	minimizePixLabel->setScaledContents(true);
+	
     close_pix = new QLabel(this);
     close_pix->setMaximumSize(32, 32);
     close_pix->setScaledContents(true);
@@ -520,37 +558,56 @@ void Manager::style_tab()
     bottom_bdr_spinBox = new QSpinBox(this);
     bottom_bdr_spinBox->setMaximumWidth(70);
     bottom_bdr_spinBox->setSuffix(" pixels");
+	
     QPushButton *header_active_pix_but = new QPushButton("...", this);
     QPushButton *header_inactive_pix_but = new QPushButton("...", this);
     header_active_pix_but->setMaximumWidth(50);
     header_inactive_pix_but->setMaximumWidth(50);
-    QPushButton *minmax_pix_but = new QPushButton("...", this);
-    minmax_pix_but->setMaximumWidth(50);
+    QPushButton *iconifyButton = new QPushButton("...", this);
+    iconifyButton->setMaximumWidth(50);
+	QPushButton *maximizeButton = new QPushButton("...", this);
+	maximizeButton->setMaximumWidth(50);
+	QPushButton *restoreButton = new QPushButton("...", this);
+	restoreButton->setMaximumWidth(50);
+	QPushButton *minimizeButton = new QPushButton("...", this);
+	minimizeButton->setMaximumWidth(50);	
     QPushButton *close_pix_but = new QPushButton("...", this);
     close_pix_but->setMaximumWidth(50);
     QPushButton *header_col_but = new QPushButton("...", this);
     header_col_but->setMaximumWidth(50);
+	
     frame_grid->addWidget(top_bdr_lb, 0, 0);
     frame_grid->addWidget(lateral_bdr_lb, 1, 0);
     frame_grid->addWidget(bottom_bdr_lb, 2, 0);
     frame_grid->addWidget(header_active_pix_lb, 3, 0);
     frame_grid->addWidget(header_inactive_pix_lb, 4, 0);
     frame_grid->addWidget(header_color, 5, 0);
-    frame_grid->addWidget(minmax_pix_lb, 6, 0);
-    frame_grid->addWidget(close_pix_lb, 7, 0);
+    frame_grid->addWidget(iconifyLabel, 6, 0);
+	frame_grid->addWidget(restoreLabel, 7, 0);
+	frame_grid->addWidget(maximizeLabel, 8, 0);
+	frame_grid->addWidget(minimizeLabel, 9, 0);
+    frame_grid->addWidget(close_pix_lb, 10, 0);
+	
     frame_grid->addWidget(top_bdr_spinBox, 0, 1);
     frame_grid->addWidget(lateral_bdr_spinBox, 1, 1);
     frame_grid->addWidget(bottom_bdr_spinBox, 2, 1);
     frame_grid->addWidget(header_active_pix, 3, 1, Qt::AlignCenter);
     frame_grid->addWidget(header_inactive_pix, 4, 1, Qt::AlignCenter);
     frame_grid->addWidget(header_col_lab, 5, 1, Qt::AlignCenter);
-    frame_grid->addWidget(minmax_pix, 6, 1, Qt::AlignCenter);
-    frame_grid->addWidget(close_pix, 7, 1, Qt::AlignCenter);
+    frame_grid->addWidget(iconifyPixLabel, 6, 1, Qt::AlignCenter);
+	frame_grid->addWidget(restorePixLabel, 7, 1, Qt::AlignCenter);
+	frame_grid->addWidget(maximizePixLabel, 8, 1, Qt::AlignCenter);
+	frame_grid->addWidget(minimizePixLabel, 9, 1, Qt::AlignCenter);
+    frame_grid->addWidget(close_pix, 10, 1, Qt::AlignCenter);
+	
     frame_grid->addWidget(header_active_pix_but, 3, 2);
     frame_grid->addWidget(header_inactive_pix_but, 4, 2);
     frame_grid->addWidget(header_col_but, 5, 2);
-    frame_grid->addWidget(minmax_pix_but, 6, 2);
-    frame_grid->addWidget(close_pix_but, 7, 2);
+    frame_grid->addWidget(iconifyButton, 6, 2);
+	frame_grid->addWidget(restoreButton, 7, 2);
+	frame_grid->addWidget(maximizeButton, 8, 2);
+	frame_grid->addWidget(minimizeButton, 9, 2);
+    frame_grid->addWidget(close_pix_but, 10, 2);
     ///////// DOCKBAR /////////
     dockbar_widget = new QWidget(this);
     dockbar_layout = new QGridLayout();
@@ -1201,7 +1258,10 @@ void Manager::style_tab()
     pixmapMapper->setMapping(trash_pix_but, trash_pix);
     pixmapMapper->setMapping(header_active_pix_but, header_active_pix);
     pixmapMapper->setMapping(header_inactive_pix_but, header_inactive_pix);
-    pixmapMapper->setMapping(minmax_pix_but, minmax_pix);
+    pixmapMapper->setMapping(iconifyButton, iconifyPixLabel);
+	pixmapMapper->setMapping(maximizeButton, maximizePixLabel);
+	pixmapMapper->setMapping(minimizeButton, minimizePixLabel);
+	pixmapMapper->setMapping(restoreButton, restorePixLabel);
     pixmapMapper->setMapping(close_pix_but, close_pix);
     ///////// Launcher //////////
     pixmapMapper->setMapping(launcher_pix_but, launcher_pix);
@@ -1257,7 +1317,10 @@ void Manager::style_tab()
     connect(trash_pix_but, SIGNAL(clicked()), pixmapMapper, SLOT(map()));
     connect(header_active_pix_but, SIGNAL(clicked()), pixmapMapper, SLOT(map()));
     connect(header_inactive_pix_but, SIGNAL(clicked()), pixmapMapper, SLOT(map()));
-    connect(minmax_pix_but, SIGNAL(clicked()), pixmapMapper, SLOT(map()));
+    connect(iconifyButton, SIGNAL(clicked()), pixmapMapper, SLOT(map()));
+	connect(restoreButton, SIGNAL(clicked()), pixmapMapper, SLOT(map()));
+	connect(maximizeButton, SIGNAL(clicked()), pixmapMapper, SLOT(map()));
+	connect(minimizeButton, SIGNAL(clicked()), pixmapMapper, SLOT(map()));
     connect(close_pix_but, SIGNAL(clicked()), pixmapMapper, SLOT(map()));
     ///////// Launcher //////////
     connect(launcher_pix_but, SIGNAL(clicked()), pixmapMapper, SLOT(map()));
@@ -1438,7 +1501,10 @@ void Manager::ok_frame_pressed()
     style->setValue("header_active_pix", header_active_pix->toolTip());
     style->setValue("header_inactive_pix", header_inactive_pix->toolTip());
     style->setValue("title_color", header_col_lab->palette().color(QPalette::Window));
-    style->setValue("minmax_pix", minmax_pix->toolTip());
+    style->setValue("iconifyPix", iconifyPixLabel->toolTip());
+	style->setValue("maxPix", maximizePixLabel->toolTip());
+	style->setValue("minPix", minimizePixLabel->toolTip());
+	style->setValue("restorePix", restorePixLabel->toolTip());
     style->setValue("close_pix", close_pix->toolTip());
     style->endGroup(); //Header
     style->endGroup(); //Frame

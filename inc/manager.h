@@ -76,7 +76,10 @@ private:
     QLabel *desktop_pix;
     QLabel *header_active_pix;
     QLabel *header_inactive_pix;
-    QLabel *minmax_pix;
+	QLabel *maximizePixLabel;
+	QLabel *minimizePixLabel;
+	QLabel *restorePixLabel;
+    QLabel *iconifyPixLabel;
     QLabel *close_pix;
     /// Launcher ///
     QLabel *launcher_pix;
@@ -132,7 +135,10 @@ private:
     QString desktop_pix_path;
     QString header_active_pix_path;
     QString header_inactive_pix_path;
-    QString minmax_pix_path;
+    QString iconifyPixPath;
+	QString maximizePixPath;
+	QString minimizePixPath;
+	QString restorePixPath;
     QString close_pix_path;
     /// Launcher ///
     QString launcher_pix_path;
