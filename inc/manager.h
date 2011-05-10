@@ -63,9 +63,18 @@ private:
     QSpinBox *top_bdr_spinBox;
     QSpinBox *lateral_bdr_spinBox;
     QSpinBox *bottom_bdr_spinBox;
+	
     QSpinBox *dockbar_height_spinBox;
-    QSpinBox *dockbar_width_spinBox;
-    QComboBox *dockbar_position_comboBox;
+//     QSpinBox *dockbar_width_spinBox;
+//     QComboBox *dockbar_position_comboBox;
+	
+	// Dock Bar Top
+// 	QSpinBox *dockBarTopHeightSpinBox;
+// 	QSpinBox *dockBarTopWidthSpinBox;
+// 	QComboBox *dockBarTopPositionComboBox;
+	QLabel *dockBarTopPixmapLabel;
+	
+	
     QLabel *dockbar_pix;
     QLabel *deskfolder_pix;
     QLabel *deskdev_disk_pix;
@@ -125,6 +134,7 @@ private:
     QLabel *icon_view_pix;
     QLabel *upper_dir_pix;
 
+	QString dockTopPixPath;
     QString dockbar_pix_path;
     QString deskfolder_pix_path;
     QString deskdev_disk_pix_path;
@@ -218,11 +228,13 @@ private:
     QHBoxLayout *ok_quit_layout;
     QHBoxLayout *rem_quit_layout;
     QGridLayout *dockbar_layout;
+	QGridLayout *dockBarTopLayout;
     QGridLayout *deskset_layout;
     QListWidget *sections_widget;
     QStackedWidget *params_widget;
     QGroupBox *frame_box;
     QGroupBox *dockbar_box;
+	QGroupBox *dockBarTopGBox;
     QGroupBox *dockicon_box;
     QGroupBox *deskfolder_box;
     QGroupBox *deskfile_box;
@@ -237,10 +249,12 @@ private:
     QGroupBox *message_box;
     QGroupBox *other_box;
     QWidget *dockbar_widget;
+	QWidget *dockBarTopWidget;
     QWidget *deskset_widget;
     QGridLayout *style_grid;
     QGridLayout *frame_grid;
     QGridLayout *dockbar_grid;
+	QGridLayout *dockBarTopGridLayout;
     QGridLayout *dockicon_grid;
     QGridLayout *deskfolder_grid;
     QGridLayout *deskfile_grid;

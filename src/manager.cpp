@@ -90,18 +90,18 @@ void Manager::read_settings()
     dockbar_pix->setToolTip(style->value("dock_pix").toString());
     dockbar_pix->setPixmap(QPixmap(dockbar_pix_path));
     dockbar_height_spinBox->setValue(style->value("dock_height").toInt());
-    dockbar_width_spinBox->setValue(style->value("dock_width").toInt());
-    dockbar_position_comboBox->setCurrentIndex(style->value("dock_position").toInt());
+//     dockbar_width_spinBox->setValue(style->value("dock_width").toInt());
+//     dockbar_position_comboBox->setCurrentIndex(style->value("dock_position").toInt());
     style->endGroup(); // Dockbar
     /////////////////////////////////////////////////////////////////////////
-// 	style->beginGroup("DockBarTop");
-//     dockTopPixPath = stl_path + style->value("dockPix").toString();
-//     dockTopPix->setToolTip(style->value("dockPix").toString());
-//     dockTopPix->setPixmap(QPixmap(dockbar_pix_path));
-// //     dockbar_height_spinBox->setValue(style->value("dock_height").toInt());
-// //     dockbar_width_spinBox->setValue(style->value("dock_width").toInt());
+	style->beginGroup("DockBarTop");
+	dockTopPixPath = stl_path + style->value("dockPix").toString();
+	dockBarTopPixmapLabel->setToolTip(style->value("dockPix").toString());
+	dockBarTopPixmapLabel->setPixmap(QPixmap(dockTopPixPath));
+//     dockbar_height_spinBox->setValue(style->value("dock_height").toInt());
+//     dockbar_width_spinBox->setValue(style->value("dock_width").toInt());
 //     dockTopPosition->setCurrentIndex(style->value("dockPosition").toInt());
-//     style->endGroup(); // Dockbar
+    style->endGroup(); // DockbarTop
     /////////////////////////////////////////////////////////////////////////
 	
     style->beginGroup("Dockicon");
@@ -488,7 +488,9 @@ void Manager::style_tab()
     QListWidgetItem *frame_section = new QListWidgetItem(sections_widget);
     frame_section->setText(tr("Frame"));
     QListWidgetItem *dockbar_section = new QListWidgetItem(sections_widget);
-    dockbar_section->setText(tr("Dockbar"));
+    dockbar_section->setText(tr("Dock Bar Bottom"));
+	QListWidgetItem *dockBarTopSection = new QListWidgetItem(sections_widget);
+    dockBarTopSection->setText(tr("Dock Bar Top"));
     QListWidgetItem *desktop_section = new QListWidgetItem(sections_widget);
     desktop_section->setText(tr("Desktop"));
     QListWidgetItem *wallpaper_section = new QListWidgetItem(sections_widget);
@@ -546,18 +548,18 @@ void Manager::style_tab()
 	minimizePixLabel->setMaximumSize(32, 32);
 	minimizePixLabel->setScaledContents(true);
 	
-    close_pix = new QLabel(this);
-    close_pix->setMaximumSize(32, 32);
-    close_pix->setScaledContents(true);
-    top_bdr_spinBox = new QSpinBox(this);
-    top_bdr_spinBox->setMaximumWidth(70);
-    top_bdr_spinBox->setSuffix(" pixels");
-    lateral_bdr_spinBox = new QSpinBox(this);
-    lateral_bdr_spinBox->setMaximumWidth(70);
-    lateral_bdr_spinBox->setSuffix(" pixels");
-    bottom_bdr_spinBox = new QSpinBox(this);
-    bottom_bdr_spinBox->setMaximumWidth(70);
-    bottom_bdr_spinBox->setSuffix(" pixels");
+	close_pix = new QLabel(this);
+	close_pix->setMaximumSize(32, 32);
+	close_pix->setScaledContents(true);
+	top_bdr_spinBox = new QSpinBox(this);
+	top_bdr_spinBox->setMaximumWidth(70);
+	top_bdr_spinBox->setSuffix(" pixels");
+	lateral_bdr_spinBox = new QSpinBox(this);
+	lateral_bdr_spinBox->setMaximumWidth(70);
+	lateral_bdr_spinBox->setSuffix(" pixels");
+	bottom_bdr_spinBox = new QSpinBox(this);
+	bottom_bdr_spinBox->setMaximumWidth(70);
+	bottom_bdr_spinBox->setSuffix(" pixels");
 	
     QPushButton *header_active_pix_but = new QPushButton("...", this);
     QPushButton *header_inactive_pix_but = new QPushButton("...", this);
@@ -571,145 +573,193 @@ void Manager::style_tab()
 	restoreButton->setMaximumWidth(50);
 	QPushButton *minimizeButton = new QPushButton("...", this);
 	minimizeButton->setMaximumWidth(50);	
-    QPushButton *close_pix_but = new QPushButton("...", this);
-    close_pix_but->setMaximumWidth(50);
-    QPushButton *header_col_but = new QPushButton("...", this);
-    header_col_but->setMaximumWidth(50);
+	QPushButton *close_pix_but = new QPushButton("...", this);
+	close_pix_but->setMaximumWidth(50);
+	QPushButton *header_col_but = new QPushButton("...", this);
+	header_col_but->setMaximumWidth(50);
 	
-    frame_grid->addWidget(top_bdr_lb, 0, 0);
-    frame_grid->addWidget(lateral_bdr_lb, 1, 0);
-    frame_grid->addWidget(bottom_bdr_lb, 2, 0);
-    frame_grid->addWidget(header_active_pix_lb, 3, 0);
-    frame_grid->addWidget(header_inactive_pix_lb, 4, 0);
-    frame_grid->addWidget(header_color, 5, 0);
-    frame_grid->addWidget(iconifyLabel, 6, 0);
+	frame_grid->addWidget(top_bdr_lb, 0, 0);
+	frame_grid->addWidget(lateral_bdr_lb, 1, 0);
+	frame_grid->addWidget(bottom_bdr_lb, 2, 0);
+	frame_grid->addWidget(header_active_pix_lb, 3, 0);
+	frame_grid->addWidget(header_inactive_pix_lb, 4, 0);
+	frame_grid->addWidget(header_color, 5, 0);
+	frame_grid->addWidget(iconifyLabel, 6, 0);
 	frame_grid->addWidget(restoreLabel, 7, 0);
 	frame_grid->addWidget(maximizeLabel, 8, 0);
 	frame_grid->addWidget(minimizeLabel, 9, 0);
-    frame_grid->addWidget(close_pix_lb, 10, 0);
+	frame_grid->addWidget(close_pix_lb, 10, 0);
 	
-    frame_grid->addWidget(top_bdr_spinBox, 0, 1);
-    frame_grid->addWidget(lateral_bdr_spinBox, 1, 1);
-    frame_grid->addWidget(bottom_bdr_spinBox, 2, 1);
-    frame_grid->addWidget(header_active_pix, 3, 1, Qt::AlignCenter);
-    frame_grid->addWidget(header_inactive_pix, 4, 1, Qt::AlignCenter);
-    frame_grid->addWidget(header_col_lab, 5, 1, Qt::AlignCenter);
-    frame_grid->addWidget(iconifyPixLabel, 6, 1, Qt::AlignCenter);
+	frame_grid->addWidget(top_bdr_spinBox, 0, 1);
+	frame_grid->addWidget(lateral_bdr_spinBox, 1, 1);
+	frame_grid->addWidget(bottom_bdr_spinBox, 2, 1);
+	frame_grid->addWidget(header_active_pix, 3, 1, Qt::AlignCenter);
+	frame_grid->addWidget(header_inactive_pix, 4, 1, Qt::AlignCenter);
+	frame_grid->addWidget(header_col_lab, 5, 1, Qt::AlignCenter);
+	frame_grid->addWidget(iconifyPixLabel, 6, 1, Qt::AlignCenter);
 	frame_grid->addWidget(restorePixLabel, 7, 1, Qt::AlignCenter);
 	frame_grid->addWidget(maximizePixLabel, 8, 1, Qt::AlignCenter);
 	frame_grid->addWidget(minimizePixLabel, 9, 1, Qt::AlignCenter);
-    frame_grid->addWidget(close_pix, 10, 1, Qt::AlignCenter);
-	
-    frame_grid->addWidget(header_active_pix_but, 3, 2);
-    frame_grid->addWidget(header_inactive_pix_but, 4, 2);
-    frame_grid->addWidget(header_col_but, 5, 2);
-    frame_grid->addWidget(iconifyButton, 6, 2);
+	frame_grid->addWidget(close_pix, 10, 1, Qt::AlignCenter);
+
+	frame_grid->addWidget(header_active_pix_but, 3, 2);
+	frame_grid->addWidget(header_inactive_pix_but, 4, 2);
+	frame_grid->addWidget(header_col_but, 5, 2);
+	frame_grid->addWidget(iconifyButton, 6, 2);
 	frame_grid->addWidget(restoreButton, 7, 2);
 	frame_grid->addWidget(maximizeButton, 8, 2);
 	frame_grid->addWidget(minimizeButton, 9, 2);
-    frame_grid->addWidget(close_pix_but, 10, 2);
+	frame_grid->addWidget(close_pix_but, 10, 2);
+	
+	
     ///////// DOCKBAR /////////
-    dockbar_widget = new QWidget(this);
-    dockbar_layout = new QGridLayout();
-    dockbar_widget->setLayout(dockbar_layout);
-    dockbar_box = new QGroupBox(tr("Dockbar"), this);
-    dockbar_grid = new QGridLayout();
-    dockbar_grid->setSpacing(2);
-    dockbar_box->setLayout(dockbar_grid);
-    QLabel *dockbar_height_lb = new QLabel(tr("Height:"), this);
-    dockbar_height_spinBox = new QSpinBox(this);
-    dockbar_height_spinBox->setMaximumWidth(100);
-    dockbar_height_spinBox->setSuffix(" pixels");
-    QLabel *dockbar_width_lb = new QLabel(tr("Width:"), this);
-    dockbar_width_spinBox = new QSpinBox(this);
-    dockbar_width_spinBox->setMaximumWidth(100);
-    dockbar_width_spinBox->setSuffix(" pixels");
-    dockbar_width_spinBox->setMaximum(QApplication::desktop()->width());
-    dockbar_width_spinBox->setMinimum(300);
-    QLabel *dockbar_position_lb = new QLabel(tr("Position:"), this);
-    dockbar_position_comboBox = new QComboBox(this);
-    dockbar_position_comboBox->addItem(tr("Bottom"));
-    dockbar_position_comboBox->addItem(tr("Top"));
-    QLabel *dockbar_pix_lb = new QLabel(tr("Pixmap:"), this);
-    dockbar_pix = new QLabel(this);
-    dockbar_pix->setMaximumSize(32, 32);
-    dockbar_pix->setScaledContents(true);
-    QPushButton *dockbar_pix_but = new QPushButton("...", this);
-    dockbar_pix_but->setMaximumWidth(50);
-    dockbar_grid->addWidget(dockbar_height_lb, 0, 0);
-    dockbar_grid->addWidget(dockbar_height_spinBox, 0, 1);
-    dockbar_grid->addWidget(dockbar_width_lb, 1, 0);
-    dockbar_grid->addWidget(dockbar_width_spinBox, 1, 1);
-    dockbar_grid->addWidget(dockbar_position_lb, 2, 0);
-    dockbar_grid->addWidget(dockbar_position_comboBox, 2, 1);
-    dockbar_grid->addWidget(dockbar_pix_lb, 3, 0);
-    dockbar_grid->addWidget(dockbar_pix, 3, 1, Qt::AlignCenter);
-    dockbar_grid->addWidget(dockbar_pix_but, 3, 2);
-    ///////// DOCKICON /////////
-    dockicon_box = new QGroupBox(tr("Dockbar icon"), this);
-    dockicon_grid = new QGridLayout();
-    dockicon_grid->setSpacing(2);
-    dockicon_box->setLayout(dockicon_grid);
-    QLabel *dockicon_pix_lb = new QLabel(tr("Pixmap:"), this);
-    dockicon_pix = new QLabel(this);
-    dockicon_pix->setMaximumSize(32, 32);
-    dockicon_pix->setScaledContents(true);
-    QLabel *dockicon_color = new QLabel(tr("Title color:"), this);
-    dockicon_col_lab = new QLabel(this);
-    dockicon_col_lab->setFrameStyle(QFrame::Panel|QFrame::Sunken);
-    dockicon_col_lab->setMinimumWidth(32);
-    QPushButton *dockicon_pix_but = new QPushButton("...", this);
-    dockicon_pix_but->setMaximumWidth(50);
-    QPushButton *dockicon_col_but = new QPushButton("...", this);
-    dockicon_col_but->setMaximumWidth(50);
-    dockicon_grid->addWidget(dockicon_pix_lb, 0, 0);
-    dockicon_grid->addWidget(dockicon_pix, 0, 1, Qt::AlignCenter);
-    dockicon_grid->addWidget(dockicon_pix_but, 0, 2);
-    dockicon_grid->addWidget(dockicon_color, 1, 0);
-    dockicon_grid->addWidget(dockicon_col_lab, 1, 1, Qt::AlignCenter);
-    dockicon_grid->addWidget(dockicon_col_but, 1, 2);
-    ///////// SYSICON /////////
-    sysicon_box = new QGroupBox(tr("System Tray icon"), this);
-    sysicon_grid = new QGridLayout();
-    sysicon_grid->setSpacing(2);
-    sysicon_box->setLayout(sysicon_grid);
-    QLabel *sysicon_pix_lb = new QLabel(tr("Pixmap:"), this);
-    sysicon_pix = new QLabel(this);
-    sysicon_pix->setMaximumSize(32, 32);
-    sysicon_pix->setScaledContents(true);
-    QPushButton *sysicon_pix_but = new QPushButton("...", this);
-    sysicon_pix_but->setMaximumWidth(50);
-    sysicon_grid->addWidget(sysicon_pix_lb, 0, 0);
-    sysicon_grid->addWidget(sysicon_pix, 0, 1, Qt::AlignCenter);
-    sysicon_grid->addWidget(sysicon_pix_but, 0, 2);
-    ///////// DATECLOCK /////////
-    dateclock_box = new QGroupBox(tr("Clock/Date"), this);
-    dateclock_grid = new QGridLayout();
-    dateclock_grid->setSpacing(2);
-    dateclock_box->setLayout(dateclock_grid);
-    QLabel *date_color = new QLabel(tr("Date color:"), this);
-    QLabel *clock_color = new QLabel(tr("Clock color:"), this);
-    date_col_lab = new QLabel(this);
-    clock_col_lab = new QLabel(this);
-    date_col_lab->setFrameStyle(QFrame::Panel|QFrame::Sunken);
-    clock_col_lab->setFrameStyle(QFrame::Panel|QFrame::Sunken);
-    date_col_lab->setMinimumWidth(32);
-    clock_col_lab->setMinimumWidth(32);
-    QPushButton *date_col_but = new QPushButton("...", this);
-    QPushButton *clock_col_but = new QPushButton("...", this);
-    date_col_but->setMaximumWidth(50);
-    clock_col_but->setMaximumWidth(50);
-    dateclock_grid->addWidget(date_color, 1, 0);
-    dateclock_grid->addWidget(date_col_lab, 1, 1, Qt::AlignCenter);
-    dateclock_grid->addWidget(date_col_but, 1, 2);
-    dateclock_grid->addWidget(clock_color, 0, 0);
-    dateclock_grid->addWidget(clock_col_lab, 0, 1, Qt::AlignCenter);
-    dateclock_grid->addWidget(clock_col_but, 0, 2);
-    /////////////////////////////////////////////////
-    dockbar_layout->addWidget(dockbar_box, 0, 0);
-    dockbar_layout->addWidget(dockicon_box, 0, 1);
-    dockbar_layout->addWidget(sysicon_box, 1, 0);
-    dockbar_layout->addWidget(dateclock_box, 1, 1);
+	dockbar_widget = new QWidget(this);
+	dockbar_layout = new QGridLayout();
+	dockbar_widget->setLayout(dockbar_layout);
+	dockbar_box = new QGroupBox(tr("Dockbar"), this);
+	dockbar_grid = new QGridLayout();
+	dockbar_grid->setSpacing(2);
+	dockbar_box->setLayout(dockbar_grid);
+	QLabel *dockbar_height_lb = new QLabel(tr("Height:"), this);
+	dockbar_height_spinBox = new QSpinBox(this);
+	dockbar_height_spinBox->setMaximumWidth(100);
+	dockbar_height_spinBox->setSuffix(" pixels");
+//     QLabel *dockbar_width_lb = new QLabel(tr("Width:"), this);
+//     dockbar_width_spinBox = new QSpinBox(this);
+//     dockbar_width_spinBox->setMaximumWidth(100);
+//     dockbar_width_spinBox->setSuffix(" pixels");
+//     dockbar_width_spinBox->setMaximum(QApplication::desktop()->width());
+//     dockbar_width_spinBox->setMinimum(300);
+// 	QLabel *dockbar_position_lb = new QLabel(tr("Position:"), this);
+// 	dockbar_position_comboBox = new QComboBox(this);
+// 	dockbar_position_comboBox->addItem(tr("Bottom"));
+// 	dockbar_position_comboBox->addItem(tr("Top"));
+	QLabel *dockbar_pix_lb = new QLabel(tr("Pixmap:"), this);
+	dockbar_pix = new QLabel(this);
+	dockbar_pix->setMaximumSize(32, 32);
+	dockbar_pix->setScaledContents(true);
+	QPushButton *dockbar_pix_but = new QPushButton("...", this);
+	dockbar_pix_but->setMaximumWidth(50);
+	dockbar_grid->addWidget(dockbar_height_lb, 0, 0);
+	dockbar_grid->addWidget(dockbar_height_spinBox, 0, 1);
+//     dockbar_grid->addWidget(dockbar_width_lb, 1, 0);
+//     dockbar_grid->addWidget(dockbar_width_spinBox, 1, 1);
+// 	dockbar_grid->addWidget(dockbar_position_lb, 2, 0);
+// 	dockbar_grid->addWidget(dockbar_position_comboBox, 2, 1);
+	dockbar_grid->addWidget(dockbar_pix_lb, 3, 0);
+	dockbar_grid->addWidget(dockbar_pix, 3, 1, Qt::AlignCenter);
+	dockbar_grid->addWidget(dockbar_pix_but, 3, 2);
+	/////////////////////////////////////////////////
+	dockbar_layout->addWidget(dockbar_box, 0, 0);
+//     dockbar_layout->addWidget(dockicon_box, 0, 1);
+//     dockbar_layout->addWidget(sysicon_box, 1, 0);
+//     dockbar_layout->addWidget(dateclock_box, 1, 1);
+	
+	///////// DOCKBARTOP /////////
+	dockBarTopWidget = new QWidget(this);
+	dockBarTopLayout = new QGridLayout();
+	dockBarTopWidget->setLayout(dockBarTopLayout);
+	dockBarTopGBox = new QGroupBox (tr("Dock Bar Top"), this);
+	dockBarTopGridLayout = new QGridLayout ();
+	dockBarTopGridLayout->setSpacing(2);
+	dockBarTopGBox->setLayout(dockBarTopGridLayout);
+// 	QLabel *dockTopHeightLabel = new QLabel(tr("Height:"), this);
+// 	dockBarTopHeightSpinBox = new QSpinBox(this);
+// 	dockBarTopHeightSpinBox->setMaximumWidth(100);
+// 	dockBarTopHeightSpinBox->setSuffix(" pixels");
+// 	QLabel *dockBarTopWidthLabel = new QLabel(tr("Width:"), this);
+// 	dockBarTopWidthSpinBox = new QSpinBox(this);
+// 	dockBarTopWidthSpinBox->setMaximumWidth(100);
+// 	dockBarTopWidthSpinBox->setSuffix(" pixels");
+// 	dockBarTopWidthSpinBox->setMaximum(QApplication::desktop()->width());
+// 	dockBarTopWidthSpinBox->setMinimum(300);
+// 	QLabel *dockBarTopPositionLabel = new QLabel(tr("Position:"), this);
+// 	dockBarTopPositionComboBox = new QComboBox(this);
+// 	dockBarTopPositionComboBox->addItem(tr("Bottom"));
+// 	dockBarTopPositionComboBox->addItem(tr("Top"));
+// 	QLabel *dockBarTopPixLabel = new QLabel(tr("Pixmap:"), this);
+	dockBarTopPixmapLabel = new QLabel(this);
+	dockBarTopPixmapLabel->setMaximumSize(32, 32);
+	dockBarTopPixmapLabel->setScaledContents(true);
+	QPushButton *dockBarTopPixButton = new QPushButton("...", this);
+	dockBarTopPixButton->setMaximumWidth(50);
+// // 	dockBarTopGridLayout->addWidget(dockTopHeightLabel, 0, 0);
+// // 	dockBarTopGridLayout->addWidget(dockBarTopHeightSpinBox, 0, 1);
+// // 	dockBarTopGridLayout->addWidget(dockBarTopWidthLabel, 1, 0);
+// // 	dockBarTopGridLayout->addWidget(dockBarTopWidthSpinBox, 1, 1);
+// // 	dockBarTopGridLayout->addWidget(dockBarTopPositionLabel, 2, 0);
+// // 	dockBarTopGridLayout->addWidget(dockBarTopPositionComboBox, 2, 1);
+// // 	dockBarTopGridLayout->addWidget(dockBarTopPixLabel, 3, 0);
+	dockBarTopGridLayout->addWidget(dockBarTopPixmapLabel, 3, 1, Qt::AlignCenter);
+	dockBarTopGridLayout->addWidget(dockBarTopPixButton, 3, 2);
+	
+	///////// DOCKICON /////////
+	dockicon_box = new QGroupBox(tr("Dockbar icon"), this);
+	dockicon_grid = new QGridLayout();
+	dockicon_grid->setSpacing(2);
+	dockicon_box->setLayout(dockicon_grid);
+	QLabel *dockicon_pix_lb = new QLabel(tr("Pixmap:"), this);
+	dockicon_pix = new QLabel(this);
+	dockicon_pix->setMaximumSize(32, 32);
+	dockicon_pix->setScaledContents(true);
+	QLabel *dockicon_color = new QLabel(tr("Title color:"), this);
+	dockicon_col_lab = new QLabel(this);
+	dockicon_col_lab->setFrameStyle(QFrame::Panel|QFrame::Sunken);
+	dockicon_col_lab->setMinimumWidth(32);
+	QPushButton *dockicon_pix_but = new QPushButton("...", this);
+	dockicon_pix_but->setMaximumWidth(50);
+	QPushButton *dockicon_col_but = new QPushButton("...", this);
+	dockicon_col_but->setMaximumWidth(50);
+	dockicon_grid->addWidget(dockicon_pix_lb, 0, 0);
+	dockicon_grid->addWidget(dockicon_pix, 0, 1, Qt::AlignCenter);
+	dockicon_grid->addWidget(dockicon_pix_but, 0, 2);
+	dockicon_grid->addWidget(dockicon_color, 1, 0);
+	dockicon_grid->addWidget(dockicon_col_lab, 1, 1, Qt::AlignCenter);
+	dockicon_grid->addWidget(dockicon_col_but, 1, 2);
+	///////// SYSICON /////////
+	sysicon_box = new QGroupBox(tr("System Tray icon"), this);
+	sysicon_grid = new QGridLayout();
+	sysicon_grid->setSpacing(2);
+	sysicon_box->setLayout(sysicon_grid);
+	QLabel *sysicon_pix_lb = new QLabel(tr("Pixmap:"), this);
+	sysicon_pix = new QLabel(this);
+	sysicon_pix->setMaximumSize(32, 32);
+	sysicon_pix->setScaledContents(true);
+	QPushButton *sysicon_pix_but = new QPushButton("...", this);
+	sysicon_pix_but->setMaximumWidth(50);
+	sysicon_grid->addWidget(sysicon_pix_lb, 0, 0);
+	sysicon_grid->addWidget(sysicon_pix, 0, 1, Qt::AlignCenter);
+	sysicon_grid->addWidget(sysicon_pix_but, 0, 2);
+	///////// DATECLOCK /////////
+	dateclock_box = new QGroupBox(tr("Clock/Date"), this);
+	dateclock_grid = new QGridLayout();
+	dateclock_grid->setSpacing(2);
+	dateclock_box->setLayout(dateclock_grid);
+	QLabel *date_color = new QLabel(tr("Date color:"), this);
+	QLabel *clock_color = new QLabel(tr("Clock color:"), this);
+	date_col_lab = new QLabel(this);
+	clock_col_lab = new QLabel(this);
+	date_col_lab->setFrameStyle(QFrame::Panel|QFrame::Sunken);
+	clock_col_lab->setFrameStyle(QFrame::Panel|QFrame::Sunken);
+	date_col_lab->setMinimumWidth(32);
+	clock_col_lab->setMinimumWidth(32);
+	QPushButton *date_col_but = new QPushButton("...", this);
+	QPushButton *clock_col_but = new QPushButton("...", this);
+	date_col_but->setMaximumWidth(50);
+	clock_col_but->setMaximumWidth(50);
+	dateclock_grid->addWidget(date_color, 1, 0);
+	dateclock_grid->addWidget(date_col_lab, 1, 1, Qt::AlignCenter);
+	dateclock_grid->addWidget(date_col_but, 1, 2);
+	dateclock_grid->addWidget(clock_color, 0, 0);
+	dateclock_grid->addWidget(clock_col_lab, 0, 1, Qt::AlignCenter);
+	dateclock_grid->addWidget(clock_col_but, 0, 2);
+	/////////////////////////////////////////////////
+	dockBarTopLayout->addWidget (dockBarTopGBox, 0, 0);
+	dockBarTopLayout->addWidget (dockicon_box, 0, 1);
+	dockBarTopLayout->addWidget (sysicon_box, 1, 0);
+	dockBarTopLayout->addWidget (dateclock_box, 1, 1);
+	
+	
     ///////// DESKTSET WIDGETS //////////////////////
     deskset_widget = new QWidget(this);
     deskset_layout = new QGridLayout();
@@ -1234,6 +1284,7 @@ void Manager::style_tab()
     /////////////////////////////////////////////////////////
     params_widget->addWidget(frame_box);
     params_widget->addWidget(dockbar_widget);
+	params_widget->addWidget(dockBarTopWidget);
     params_widget->addWidget(deskset_widget);
     params_widget->addWidget(desktop_box);
     params_widget->addWidget(launcher_box);
@@ -1249,6 +1300,7 @@ void Manager::style_tab()
     // mapper for pixmap selection (dockbar - dockicon - sysicon - deskfolder - deskdev - trash - desktop - frame header active/inactive - frame button - all laucher button - message - other)
     pixmapMapper = new QSignalMapper();
     pixmapMapper->setMapping(dockbar_pix_but, dockbar_pix);
+	pixmapMapper->setMapping(dockBarTopPixButton, dockBarTopPixmapLabel);
     pixmapMapper->setMapping(desktop_pix_but, desktop_pix);
     pixmapMapper->setMapping(dockicon_pix_but, dockicon_pix);
     pixmapMapper->setMapping(sysicon_pix_but, sysicon_pix);
@@ -1308,6 +1360,7 @@ void Manager::style_tab()
     pixmapMapper->setMapping(upper_dir_pix_but, upper_dir_pix);
     //////////////////////////////////////////////////////////////////////
     connect(dockbar_pix_but, SIGNAL(clicked()), pixmapMapper, SLOT(map()));
+	connect(dockBarTopPixButton, SIGNAL(clicked()), pixmapMapper, SLOT(map()));
     connect(desktop_pix_but, SIGNAL(clicked()), pixmapMapper, SLOT(map()));
     connect(dockicon_pix_but, SIGNAL(clicked()), pixmapMapper, SLOT(map()));
     connect(sysicon_pix_but, SIGNAL(clicked()), pixmapMapper, SLOT(map()));
@@ -1508,13 +1561,21 @@ void Manager::ok_frame_pressed()
     style->setValue("close_pix", close_pix->toolTip());
     style->endGroup(); //Header
     style->endGroup(); //Frame
-    //////////////////////////////////////////////////////////////////
-    style->beginGroup("Dockbar");
-    style->setValue("dock_pix", dockbar_pix->toolTip());
-    style->setValue("dock_height", dockbar_height_spinBox->value());
-    style->setValue("dock_width", dockbar_width_spinBox->value());
-    style->setValue("dock_position", dockbar_position_comboBox->currentIndex());
-    style->endGroup(); //Dockbar
+	//////////////////////////////////////////////////////////////////
+	style->beginGroup("Dockbar");
+	style->setValue("dock_pix", dockbar_pix->toolTip());
+	style->setValue("dock_height", dockbar_height_spinBox->value());
+	//     style->setValue("dock_width", dockbar_width_spinBox->value());
+	//     style->setValue("dock_position", dockbar_position_comboBox->currentIndex());
+	style->endGroup(); //Dockbar
+
+	//////////////////////////////////////////////////////////////////
+	style->beginGroup("DockBarTop");
+	style->setValue("dockPix", dockBarTopPixmapLabel->toolTip());
+// 	style->setValue("dock_height", dockbar_height_spinBox->value());
+	//     style->setValue("dock_width", dockbar_width_spinBox->value());
+	//     style->setValue("dock_position", dockbar_position_comboBox->currentIndex());
+	style->endGroup(); //Dockbar
     //////////////////////////////////////////////////////////////////
     style->beginGroup("Dockicon");
     style->setValue("d_icon_pix", dockicon_pix->toolTip());

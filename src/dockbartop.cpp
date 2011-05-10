@@ -209,3 +209,9 @@ void DockBarTop::removeDockApp (Dockapp *dApp) // remove from "Delete link" righ
 
 	dApp->close();
 }
+
+void DockBarTop::update_style()
+{
+    readSettings ();
+    setGeometryDockTop ();
+}

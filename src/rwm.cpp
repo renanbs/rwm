@@ -911,6 +911,7 @@ void Rwm::wm_refresh()
     file_dialog->update_style();
     dsk->update_style(); //update desktop, all deskicons and all deskapps
     dock->update_style(); //update dockbar and all dockicons
+	dockTop->update_style();
 
     foreach(Frame *frm, mapping_clients) //update all map apps
     {
