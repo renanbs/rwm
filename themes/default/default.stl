@@ -28,6 +28,7 @@ Header\minPix=min.png
 Header\maxPix=max.png
 Header\restorePix=restore.png
 Header\close_pix=close.png
+Header\iconifyPix=minmax.png
 
 [Desktop]
 wall_pix=wallpaper.png
@@ -35,7 +36,7 @@ wall_pix=wallpaper.png
 [Dockbar]
 dock_pix=dockbar.png
 dock_height=40
-dock_width=800
+dock_width=778
 dock_position=0
 
 [DockBarTop]
@@ -72,7 +73,7 @@ name_color=@Variant(\0\0\0\x43\x1\xff\xff\xff\xff\xff\xff\xff\xff\0\0)
 
 [Dateclock]
 date_color=@Variant(\0\0\0\x43\x1\xff\xff\xff\xff\xff\xff\xff\xff\0\0)
-clock_color=@Variant(\0\0\0\x43\x1\xff\xff\xff\xff\xff\xff\xff\xff\0\0)
+clock_color=@Variant(\0\0\0\x43\x1\xfd\xfd\xff\xff\xff\xff\xff\xff\0\0)
 
 [Message]
 ok_button_pix=ok_but.png
