@@ -1112,7 +1112,7 @@ void Rwm::testAndCopyDirs()
 	d << "/usr/share/rwm/docs";
 	d << "/usr/share/rwm/themes";
 	d << "/usr/share/rwm/images";
-	d << "/usr/share/rwm/translations";
+// 	d << "/usr/share/rwm/translations";
 	int size = d.length();
 	for (int i = 0; i < size; i++)
 	{
