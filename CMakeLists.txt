@@ -165,7 +165,7 @@ INSTALL( DIRECTORY ${DEFAULT_THEME} DESTINATION share/rwm/themes )
 #install docs
 INSTALL( DIRECTORY ${DOCS} DESTINATION share/rwm/docs )
 #install translations
-INSTALL( FILES ${TRANSL} DESTINATION share/rwm/translations )
+#INSTALL( FILES ${TRANSL} DESTINATION share/rwm/translations )
 #install images
 INSTALL( DIRECTORY ${IMAGES} DESTINATION share/rwm/images )
 #install .desktop files to be visible to kdm and gdm
